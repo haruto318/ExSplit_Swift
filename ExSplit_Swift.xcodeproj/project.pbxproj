@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6472862D2C5B791D004BAEF4 /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6472862C2C5B791D004BAEF4 /* ColorExtension.swift */; };
+		6472863C2C5B7B77004BAEF4 /* ZenMaruGothic-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 647286362C5B7B77004BAEF4 /* ZenMaruGothic-Light.ttf */; };
+		6472863D2C5B7B77004BAEF4 /* ZenMaruGothic-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 647286372C5B7B77004BAEF4 /* ZenMaruGothic-Regular.ttf */; };
+		6472863E2C5B7B77004BAEF4 /* ZenMaruGothic-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 647286382C5B7B77004BAEF4 /* ZenMaruGothic-Black.ttf */; };
+		6472863F2C5B7B77004BAEF4 /* ZenMaruGothic-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 647286392C5B7B77004BAEF4 /* ZenMaruGothic-Medium.ttf */; };
+		647286402C5B7B77004BAEF4 /* ZenMaruGothic-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6472863A2C5B7B77004BAEF4 /* ZenMaruGothic-Bold.ttf */; };
+		647286412C5B7B77004BAEF4 /* OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6472863B2C5B7B77004BAEF4 /* OFL.txt */; };
+		647286442C5B7C8B004BAEF4 /* TextExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647286432C5B7C8B004BAEF4 /* TextExtension.swift */; };
 		64D9F16F2C576D5E00326BF3 /* ExSplit_SwiftApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D9F16E2C576D5E00326BF3 /* ExSplit_SwiftApp.swift */; };
 		64D9F1712C576D5E00326BF3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D9F1702C576D5E00326BF3 /* ContentView.swift */; };
 		64D9F1732C576D5F00326BF3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 64D9F1722C576D5F00326BF3 /* Assets.xcassets */; };
@@ -14,6 +22,15 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6472862C2C5B791D004BAEF4 /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
+		647286342C5B7A58004BAEF4 /* ExSplit-Swift-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "ExSplit-Swift-Info.plist"; sourceTree = SOURCE_ROOT; };
+		647286362C5B7B77004BAEF4 /* ZenMaruGothic-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ZenMaruGothic-Light.ttf"; sourceTree = "<group>"; };
+		647286372C5B7B77004BAEF4 /* ZenMaruGothic-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ZenMaruGothic-Regular.ttf"; sourceTree = "<group>"; };
+		647286382C5B7B77004BAEF4 /* ZenMaruGothic-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ZenMaruGothic-Black.ttf"; sourceTree = "<group>"; };
+		647286392C5B7B77004BAEF4 /* ZenMaruGothic-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ZenMaruGothic-Medium.ttf"; sourceTree = "<group>"; };
+		6472863A2C5B7B77004BAEF4 /* ZenMaruGothic-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ZenMaruGothic-Bold.ttf"; sourceTree = "<group>"; };
+		6472863B2C5B7B77004BAEF4 /* OFL.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = OFL.txt; sourceTree = "<group>"; };
+		647286432C5B7C8B004BAEF4 /* TextExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextExtension.swift; sourceTree = "<group>"; };
 		64D9F16B2C576D5E00326BF3 /* ExSplit_Swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExSplit_Swift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		64D9F16E2C576D5E00326BF3 /* ExSplit_SwiftApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExSplit_SwiftApp.swift; sourceTree = "<group>"; };
 		64D9F1702C576D5E00326BF3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -32,6 +49,28 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		647286352C5B7B66004BAEF4 /* fonts */ = {
+			isa = PBXGroup;
+			children = (
+				6472863B2C5B7B77004BAEF4 /* OFL.txt */,
+				647286382C5B7B77004BAEF4 /* ZenMaruGothic-Black.ttf */,
+				6472863A2C5B7B77004BAEF4 /* ZenMaruGothic-Bold.ttf */,
+				647286362C5B7B77004BAEF4 /* ZenMaruGothic-Light.ttf */,
+				647286392C5B7B77004BAEF4 /* ZenMaruGothic-Medium.ttf */,
+				647286372C5B7B77004BAEF4 /* ZenMaruGothic-Regular.ttf */,
+			);
+			path = fonts;
+			sourceTree = "<group>";
+		};
+		647286422C5B7C67004BAEF4 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				6472862C2C5B791D004BAEF4 /* ColorExtension.swift */,
+				647286432C5B7C8B004BAEF4 /* TextExtension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		64D9F1622C576D5E00326BF3 = {
 			isa = PBXGroup;
 			children = (
@@ -51,8 +90,11 @@
 		64D9F16D2C576D5E00326BF3 /* ExSplit_Swift */ = {
 			isa = PBXGroup;
 			children = (
+				647286352C5B7B66004BAEF4 /* fonts */,
+				647286342C5B7A58004BAEF4 /* ExSplit-Swift-Info.plist */,
 				64D9F16E2C576D5E00326BF3 /* ExSplit_SwiftApp.swift */,
 				64D9F1702C576D5E00326BF3 /* ContentView.swift */,
+				647286422C5B7C67004BAEF4 /* Extensions */,
 				64D9F1722C576D5F00326BF3 /* Assets.xcassets */,
 				64D9F1742C576D5F00326BF3 /* Preview Content */,
 			);
@@ -125,8 +167,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6472863F2C5B7B77004BAEF4 /* ZenMaruGothic-Medium.ttf in Resources */,
+				6472863D2C5B7B77004BAEF4 /* ZenMaruGothic-Regular.ttf in Resources */,
+				6472863E2C5B7B77004BAEF4 /* ZenMaruGothic-Black.ttf in Resources */,
 				64D9F1762C576D5F00326BF3 /* Preview Assets.xcassets in Resources */,
+				6472863C2C5B7B77004BAEF4 /* ZenMaruGothic-Light.ttf in Resources */,
 				64D9F1732C576D5F00326BF3 /* Assets.xcassets in Resources */,
+				647286412C5B7B77004BAEF4 /* OFL.txt in Resources */,
+				647286402C5B7B77004BAEF4 /* ZenMaruGothic-Bold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -137,6 +185,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				647286442C5B7C8B004BAEF4 /* TextExtension.swift in Sources */,
+				6472862D2C5B791D004BAEF4 /* ColorExtension.swift in Sources */,
 				64D9F1712C576D5E00326BF3 /* ContentView.swift in Sources */,
 				64D9F16F2C576D5E00326BF3 /* ExSplit_SwiftApp.swift in Sources */,
 			);
@@ -275,6 +325,7 @@
 				DEVELOPMENT_TEAM = QC8NW9PFKL;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "ExSplit-Swift-Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -304,6 +355,7 @@
 				DEVELOPMENT_TEAM = QC8NW9PFKL;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "ExSplit-Swift-Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
