@@ -5,7 +5,6 @@
 //  Created by 濱野遥斗 on 2024/08/02.
 //
 
-import Foundation
 import SwiftUI
 
 struct NewGroupSettingsView: View {
@@ -19,7 +18,7 @@ struct NewGroupSettingsView: View {
             VStack {
                 HStack(){
                     Text("グループを作成")
-                        .font(Font.custom("ZenMaruGothic-Medium", size: 24))
+                        .fontStyle(.titleBold)
                     Spacer()
                 }
                 Divider()
@@ -28,7 +27,7 @@ struct NewGroupSettingsView: View {
             VStack(spacing: 40) {
                 
                 Text("グループ名と基準通貨を入力してください")
-                    .fontStyle(.title)
+                        .fontStyle(.title)
                 
                 VStack(spacing: 10){
                     HStack {

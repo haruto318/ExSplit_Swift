@@ -16,6 +16,9 @@
 		647286412C5B7B77004BAEF4 /* OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6472863B2C5B7B77004BAEF4 /* OFL.txt */; };
 		647286442C5B7C8B004BAEF4 /* TextExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647286432C5B7C8B004BAEF4 /* TextExtension.swift */; };
 		647286472C5C9AB6004BAEF4 /* NewGroupSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647286462C5C9AB6004BAEF4 /* NewGroupSettingsView.swift */; };
+		647286492C5CA0C4004BAEF4 /* AddGroupMembersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647286482C5CA0C4004BAEF4 /* AddGroupMembersView.swift */; };
+		6472864C2C5CABBB004BAEF4 /* FlexibleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6472864B2C5CABBB004BAEF4 /* FlexibleView.swift */; };
+		6472864E2C5CABEE004BAEF4 /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6472864D2C5CABEE004BAEF4 /* ViewExtension.swift */; };
 		64D9F16F2C576D5E00326BF3 /* ExSplit_SwiftApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D9F16E2C576D5E00326BF3 /* ExSplit_SwiftApp.swift */; };
 		64D9F1712C576D5E00326BF3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D9F1702C576D5E00326BF3 /* ContentView.swift */; };
 		64D9F1732C576D5F00326BF3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 64D9F1722C576D5F00326BF3 /* Assets.xcassets */; };
@@ -33,6 +36,9 @@
 		6472863B2C5B7B77004BAEF4 /* OFL.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = OFL.txt; sourceTree = "<group>"; };
 		647286432C5B7C8B004BAEF4 /* TextExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextExtension.swift; sourceTree = "<group>"; };
 		647286462C5C9AB6004BAEF4 /* NewGroupSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGroupSettingsView.swift; sourceTree = "<group>"; };
+		647286482C5CA0C4004BAEF4 /* AddGroupMembersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGroupMembersView.swift; sourceTree = "<group>"; };
+		6472864B2C5CABBB004BAEF4 /* FlexibleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexibleView.swift; sourceTree = "<group>"; };
+		6472864D2C5CABEE004BAEF4 /* ViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
 		64D9F16B2C576D5E00326BF3 /* ExSplit_Swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExSplit_Swift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		64D9F16E2C576D5E00326BF3 /* ExSplit_SwiftApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExSplit_SwiftApp.swift; sourceTree = "<group>"; };
 		64D9F1702C576D5E00326BF3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -69,8 +75,17 @@
 			children = (
 				6472862C2C5B791D004BAEF4 /* ColorExtension.swift */,
 				647286432C5B7C8B004BAEF4 /* TextExtension.swift */,
+				6472864D2C5CABEE004BAEF4 /* ViewExtension.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		6472864A2C5CABB1004BAEF4 /* components */ = {
+			isa = PBXGroup;
+			children = (
+				6472864B2C5CABBB004BAEF4 /* FlexibleView.swift */,
+			);
+			path = components;
 			sourceTree = "<group>";
 		};
 		64D9F1622C576D5E00326BF3 = {
@@ -97,6 +112,8 @@
 				64D9F16E2C576D5E00326BF3 /* ExSplit_SwiftApp.swift */,
 				64D9F1702C576D5E00326BF3 /* ContentView.swift */,
 				647286462C5C9AB6004BAEF4 /* NewGroupSettingsView.swift */,
+				647286482C5CA0C4004BAEF4 /* AddGroupMembersView.swift */,
+				6472864A2C5CABB1004BAEF4 /* components */,
 				647286422C5B7C67004BAEF4 /* Extensions */,
 				64D9F1722C576D5F00326BF3 /* Assets.xcassets */,
 				64D9F1742C576D5F00326BF3 /* Preview Content */,
@@ -192,6 +209,9 @@
 				6472862D2C5B791D004BAEF4 /* ColorExtension.swift in Sources */,
 				647286472C5C9AB6004BAEF4 /* NewGroupSettingsView.swift in Sources */,
 				64D9F1712C576D5E00326BF3 /* ContentView.swift in Sources */,
+				647286492C5CA0C4004BAEF4 /* AddGroupMembersView.swift in Sources */,
+				6472864C2C5CABBB004BAEF4 /* FlexibleView.swift in Sources */,
+				6472864E2C5CABEE004BAEF4 /* ViewExtension.swift in Sources */,
 				64D9F16F2C576D5E00326BF3 /* ExSplit_SwiftApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
