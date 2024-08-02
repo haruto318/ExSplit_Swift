@@ -83,7 +83,7 @@ struct GroupDetailView: View {
                         Button(action: {}) {
                             HStack {
                                 Spacer()
-                                Text("グループを生成する")
+                                Text("個別支払い状況を表示")
                                     .fontStyle(.body)
                                     .foregroundColor(Color.customFontColor)
                                 Spacer()
