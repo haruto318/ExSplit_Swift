@@ -12,7 +12,7 @@ struct AddGroupMembersView: View {
     @State var inputName = ""
     
     /// add member grid
-    @State var addedMembers: [String] = ["たくろう", "はると", "たく", "ゆー", "haega", "gwa"]
+    @State var addedMembers: [String] = ["たくろう", "はると", "たく", "ゆー"]
     let layout = [GridItem(.adaptive(minimum: 80, maximum: .infinity))]
     
     
@@ -34,6 +34,7 @@ struct AddGroupMembersView: View {
                 Text("メンバーを追加してください")
                     .fontStyle(.title)
                 
+                ///メンバー追加
                 VStack(spacing: 10){
                     HStack {
                         Text("メンバー")
@@ -67,6 +68,7 @@ struct AddGroupMembersView: View {
                     }
                 }
                 
+                ///メンバー表示
                 GeometryReader { geometryProxy in
                     FlexibleView(
                         availableWidth: geometryProxy.size.width, 

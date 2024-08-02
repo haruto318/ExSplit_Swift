@@ -28,7 +28,7 @@ struct ContentView: View {
                         HStack {
                             Spacer()
                             Text("グループを生成する")
-                                .fontStyle(.body)
+                                .fontStyle(.head)
                                 .foregroundColor(Color.customFontColor)
                             Spacer()
                         }.padding()
