@@ -23,6 +23,7 @@
 		647286522C5CC1BB004BAEF4 /* AddPaymentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647286512C5CC1BB004BAEF4 /* AddPaymentView.swift */; };
 		647286542C5CC762004BAEF4 /* PaymentHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647286532C5CC762004BAEF4 /* PaymentHistoryView.swift */; };
 		647286562C5CCD8C004BAEF4 /* PaymentDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647286552C5CCD8C004BAEF4 /* PaymentDetailView.swift */; };
+		647286582C5CD1C1004BAEF4 /* BalanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647286572C5CD1C1004BAEF4 /* BalanceView.swift */; };
 		64D9F16F2C576D5E00326BF3 /* ExSplit_SwiftApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D9F16E2C576D5E00326BF3 /* ExSplit_SwiftApp.swift */; };
 		64D9F1712C576D5E00326BF3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D9F1702C576D5E00326BF3 /* ContentView.swift */; };
 		64D9F1732C576D5F00326BF3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 64D9F1722C576D5F00326BF3 /* Assets.xcassets */; };
@@ -47,6 +48,7 @@
 		647286512C5CC1BB004BAEF4 /* AddPaymentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPaymentView.swift; sourceTree = "<group>"; };
 		647286532C5CC762004BAEF4 /* PaymentHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentHistoryView.swift; sourceTree = "<group>"; };
 		647286552C5CCD8C004BAEF4 /* PaymentDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentDetailView.swift; sourceTree = "<group>"; };
+		647286572C5CD1C1004BAEF4 /* BalanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceView.swift; sourceTree = "<group>"; };
 		64D9F16B2C576D5E00326BF3 /* ExSplit_Swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExSplit_Swift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		64D9F16E2C576D5E00326BF3 /* ExSplit_SwiftApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExSplit_SwiftApp.swift; sourceTree = "<group>"; };
 		64D9F1702C576D5E00326BF3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -125,6 +127,7 @@
 				647286512C5CC1BB004BAEF4 /* AddPaymentView.swift */,
 				647286532C5CC762004BAEF4 /* PaymentHistoryView.swift */,
 				647286552C5CCD8C004BAEF4 /* PaymentDetailView.swift */,
+				647286572C5CD1C1004BAEF4 /* BalanceView.swift */,
 				6472864A2C5CABB1004BAEF4 /* components */,
 				647286422C5B7C67004BAEF4 /* Extensions */,
 				64D9F1722C576D5F00326BF3 /* Assets.xcassets */,
@@ -229,6 +232,7 @@
 				647286542C5CC762004BAEF4 /* PaymentHistoryView.swift in Sources */,
 				6472864E2C5CABEE004BAEF4 /* ViewExtension.swift in Sources */,
 				64D9F16F2C576D5E00326BF3 /* ExSplit_SwiftApp.swift in Sources */,
+				647286582C5CD1C1004BAEF4 /* BalanceView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

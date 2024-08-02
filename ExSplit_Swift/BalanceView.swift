@@ -1,0 +1,189 @@
+//
+//  BalanceView.swift
+//  ExSplit_Swift
+//
+//  Created by 濱野遥斗 on 2024/08/02.
+//
+
+import SwiftUI
+
+struct User {
+    let id: String
+    let name: String
+    let total: Int
+    let balance: [(uid: String, amount: Int)]
+}
+
+struct BalanceView: View {
+    ///仮
+    @State var currentUser = "1"
+    let members = ["はると", "こうたろ", "けまり"]
+    let users: [User] = [User(id: "1", name: "はると", total: 1000, balance: [(uid: "2", amount: 500), (uid: "3", amount: 500)]), User(id: "2", name: "こうたろ", total: -700, balance: [(uid: "1", amount: -500), (uid: "3", amount: -200)]), User(id: "3", name: "けまり", total: -300, balance: [(uid: "1", amount: -500), (uid: "2", amount: 200)])]
+    
+    
+    
+    var body: some View {
+        VStack(spacing: 40) {
+            /// ユーザー一覧＆選択
+            VStack {
+                ScrollView(.horizontal){
+                    HStack(spacing: 10){
+                        ForEach(users, id: \.id) { user in
+                            Button(action: {
+                                currentUser = user.id
+                            }){
+                                VStack(spacing: 3){
+                                    Image(systemName: "person.crop.circle")
+                                        .resizable()
+                                        .frame(width: 40, height: 40)
+                                        .foregroundColor(currentUser == user.id ? Color.customFontColor : Color.customAccentColor)
+                                    Text(user.name)
+                                        .fontStyle(.body)
+                                        .foregroundColor(currentUser == user.id ? Color.customFontColor : Color.customAccentColor)
+                                }
+                            }
+                        }
+                        Spacer()
+                    }
+                }
+                Divider()
+            }
+            
+            VStack(spacing: 20) {
+                
+                if let user = users.first(where: { $0.id == currentUser }) {
+                    
+                    /// ユーザー情報
+                    VStack(spacing: 5){
+                        HStack(alignment: .center, spacing: 10){
+                            Image(systemName: "person.crop.circle")
+                                .resizable()
+                                .frame(width: 40, height: 40)
+                            VStack(alignment: .leading, spacing: 0){
+                                Text(user.name).fontStyle(.headBold)
+                                Text("\(user.total) yen \(user.total < 0 ? "借り" : "貸し")あり")
+                                    .fontStyle(.body)
+                                    .foregroundColor(user.total < 0 ? .red : .green)
+                            }
+                            Spacer()
+                        }
+                        
+                    }.padding(10)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(Color.customFrameColor, lineWidth: 1)
+                        )
+                    
+                    /// 借りフィルター
+                    let negativeBalances = user.balance.filter { $0.amount < 0 }
+                    /// 貸しフィルター
+                    let positiveBalances = user.balance.filter { $0.amount > 0 }
+                    
+                    /// 借り一覧
+                    if !negativeBalances.isEmpty {
+                        VStack(spacing: 10){
+                            HStack(){
+                                Text("借り")
+                                    .fontStyle(.headBold)
+                                Spacer()
+                            }
+                            VStack(spacing: 5){
+                                ForEach(negativeBalances, id: \.uid){ balance in
+                                    Divider()
+                                    HStack(){
+                                        HStack(alignment: .center, spacing: 5){
+                                            Image(systemName: "person.crop.circle")
+                                                .resizable()
+                                                .frame(width: 24, height: 24)
+                                            VStack(alignment: .leading, spacing: 0){
+                                                Text("Name").fontStyle(.description)
+                                                Text(users.first(where: { $0.id == balance.uid })!.name).fontStyle(.body)
+                                            }
+                                        }
+                                        Spacer()
+                                        Image(systemName: "arrow.left")
+                                            .resizable()
+                                            .frame(width: 12, height: 12)
+                                            .foregroundColor(.red)
+                                        Spacer()
+                                        VStack(alignment: .trailing, spacing: 0){
+                                            Text("Cost").fontStyle(.description)
+                                            Text("\(abs(balance.amount)) yen").fontStyle(.body)
+                                                .foregroundColor(.red)
+                                        }
+                                    }
+                                }
+                            }
+
+                        }
+                        .padding(10)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(Color.customFrameColor, lineWidth: 1)
+                        )
+                    }
+                    
+                    /// 貸し一覧
+                    if !positiveBalances.isEmpty {
+                        VStack(spacing: 10){
+                            HStack(){
+                                Text("貸し")
+                                    .fontStyle(.headBold)
+                                Spacer()
+                            }
+                            VStack(spacing: 5){
+                                ForEach(positiveBalances, id: \.uid){ balance in
+                                    Divider()
+                                    HStack(){
+                                        HStack(alignment: .center, spacing: 5){
+                                            Image(systemName: "person.crop.circle")
+                                                .resizable()
+                                                .frame(width: 24, height: 24)
+                                            VStack(alignment: .leading, spacing: 0){
+                                                Text("Name")
+                                                    .fontStyle(.description)
+                                                Text(users.first(where: { $0.id == balance.uid })!.name)
+                                                    .fontStyle(.body)
+                                            }
+                                        }
+                                        Spacer()
+                                        Image(systemName: "arrow.right")
+                                            .resizable()
+                                            .frame(width: 12, height: 12)
+                                            .foregroundColor(.green)
+                                        Spacer()
+                                        VStack(alignment: .trailing, spacing: 0){
+                                            Text("Cost")
+                                                .fontStyle(.description)
+                                            Text("\(abs(balance.amount)) yen")
+                                                .fontStyle(.body)
+                                                .foregroundColor(.green)
+                                        }
+                                    }
+                                }
+                            }
+
+                        }
+                        .padding(10)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(Color.customFrameColor, lineWidth: 1)
+                        )
+                    }
+                }
+                
+                
+
+
+            
+            }.padding(.horizontal)
+            
+            Spacer()
+            
+        }.padding()
+    }
+}
+
+#Preview {
+    BalanceView()
+}
