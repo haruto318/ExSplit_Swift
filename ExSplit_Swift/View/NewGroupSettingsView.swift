@@ -10,6 +10,7 @@ import SwiftUI
 struct NewGroupSettingsView: View {
     ///仮
     @State var inputName = ""
+    @State private var showSheet = false
     
     var body: some View {
         VStack(spacing: 40) {
@@ -51,14 +52,31 @@ struct NewGroupSettingsView: View {
                             .fontStyle(.title)
                         Spacer()
                     }
-                    TextField("通貨を選択してください", text: $inputName)
-                        .font(.custom("ZenMaruGothic-Regular", size: 12))
+                    Button(action: {
+                        showSheet = true
+                    }){
+                        HStack{
+                            Text("通貨を選択してください")
+                                .font(.custom("ZenMaruGothic-Regular", size: 12))
+                                .foregroundStyle(Color.customAccentColor)
+                            Spacer()
+                            Image(systemName: "chevron.forward")
+                                .foregroundStyle(Color.customAccentColor)
+
+                        }
                         .padding()
                         .cornerRadius(10)
                         .overlay(
                             RoundedRectangle(cornerRadius: 10)
                                 .stroke(Color.customFrameColor, lineWidth: 1)
-                    )
+                        )
+                    }.sheet(isPresented: $showSheet) {
+                        CurrencySelectionModal()
+                            .presentationDetents([
+                                // 画面に対する割合
+                                .fraction(0.8)
+                            ])
+                    }
                 }
 
             }.padding(.horizontal)
