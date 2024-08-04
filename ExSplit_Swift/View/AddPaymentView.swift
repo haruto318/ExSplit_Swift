@@ -12,7 +12,6 @@ struct AddPaymentView: View {
     @State var inputName = ""
     @State var isEven: Bool = true
     
-    
 
     var body: some View {
         ScrollView(){
@@ -251,7 +250,6 @@ struct AddPaymentView: View {
                     }
                     
                 }.padding(.horizontal)
-                
                 
                 Spacer()
                 

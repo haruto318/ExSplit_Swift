@@ -31,7 +31,7 @@ struct PaymentHistoryView: View {
                     
                     ForEach(Array(splits.reversed().enumerated()), id: \.offset){ offset, split in
                         /// 支払い
-                        Button(action: {}) {
+                        NavigationLink(destination: PaymentDetailView()) {
                             VStack(spacing: 5){
                                 HStack(){
                                     Text(split.purpose)

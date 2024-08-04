@@ -80,7 +80,7 @@ struct GroupDetailView: View {
                         
                         Spacer().frame(height: 1)
                         
-                        Button(action: {}) {
+                        NavigationLink(destination: BalanceView()) {
                             HStack {
                                 Spacer()
                                 Text("個別支払い状況を表示")
@@ -139,7 +139,7 @@ struct GroupDetailView: View {
                         
                         Spacer().frame(height: 5)
                         
-                        Button(action: {}) {
+                        NavigationLink(destination: PaymentHistoryView()){
                             HStack {
                                 Spacer()
                                 Text("すべて見る")
@@ -164,7 +164,9 @@ struct GroupDetailView: View {
                 /// 支払い追加ボタン
                 VStack {
                     Spacer().frame(height: 20)
-                    Button(action: {}) {
+                    
+                    NavigationLink(destination: AddPaymentView()){
+                        //                        Button(action: {}) {
                         HStack {
                             Spacer()
                             Text("支払いを追加")
@@ -177,8 +179,8 @@ struct GroupDetailView: View {
                             .overlay(
                                 RoundedRectangle(cornerRadius: 10)
                                     .stroke(Color.customFrameColor, lineWidth: 1)
-                            )
-                    }.padding(.horizontal, 10)
+                            ).padding(.horizontal, 10)
+                    }
                 }
                 
             }.padding(.horizontal)

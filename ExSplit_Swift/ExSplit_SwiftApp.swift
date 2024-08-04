@@ -6,9 +6,11 @@
 //
 
 import SwiftUI
+import RealmSwift
 
 @main
-struct ExSplit_SwiftApp: App {
+struct ExSplit_SwiftApp: SwiftUI.App {
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
