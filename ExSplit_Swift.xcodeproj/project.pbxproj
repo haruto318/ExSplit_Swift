@@ -28,6 +28,8 @@
 		647286622C5F5FFF004BAEF4 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 647286612C5F5FFF004BAEF4 /* RealmSwift */; };
 		647286662C5F6896004BAEF4 /* RealmSwift in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 647286612C5F5FFF004BAEF4 /* RealmSwift */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		6472866A2C5F6946004BAEF4 /* RealmGroupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647286692C5F6946004BAEF4 /* RealmGroupViewModel.swift */; };
+		6472866C2C5F72C5004BAEF4 /* SingleSelectionModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6472866B2C5F72C5004BAEF4 /* SingleSelectionModal.swift */; };
+		6472866E2C5F748D004BAEF4 /* MultiSelectionModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6472866D2C5F748D004BAEF4 /* MultiSelectionModal.swift */; };
 		64D9F16F2C576D5E00326BF3 /* ExSplit_SwiftApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D9F16E2C576D5E00326BF3 /* ExSplit_SwiftApp.swift */; };
 		64D9F1712C576D5E00326BF3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D9F1702C576D5E00326BF3 /* ContentView.swift */; };
 		64D9F1732C576D5F00326BF3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 64D9F1722C576D5F00326BF3 /* Assets.xcassets */; };
@@ -69,6 +71,8 @@
 		647286572C5CD1C1004BAEF4 /* BalanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceView.swift; sourceTree = "<group>"; };
 		6472865C2C5F5F67004BAEF4 /* RealmGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmGroup.swift; sourceTree = "<group>"; };
 		647286692C5F6946004BAEF4 /* RealmGroupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmGroupViewModel.swift; sourceTree = "<group>"; };
+		6472866B2C5F72C5004BAEF4 /* SingleSelectionModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleSelectionModal.swift; sourceTree = "<group>"; };
+		6472866D2C5F748D004BAEF4 /* MultiSelectionModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiSelectionModal.swift; sourceTree = "<group>"; };
 		64D9F16B2C576D5E00326BF3 /* ExSplit_Swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExSplit_Swift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		64D9F16E2C576D5E00326BF3 /* ExSplit_SwiftApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExSplit_SwiftApp.swift; sourceTree = "<group>"; };
 		64D9F1702C576D5E00326BF3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -115,6 +119,8 @@
 			isa = PBXGroup;
 			children = (
 				6472864B2C5CABBB004BAEF4 /* FlexibleView.swift */,
+				6472866B2C5F72C5004BAEF4 /* SingleSelectionModal.swift */,
+				6472866D2C5F748D004BAEF4 /* MultiSelectionModal.swift */,
 			);
 			path = components;
 			sourceTree = "<group>";
@@ -276,10 +282,12 @@
 			files = (
 				647286442C5B7C8B004BAEF4 /* TextExtension.swift in Sources */,
 				6472862D2C5B791D004BAEF4 /* ColorExtension.swift in Sources */,
+				6472866C2C5F72C5004BAEF4 /* SingleSelectionModal.swift in Sources */,
 				647286562C5CCD8C004BAEF4 /* PaymentDetailView.swift in Sources */,
 				647286472C5C9AB6004BAEF4 /* NewGroupSettingsView.swift in Sources */,
 				6472866A2C5F6946004BAEF4 /* RealmGroupViewModel.swift in Sources */,
 				64D9F1712C576D5E00326BF3 /* ContentView.swift in Sources */,
+				6472866E2C5F748D004BAEF4 /* MultiSelectionModal.swift in Sources */,
 				647286492C5CA0C4004BAEF4 /* AddGroupMembersView.swift in Sources */,
 				6472865D2C5F5F67004BAEF4 /* RealmGroup.swift in Sources */,
 				647286502C5CB062004BAEF4 /* GroupDetailView.swift in Sources */,

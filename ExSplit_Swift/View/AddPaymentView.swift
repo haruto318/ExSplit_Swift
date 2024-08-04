@@ -11,6 +11,8 @@ struct AddPaymentView: View {
     // 仮
     @State var inputName = ""
     @State var isEven: Bool = true
+    @State private var showSheet1 = false
+    @State private var showSheet2 = false
     
 
     var body: some View {
@@ -114,14 +116,31 @@ struct AddPaymentView: View {
                                 .fontStyle(.title)
                             Spacer()
                         }
-                        TextField("支払った人を選択してください", text: $inputName)
-                            .font(.custom("ZenMaruGothic-Regular", size: 12))
+                        
+                        Button(action: {
+                            showSheet1 = true
+                        }){
+                            HStack{
+                                Text("支払った人を選択してください")
+                                    .font(.custom("ZenMaruGothic-Regular", size: 12))
+                                    .foregroundStyle(Color.customAccentColor)
+                                Spacer()
+                                Image(systemName: "chevron.forward")
+                                    .foregroundStyle(Color.customAccentColor)
+                            }
                             .padding()
                             .cornerRadius(10)
                             .overlay(
                                 RoundedRectangle(cornerRadius: 10)
                                     .stroke(Color.customFrameColor, lineWidth: 1)
                             )
+                        }.sheet(isPresented: $showSheet1) {
+                            SingleSelectionModal()
+                                .presentationDetents([
+                                    // 画面に対する割合
+                                    .fraction(0.8)
+                                ])
+                        }
                     }
                     
                     ///支払った金額
@@ -151,14 +170,31 @@ struct AddPaymentView: View {
                                     .fontStyle(.title)
                                 Spacer()
                             }
-                            TextField("誰に支払ったかを選択してください", text: $inputName)
-                                .font(.custom("ZenMaruGothic-Regular", size: 12))
+                            Button(action: {
+                                showSheet2 = true
+                            }){
+                                HStack{
+                                    Text("誰に支払ったかを選択してください")
+                                        .font(.custom("ZenMaruGothic-Regular", size: 12))
+                                        .foregroundStyle(Color.customAccentColor)
+                                    Spacer()
+                                    Image(systemName: "chevron.forward")
+                                        .foregroundStyle(Color.customAccentColor)
+
+                                }
                                 .padding()
                                 .cornerRadius(10)
                                 .overlay(
                                     RoundedRectangle(cornerRadius: 10)
                                         .stroke(Color.customFrameColor, lineWidth: 1)
                                 )
+                            }.sheet(isPresented: $showSheet2) {
+                                MultiSelectionModal()
+                                    .presentationDetents([
+                                        // 画面に対する割合
+                                        .fraction(0.8)
+                                    ])
+                            }
                         }
                     } else {
                         VStack(spacing: 10){
