@@ -13,6 +13,7 @@ struct AddPaymentView: View {
     @State var isEven: Bool = true
     @State private var showSheet1 = false
     @State private var showSheet2 = false
+    @State private var showSheet3 = false
     
 
     var body: some View {
@@ -99,14 +100,31 @@ struct AddPaymentView: View {
                                 .fontStyle(.title)
                             Spacer()
                         }
-                        TextField("通過を選択してください", text: $inputName)
-                            .font(.custom("ZenMaruGothic-Regular", size: 12))
+                        Button(action: {
+                            showSheet3 = true
+                        }){
+                            HStack{
+                                Text("通貨を選択してください")
+                                    .font(.custom("ZenMaruGothic-Regular", size: 12))
+                                    .foregroundStyle(Color.customAccentColor)
+                                Spacer()
+                                Image(systemName: "chevron.forward")
+                                    .foregroundStyle(Color.customAccentColor)
+
+                            }
                             .padding()
                             .cornerRadius(10)
                             .overlay(
                                 RoundedRectangle(cornerRadius: 10)
                                     .stroke(Color.customFrameColor, lineWidth: 1)
                             )
+                        }.sheet(isPresented: $showSheet3) {
+                            CurrencySelectionModal()
+                                .presentationDetents([
+                                    // 画面に対する割合
+                                    .fraction(0.8)
+                                ])
+                        }
                     }
                     
                     ///支払った人
