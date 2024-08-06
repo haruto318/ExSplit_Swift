@@ -8,13 +8,11 @@
 import SwiftUI
 
 struct AddGroupMembersView: View {
-    ///仮
+    @Environment(GroupModel.self) private var groupModel
+    
     @State var inputName = ""
     
-    /// add member grid
-    @State var addedMembers: [String] = ["たくろう", "はると", "たく", "ゆー"]
     let layout = [GridItem(.adaptive(minimum: 80, maximum: .infinity))]
-    
     
     var body: some View {
         VStack(spacing: 40) {
@@ -51,7 +49,10 @@ struct AddGroupMembersView: View {
                                     .stroke(Color.customFrameColor, lineWidth: 1)
                             )
                         
-                        Button(action: {addedMembers.append(inputName)}) {
+                        Button(action: {
+                            groupModel.addMember(name: inputName)
+                            inputName = ""
+                        }) {
                             HStack {
                                 Text("追加")
                                     .fontStyle(.body)
@@ -72,15 +73,14 @@ struct AddGroupMembersView: View {
                 GeometryReader { geometryProxy in
                     FlexibleView(
                         availableWidth: geometryProxy.size.width, 
-                        data: addedMembers,
-                        spacing: 15,
+                        data: groupModel.members,
+                        spacing: 5,
                         alignment: .leading
                     ) { item in
                         HStack(spacing: 3) {
                             Text("\(item)").fontStyle(.body)
                             Button(action: {
-                                addedMembers.remove(at: addedMembers.firstIndex(of: item)!)
-                                print(addedMembers)
+                                groupModel.removeMember(index: item)
                             }) {
                                 Text("×")
                                     .fontStyle(.bodyBold)
@@ -96,6 +96,7 @@ struct AddGroupMembersView: View {
                 
                 Spacer()
                 
+                ///グループ作成ボタン
                 Button(action: {}) {
                     HStack {
                         Spacer()

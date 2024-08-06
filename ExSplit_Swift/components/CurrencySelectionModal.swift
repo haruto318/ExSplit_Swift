@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct CurrencySelectionModal: View {
+    @Environment(GroupModel.self) private var groupModel
+    
     private enum Regions: String, CaseIterable, Identifiable {
         case asia = "アジア"
         case oceania = "オセアニア"
@@ -32,8 +34,7 @@ struct CurrencySelectionModal: View {
     
     @State private var selectedRegion = Regions.asia
     
-    private var fruits = ["はると", "たけし", "こじろう"]
-    @State var singleSelection: String?
+    @State var selectCurrency: String?
     
     
     init() {
@@ -66,7 +67,7 @@ struct CurrencySelectionModal: View {
                 }
             
                 ///通貨リスト
-                List(selection: $singleSelection) {
+                List(selection: $selectCurrency) {
                     ForEach(0..<selectedRegion.regionData.count, id: \.self) { index in
                         //.tagで指定した値をmultiSelectionに格納する
                         Text(selectedRegion.regionData[index].japaneseName)
@@ -81,6 +82,10 @@ struct CurrencySelectionModal: View {
                         .stroke(Color.customFrameColor, lineWidth: 1)
                 )
                 .environment(\.editMode, .constant(.active))
+                .onChange(of: selectCurrency ?? "") { oldValue, newValue in
+                    groupModel.setCurrency(currency: newValue)
+                    print(groupModel.homeCurrency)
+                }
                 
             }.padding(.horizontal)
             

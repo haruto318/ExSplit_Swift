@@ -10,10 +10,11 @@ import RealmSwift
 
 @main
 struct ExSplit_SwiftApp: SwiftUI.App {
+    private let groupModel: GroupModel = .init()
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView().environment(groupModel)
         }
     }
 }

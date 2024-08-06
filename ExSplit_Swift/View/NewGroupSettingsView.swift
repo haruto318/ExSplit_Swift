@@ -8,8 +8,10 @@
 import SwiftUI
 
 struct NewGroupSettingsView: View {
+    @Environment(GroupModel.self) private var groupModel
     ///仮
-    @State var inputName = ""
+    @State var inputName: String = ""
+    @State var selectCurrency: String = ""
     @State private var showSheet = false
     
     var body: some View {
@@ -30,6 +32,7 @@ struct NewGroupSettingsView: View {
                 Text("グループ名と基準通貨を入力してください")
                         .fontStyle(.title)
                 
+                /// グループ名
                 VStack(spacing: 10){
                     HStack {
                         Text("グループ名")
@@ -43,9 +46,17 @@ struct NewGroupSettingsView: View {
                         .overlay(
                             RoundedRectangle(cornerRadius: 10)
                                 .stroke(Color.customFrameColor, lineWidth: 1)
-                    )
+                        )
+                        .onChange(of: inputName) { newValue in
+                            groupModel.setName(text: newValue)
+                            print(groupModel.name)
+                        }
+                        .onAppear(perform: {
+                            inputName = groupModel.name
+                        })
                 }
                 
+                /// 基準通貨
                 VStack(spacing: 10){
                     HStack {
                         Text("基準通貨")
@@ -56,13 +67,12 @@ struct NewGroupSettingsView: View {
                         showSheet = true
                     }){
                         HStack{
-                            Text("通貨を選択してください")
+                            Text(groupModel.homeCurrency == "" ? "通貨を選択してください" : groupModel.homeCurrency)
                                 .font(.custom("ZenMaruGothic-Regular", size: 12))
-                                .foregroundStyle(Color.customAccentColor)
+                                .foregroundStyle(groupModel.homeCurrency == "" ? Color.customAccentColor : Color.customFontColor)
                             Spacer()
                             Image(systemName: "chevron.forward")
                                 .foregroundStyle(Color.customAccentColor)
-
                         }
                         .padding()
                         .cornerRadius(10)

@@ -9,9 +9,8 @@ import SwiftUI
 import RealmSwift
 
 struct ContentView: View {
+    
     let splits = [(id: 1, name: "アジア", total: 10000, num: 4), (id: 2, name: "アジア", total: 10000, num: 4)]
-    
-    
 
     var body: some View {
         NavigationView {
@@ -44,8 +43,9 @@ struct ContentView: View {
                                         .stroke(Color.customFrameColor, lineWidth: 1)
                                 )
                         }.padding(.horizontal, 10)
-
-                        Button(action: {}) {
+                    
+                        Button(action: {
+                        }) {
                             HStack {
                                 Spacer()
                                 Text("グループを生成する")

@@ -14,7 +14,6 @@ struct NewGroupView: View {
     @State var offset: CGFloat = .zero
     @State var isShowBackBtn: Bool = false
     @State var isShowNextBtn: Bool = true
-    @State private var progressVal = 0.0
     
     var body: some View {
         VStack(spacing: 10) {
@@ -53,7 +52,6 @@ struct NewGroupView: View {
     private var backButton: some View {
         Button {
             backToPreviousPage()
-            progressVal -= 50
             selection -= 1
         } label: {
             Image(systemName: "arrowtriangle.backward.fill")
@@ -67,7 +65,6 @@ struct NewGroupView: View {
     private var nextButton: some View {
         Button {
             goToNextPage()
-            progressVal += 50
             selection += 1
         } label: {
             Image(systemName: "arrowtriangle.forward.fill")
