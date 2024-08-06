@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Currency {
+struct Currency: Codable, Hashable {
     let code: String
     let name: String
     let japaneseName: String

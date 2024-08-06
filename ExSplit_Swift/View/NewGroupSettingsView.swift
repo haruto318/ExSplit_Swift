@@ -67,9 +67,9 @@ struct NewGroupSettingsView: View {
                         showSheet = true
                     }){
                         HStack{
-                            Text(groupModel.homeCurrency == "" ? "通貨を選択してください" : groupModel.homeCurrency)
+                            Text(groupModel.homeCurrency.code == "" ? "通貨を選択してください" : groupModel.homeCurrency.japaneseName)
                                 .font(.custom("ZenMaruGothic-Regular", size: 12))
-                                .foregroundStyle(groupModel.homeCurrency == "" ? Color.customAccentColor : Color.customFontColor)
+                                .foregroundStyle(groupModel.homeCurrency.code == "" ? Color.customAccentColor : Color.customFontColor)
                             Spacer()
                             Image(systemName: "chevron.forward")
                                 .foregroundStyle(Color.customAccentColor)

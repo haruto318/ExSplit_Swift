@@ -11,14 +11,14 @@ import Combine
 @Observable
 final class GroupModel {
     var name: String = ""
-    var homeCurrency: String = ""
+    var homeCurrency: Currency = Currency(code: "", name: "", japaneseName: "")
     var members: [String] = []
     
     func setName(text: String) {
         name = text
     }
 
-    func setCurrency(currency: String) {
+    func setCurrency(currency: Currency) {
         homeCurrency = currency
     }
     

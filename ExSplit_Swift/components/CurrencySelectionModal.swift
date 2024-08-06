@@ -83,7 +83,8 @@ struct CurrencySelectionModal: View {
                 )
                 .environment(\.editMode, .constant(.active))
                 .onChange(of: selectCurrency ?? "") { oldValue, newValue in
-                    groupModel.setCurrency(currency: newValue)
+                    groupModel.setCurrency(currency: selectedRegion.regionData.first(where: {$0.code == newValue})!)
+                
                     print(groupModel.homeCurrency)
                 }
                 

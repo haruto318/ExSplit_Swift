@@ -12,7 +12,13 @@ final class Group: Object, ObjectKeyIdentifiable {
     @Persisted(primaryKey: true) var id: String = UUID().uuidString
     @Persisted var members = List<Member>()
     @Persisted var groupName: String = ""
-    @Persisted var homeCurrency: String = ""
+    @Persisted var homeCurrency: homeCurrency
+}
+
+final class homeCurrency: EmbeddedObject {
+    @Persisted var code: String = ""
+    @Persisted var name: String = ""
+    @Persisted var japaneseName = ""
 }
 
 final class Member: EmbeddedObject {
