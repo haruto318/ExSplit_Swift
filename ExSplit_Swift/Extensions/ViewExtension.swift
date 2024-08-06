@@ -18,6 +18,10 @@ extension View {
         )
         .onPreferenceChange(SizePreferenceKey.self, perform: onChange)
     }
+    
+    func getScreenBounds() -> CGRect {
+        return UIScreen.main.bounds
+    }
 }
 
 private struct SizePreferenceKey: PreferenceKey {

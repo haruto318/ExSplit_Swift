@@ -93,10 +93,30 @@ struct AddGroupMembersView: View {
                             .cornerRadius(10)
                     }
                 }
+                
+                Spacer()
+                
+                Button(action: {}) {
+                    HStack {
+                        Spacer()
+                        Text("グループを生成する")
+                            .fontStyle(.head)
+                            .foregroundColor(Color.customFontColor)
+                        Spacer()
+                    }.padding()
+                        .background(Color.customButtonColor)
+                        .cornerRadius(10)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(Color.customFrameColor, lineWidth: 1)
+                        )
+                }.padding(.horizontal, 10)
             
             }.padding(.horizontal)
+        
             
             Spacer()
+            
             
         }.padding()
     }

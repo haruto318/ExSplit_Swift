@@ -29,7 +29,7 @@ struct ContentView: View {
                     
                     VStack(spacing: 40) {
                         /// 作成ボタン
-                        NavigationLink(destination: NewGroupSettingsView()){
+                        NavigationLink(destination: NewGroupView()){
                             HStack {
                                 Spacer()
                                 Text("グループを生成する")
