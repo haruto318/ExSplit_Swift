@@ -49,7 +49,6 @@ struct NewGroupSettingsView: View {
                         )
                         .onChange(of: inputName) { newValue in
                             groupModel.setName(text: newValue)
-                            print(groupModel.name)
                         }
                         .onAppear(perform: {
                             inputName = groupModel.name

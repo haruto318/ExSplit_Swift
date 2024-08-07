@@ -8,10 +8,7 @@
 import SwiftUI
 
 struct GroupDetailView: View {
-    // 仮
-    let split = (id: 1, name: "アジア", total: 10000, num: 4)
-    let members = ["はると", "こうたろ", "はると"]
-    let splits: [(id: Int, total: Int, paidBy: String)] = [(id: 1, total: 10000, paidBy: "はると"), (id: 2, total: 10000, paidBy: "ゆーた"), (id: 2, total: 10000, paidBy: "ゆーた")]
+    let group: Group
 
     var body: some View {
         VStack(spacing: 40) {
@@ -25,17 +22,17 @@ struct GroupDetailView: View {
                     /// 1 cell
                     VStack(spacing: 5){
                         HStack(){
-                            Text("東南アジア一周")
+                            Text(group.groupName)
                                 .fontStyle(.headBold)
                             Spacer()
                         }
                         VStack(spacing: 5){
                             HStack(){
-                                Text("総金額")
+                                Text("通貨")
                                     .fontStyle(.body)
                                     .foregroundColor(Color.customAccentColor)
                                 Spacer()
-                                Text("10,000 yen")
+                                Text(group.homeCurrency.japaneseName)
                                     .fontStyle(.body)
                                     .foregroundColor(Color.customFontColor)
                             }
@@ -44,7 +41,7 @@ struct GroupDetailView: View {
                                     .fontStyle(.body)
                                     .foregroundColor(Color.customAccentColor)
                                 Spacer()
-                                Text("4人")
+                                Text("\(group.members.count)人")
                                     .fontStyle(.body)
                                     .foregroundColor(Color.customFontColor)
                             }
@@ -66,12 +63,12 @@ struct GroupDetailView: View {
                         
                         ScrollView(.horizontal){
                             HStack(spacing: 10){
-                                ForEach(members, id: \.self) { name in
+                                ForEach(group.members, id: \.self) { member in
                                     VStack(spacing: 3){
                                         Image(systemName: "person.crop.circle")
                                             .resizable()
                                             .frame(width: 40, height: 40)
-                                        Text(name).fontStyle(.body)
+                                        Text(member.memberName).fontStyle(.body)
                                     }
                                 }
                                 Spacer()
@@ -110,19 +107,19 @@ struct GroupDetailView: View {
                         }
                         
                         VStack(spacing: 5){
-                            if splits.count != 0 {
-                                ForEach(Array(splits.enumerated()), id: \.offset){ offset, split in
+                            if group.balance.count != 0 {
+                                ForEach(Array(group.balance.enumerated()), id: \.offset){ offset, split in
                                     Divider()
                                     HStack(){
                                         VStack(alignment: .leading, spacing: 0){
                                             Text("Total Amount").fontStyle(.description)
-                                            Text("\(splits[splits.count-1-offset].total) yen").fontStyle(.body)
+                                            Text("\(group.balance[group.balance.count-1-offset].total) yen").fontStyle(.body)
                                         }
                                         Spacer()
                                         HStack(alignment: .center, spacing: 5){
                                             VStack(alignment: .trailing, spacing: 0){
                                                 Text("Paid by").fontStyle(.description)
-                                                Text(splits[splits.count-1-offset].paidBy).fontStyle(.body)
+                                                Text(group.balance[group.balance.count-1-offset].paidBy).fontStyle(.body)
                                             }
                                             Image(systemName: "person.crop.circle")
                                                 .resizable()
@@ -192,6 +189,6 @@ struct GroupDetailView: View {
     }
 }
 
-#Preview {
-    GroupDetailView()
-}
+//#Preview {
+//    GroupDetailView()
+//}

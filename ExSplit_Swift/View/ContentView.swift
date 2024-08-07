@@ -72,23 +72,23 @@ struct ContentView: View {
                             }
                             
                             /// 仮リスト
-                            ForEach(Array(splits.enumerated()), id: \.offset){ offset, split in
+                            ForEach(Array(realmViewModel.groups.enumerated()), id: \.offset){ offset, group in
                                 
-                                NavigationLink(destination: GroupDetailView()) {
+                                NavigationLink(destination: GroupDetailView(group: group)) {
                                     VStack(spacing: 5){
                                         HStack(){
-                                            Text(split.name)
+                                            Text(group.groupName)
                                                 .fontStyle(.headBold)
                                                 .foregroundColor(.customFontColor)
                                             Spacer()
                                         }
                                         VStack(spacing: 5){
                                             HStack(){
-                                                Text("総金額")
+                                                Text("通貨")
                                                     .fontStyle(.body)
                                                     .foregroundColor(Color.customAccentColor)
                                                 Spacer()
-                                                Text("\(split.total) yen")
+                                                Text(group.homeCurrency.japaneseName)
                                                     .fontStyle(.body)
                                                     .foregroundColor(Color.customFontColor)
                                             }
@@ -97,7 +97,7 @@ struct ContentView: View {
                                                     .fontStyle(.body)
                                                     .foregroundColor(Color.customAccentColor)
                                                 Spacer()
-                                                Text("\(split.num)人")
+                                                Text("\(group.members.count)人")
                                                     .fontStyle(.body)
                                                     .foregroundColor(Color.customFontColor)
                                             }
