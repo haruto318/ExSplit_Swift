@@ -9,6 +9,7 @@ import SwiftUI
 
 struct AddGroupMembersView: View {
     @Environment(GroupModel.self) private var groupModel
+    @ObservedObject var realmViewModel = RealmGroupViewModel()
     
     @State var inputName = ""
     
@@ -97,7 +98,9 @@ struct AddGroupMembersView: View {
                 Spacer()
                 
                 ///グループ作成ボタン
-                Button(action: {}) {
+                Button(action: {
+                    realmViewModel.addGroup(groupModel: groupModel)
+                }) {
                     HStack {
                         Spacer()
                         Text("グループを生成する")

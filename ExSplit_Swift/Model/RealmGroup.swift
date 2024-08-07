@@ -9,13 +9,13 @@ import Foundation
 import RealmSwift
 
 final class Group: Object, ObjectKeyIdentifiable {
-    @Persisted(primaryKey: true) var id: String = UUID().uuidString
+    @Persisted(primaryKey: true) var groupId: Int = 0
     @Persisted var members = List<Member>()
     @Persisted var groupName: String = ""
-    @Persisted var homeCurrency: homeCurrency
+    @Persisted var homeCurrency: HomeCurrency!
 }
 
-final class homeCurrency: EmbeddedObject {
+final class HomeCurrency: EmbeddedObject {
     @Persisted var code: String = ""
     @Persisted var name: String = ""
     @Persisted var japaneseName = ""

@@ -9,6 +9,7 @@ import SwiftUI
 import RealmSwift
 
 struct ContentView: View {
+    @ObservedObject var realmViewModel = RealmGroupViewModel()
     
     let splits = [(id: 1, name: "アジア", total: 10000, num: 4), (id: 2, name: "アジア", total: 10000, num: 4)]
 
@@ -45,6 +46,7 @@ struct ContentView: View {
                         }.padding(.horizontal, 10)
                     
                         Button(action: {
+                            realmViewModel.getGroup()
                         }) {
                             HStack {
                                 Spacer()
