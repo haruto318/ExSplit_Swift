@@ -37,13 +37,11 @@ final class RealmGroupViewModel: ObservableObject {
         homeCurrency.japaneseName = groupModel.homeCurrency.japaneseName
         group.homeCurrency = homeCurrency
         
-        print(groupModel.members)
-        
         for (i, name) in zip(groupModel.members.indices, groupModel.members)  {
             let member = Member()
             member.memberId = i
             member.memberName = name
-            for (j, name) in zip(groupModel.members.indices, groupModel.members) {
+            for (j, value) in zip(groupModel.members.indices, groupModel.members) {
                 let payment = Payment()
                 payment.memberId = j
                 payment.amount = 0

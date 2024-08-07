@@ -13,6 +13,7 @@ final class Group: Object, ObjectKeyIdentifiable {
     @Persisted var members = List<Member>()
     @Persisted var groupName: String = ""
     @Persisted var homeCurrency: HomeCurrency!
+    @Persisted var balance = List<Balance>()
 }
 
 final class HomeCurrency: EmbeddedObject {
@@ -30,6 +31,15 @@ final class Member: EmbeddedObject {
 final class Payment: EmbeddedObject {
     @Persisted var memberId: Int = 0
     @Persisted var amount: Double = 0.0
+}
+
+final class Balance: EmbeddedObject {
+    @Persisted var balanceId: Int = 0
+    @Persisted var purpose: String = ""
+    @Persisted var total: Double = 0.0
+    @Persisted var currency: HomeCurrency!
+    @Persisted var paidBy: String = ""
+    @Persisted var payments = List<Payment>()
 }
 
 
