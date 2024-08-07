@@ -18,12 +18,25 @@ final class RealmGroupViewModel: ObservableObject {
 
     // Realmとの接続を開くメソッド
     func openRealm() {
+        let config = Realm.Configuration(
+            schemaVersion: 2, // スキーマバージョンを2に更新
+            migrationBlock: { migration, oldSchemaVersion in
+                if oldSchemaVersion < 2 {
+                    // 必要ならば移行ロジックをここに記述
+                    migration.enumerateObjects(ofType: Group.className()) { oldObject, newObject in
+                        // 新しい balance プロパティを空のリストに初期化
+                        newObject!["balance"] = List<Balance>()
+                    }
+                }
+            }
+        )
+        
+        Realm.Configuration.defaultConfiguration = config
+        
         do {
-            let config = Realm.Configuration(schemaVersion: 1)
-            Realm.Configuration.defaultConfiguration = config
             realm = try Realm()
         } catch {
-            print("Error opening Realm", error)
+            print("Realmを開く際のエラー", error)
         }
     }
     
