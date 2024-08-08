@@ -69,7 +69,6 @@ final class RealmGroupViewModel: ObservableObject {
             })
             print(groups)
         }
-        
     }
     
     func getGroup() {
@@ -82,4 +81,6 @@ final class RealmGroupViewModel: ObservableObject {
             print(groups)
         }
     }
+    
+    
 }

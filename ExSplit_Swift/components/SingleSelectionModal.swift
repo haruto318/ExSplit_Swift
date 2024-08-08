@@ -6,11 +6,13 @@
 //
 
 import SwiftUI
+import RealmSwift
 
 struct SingleSelectionModal: View {
-    private var fruits = ["はると", "たけし", "こじろう"]
-    @State var singleSelection: Int?
-    @State private var selectionValue = 3
+    @Environment(PaymentModel.self) private var paymentModel
+    
+    let group: Group
+    @State var selectMemberId: Int?
     var body: some View {
         
         VStack(spacing: 40) {
@@ -20,11 +22,11 @@ struct SingleSelectionModal: View {
                 Text("支払ったメンバーを選んでください")
                     .fontStyle(.title)
                 
-                List(selection: $singleSelection) {
-                    ForEach(0..<fruits.count, id: \.self) { index in
+                List(selection: $selectMemberId) {
+                    ForEach(0..<group.members.count, id: \.self) { index in
                         //.tagで指定した値をmultiSelectionに格納する
-                        Text(fruits[index])
-                            .fontStyle(.headBold).tag(index)
+                        Text(group.members[index].memberName)
+                            .fontStyle(.headBold).tag(group.members[index].memberId)
                     }
                 }
                 .scrollContentBackground(.hidden)
@@ -36,6 +38,9 @@ struct SingleSelectionModal: View {
                 )
                 //（参考：常に編集モードにする）
                 .environment(\.editMode, .constant(.active))
+                .onChange(of: selectMemberId ?? 0) { oldValue, newValue in
+                    paymentModel.setPaidBy(member: group.members[newValue])
+                }
                 
                 
             
@@ -47,6 +52,6 @@ struct SingleSelectionModal: View {
     }
 }
 
-#Preview {
-    SingleSelectionModal()
-}
+//#Preview {
+//    SingleSelectionModal()
+//}

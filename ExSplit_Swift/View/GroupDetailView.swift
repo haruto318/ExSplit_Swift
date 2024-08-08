@@ -162,7 +162,7 @@ struct GroupDetailView: View {
                 VStack {
                     Spacer().frame(height: 20)
                     
-                    NavigationLink(destination: AddPaymentView()){
+                    NavigationLink(destination: AddPaymentView(group: group)){
                         //                        Button(action: {}) {
                         HStack {
                             Spacer()

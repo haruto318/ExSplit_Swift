@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct MultiSelectionModal: View {
-    private var fruits = ["はると", "たけし", "こじろう"]
-    @State var multiSelection = Set<Int>()
+    let group: Group
+    @Binding var selectedMembers: Set<Int>
     
     @State var isAll = false
     var body: some View {
@@ -29,7 +29,7 @@ struct MultiSelectionModal: View {
                                 .resizable()
                                 .frame(width: 20, height: 20)
                                 .foregroundColor(isAll ? Color.customAccentColor : Color.customFrameColor)
-                            Text("全員")
+                            Text("全員で割り勘")
                                 .fontStyle(.headBold)
                                 .foregroundColor(Color.customFontColor).animation(nil)
                         }
@@ -38,27 +38,27 @@ struct MultiSelectionModal: View {
                     .onTapGesture {
                         isAll = !isAll
                         if isAll {
-                            for i in fruits.indices {
-                                multiSelection.insert(i)
+                            for i in group.members.indices {
+                                selectedMembers.insert(i)
                             }
                         } else {
-                            for i in fruits.indices {
-                                multiSelection.remove(i)
+                            for i in group.members.indices {
+                                selectedMembers.remove(i)
                             }
                         }
                       }
                 }
                 
                 ///リスト
-                List(selection: $multiSelection) {
-                    ForEach(0..<fruits.count, id: \.self) { index in
+                List(selection: $selectedMembers) {
+                    ForEach(0..<group.members.count, id: \.self) { index in
                         //.tagで指定した値をmultiSelectionに格納する
-                        Text(fruits[index])
+                        Text(group.members[index].memberName)
                             .fontStyle(.headBold).tag(index)
                     }
                 }
-                .onChange(of: multiSelection, {
-                    if multiSelection.count == fruits.count{
+                .onChange(of: selectedMembers, {
+                    if selectedMembers.count == group.members.count{
                         isAll = true
                     } else {
                         isAll = false
@@ -84,6 +84,6 @@ struct MultiSelectionModal: View {
     }
 }
 
-#Preview {
-    MultiSelectionModal()
-}
+//#Preview {
+//    MultiSelectionModal()
+//}

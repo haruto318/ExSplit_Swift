@@ -8,12 +8,28 @@
 import SwiftUI
 
 struct AddPaymentView: View {
+    @Environment(PaymentModel.self) private var paymentModel
+    let group: Group
+    @State var selectedMembers = Set<Int>()
+    @State var membersPayment: [Double] = []
+    @State var selectedCurrency: Currency = Currency(code: "", name: "", japaneseName: "")
     // 仮
-    @State var inputName = ""
+    @State var inputPurpose = ""
+    @State var inputAmount: Double = 0
     @State var isEven: Bool = true
     @State private var showSheet1 = false
     @State private var showSheet2 = false
     @State private var showSheet3 = false
+    
+    init(group: Group) {
+        self.group = group
+        _membersPayment = State(initialValue: Array(repeating: 0, count: group.members.count))
+        print(membersPayment)
+    }
+    
+    var selectedMembersNames: String {
+        selectedMembers.map { group.members[$0].memberName }.joined(separator: " ")
+    }
     
 
     var body: some View {
@@ -41,7 +57,10 @@ struct AddPaymentView: View {
                             Spacer()
                         }
                         HStack {
-                            Button(action: {isEven = true}) {
+                            Button(action: {
+                                isEven = true
+                                membersPayment = Array(repeating: 0, count: group.members.count)
+                            }) {
                                 HStack {
                                     Spacer()
                                     Text("均等に分割")
@@ -57,7 +76,10 @@ struct AddPaymentView: View {
                                             .stroke(Color.customFrameColor, lineWidth: 1)
                                     )
                             }
-                            Button(action: {isEven = false}) {
+                            Button(action: {
+                                isEven = false
+                                membersPayment = Array(repeating: 0, count: group.members.count)
+                            }) {
                                 HStack {
                                     Spacer()
                                     Text("割合分割")
@@ -83,7 +105,7 @@ struct AddPaymentView: View {
                                 .fontStyle(.title)
                             Spacer()
                         }
-                        TextField("支払いの説明を入力してください", text: $inputName)
+                        TextField("支払いの説明を入力してください", text: $inputPurpose)
                             .font(.custom("ZenMaruGothic-Regular", size: 12))
                             .padding()
                             .cornerRadius(10)
@@ -104,9 +126,9 @@ struct AddPaymentView: View {
                             showSheet3 = true
                         }){
                             HStack{
-                                Text("通貨を選択してください")
+                                Text(paymentModel.currency.code == "" ? "通貨を選択してください" : paymentModel.currency.japaneseName)
                                     .font(.custom("ZenMaruGothic-Regular", size: 12))
-                                    .foregroundStyle(Color.customAccentColor)
+                                    .foregroundStyle(paymentModel.currency.code == "" ? Color.customAccentColor : Color.customFontColor)
                                 Spacer()
                                 Image(systemName: "chevron.forward")
                                     .foregroundStyle(Color.customAccentColor)
@@ -119,11 +141,14 @@ struct AddPaymentView: View {
                                     .stroke(Color.customFrameColor, lineWidth: 1)
                             )
                         }.sheet(isPresented: $showSheet3) {
-                            CurrencySelectionModal()
+                            CurrencySelectionModal(selectedCurrency: $selectedCurrency)
                                 .presentationDetents([
                                     // 画面に対する割合
                                     .fraction(0.8)
                                 ])
+                                .onDisappear{
+                                    paymentModel.setCurrency(currency: selectedCurrency)
+                                }
                         }
                     }
                     
@@ -139,9 +164,9 @@ struct AddPaymentView: View {
                             showSheet1 = true
                         }){
                             HStack{
-                                Text("支払った人を選択してください")
+                                Text(paymentModel.paidBy.memberName == "" ? "支払った人を選択してください" : paymentModel.paidBy.memberName)
                                     .font(.custom("ZenMaruGothic-Regular", size: 12))
-                                    .foregroundStyle(Color.customAccentColor)
+                                    .foregroundStyle(paymentModel.paidBy.memberName == "" ? Color.customAccentColor : Color.customFontColor)
                                 Spacer()
                                 Image(systemName: "chevron.forward")
                                     .foregroundStyle(Color.customAccentColor)
@@ -153,9 +178,8 @@ struct AddPaymentView: View {
                                     .stroke(Color.customFrameColor, lineWidth: 1)
                             )
                         }.sheet(isPresented: $showSheet1) {
-                            SingleSelectionModal()
+                            SingleSelectionModal(group: group)
                                 .presentationDetents([
-                                    // 画面に対する割合
                                     .fraction(0.8)
                                 ])
                         }
@@ -169,7 +193,8 @@ struct AddPaymentView: View {
                                     .fontStyle(.title)
                                 Spacer()
                             }
-                            TextField("支払った金額を入力してください", text: $inputName)
+                            TextField("支払った金額を入力してください", value: $inputAmount, format: .currency(code: paymentModel.currency.code))
+                                .keyboardType(.numberPad)
                                 .font(.custom("ZenMaruGothic-Regular", size: 12))
                                 .padding()
                                 .cornerRadius(10)
@@ -192,9 +217,9 @@ struct AddPaymentView: View {
                                 showSheet2 = true
                             }){
                                 HStack{
-                                    Text("誰に支払ったかを選択してください")
+                                    Text(selectedMembers.isEmpty ? "誰に支払ったかを選択してください" : selectedMembersNames)
                                         .font(.custom("ZenMaruGothic-Regular", size: 12))
-                                        .foregroundStyle(Color.customAccentColor)
+                                        .foregroundStyle(selectedMembers.isEmpty ? Color.customAccentColor : Color.customFontColor)
                                     Spacer()
                                     Image(systemName: "chevron.forward")
                                         .foregroundStyle(Color.customAccentColor)
@@ -207,7 +232,7 @@ struct AddPaymentView: View {
                                         .stroke(Color.customFrameColor, lineWidth: 1)
                                 )
                             }.sheet(isPresented: $showSheet2) {
-                                MultiSelectionModal()
+                                MultiSelectionModal(group: group, selectedMembers: $selectedMembers)
                                     .presentationDetents([
                                         // 画面に対する割合
                                         .fraction(0.8)
@@ -222,63 +247,30 @@ struct AddPaymentView: View {
                                 Spacer()
                             }
                             VStack(spacing: 5){
-                                HStack {
-                                    Text("はると")
-                                        .fontStyle(.body)
-                                        .frame(width: 80)
-                                        .padding()
-                                        .cornerRadius(10)
-                                        .overlay(
-                                            RoundedRectangle(cornerRadius: 10)
-                                                .stroke(Color.customFrameColor, lineWidth: 1)
-                                        )
-                                    TextField("金額を入力してください", text: $inputName)
-                                        .font(.custom("ZenMaruGothic-Regular", size: 12))
-                                        .padding()
-                                        .cornerRadius(10)
-                                        .overlay(
-                                            RoundedRectangle(cornerRadius: 10)
-                                                .stroke(Color.customFrameColor, lineWidth: 1)
-                                        )
+                                ForEach(group.members, id: \.self){ member in
+                                    HStack {
+                                        Text(member.memberName)
+                                            .fontStyle(.body)
+                                            .frame(width: 80)
+                                            .padding()
+                                            .cornerRadius(10)
+                                            .overlay(
+                                                RoundedRectangle(cornerRadius: 10)
+                                                    .stroke(Color.customFrameColor, lineWidth: 1)
+                                            )
+                                        TextField("金額を入力してください", value: $membersPayment[member.memberId], format: .currency(code: paymentModel.currency.code))
+                                            .keyboardType(.numberPad)
+                                            .multilineTextAlignment(TextAlignment.center)
+                                            .font(.custom("ZenMaruGothic-Regular", size: 12))
+                                            .padding()
+                                            .cornerRadius(10)
+                                            .overlay(
+                                                RoundedRectangle(cornerRadius: 10)
+                                                    .stroke(Color.customFrameColor, lineWidth: 1)
+                                            )
+                                    }
                                 }
-                                HStack {
-                                    Text("はると")
-                                        .fontStyle(.body)
-                                        .frame(width: 80)
-                                        .padding()
-                                        .cornerRadius(10)
-                                        .overlay(
-                                            RoundedRectangle(cornerRadius: 10)
-                                                .stroke(Color.customFrameColor, lineWidth: 1)
-                                        )
-                                    TextField("金額を入力してください", text: $inputName)
-                                        .font(.custom("ZenMaruGothic-Regular", size: 12))
-                                        .padding()
-                                        .cornerRadius(10)
-                                        .overlay(
-                                            RoundedRectangle(cornerRadius: 10)
-                                                .stroke(Color.customFrameColor, lineWidth: 1)
-                                        )
-                                }
-                                HStack {
-                                    Text("はると")
-                                        .fontStyle(.body)
-                                        .frame(width: 80)
-                                        .padding()
-                                        .cornerRadius(10)
-                                        .overlay(
-                                            RoundedRectangle(cornerRadius: 10)
-                                                .stroke(Color.customFrameColor, lineWidth: 1)
-                                        )
-                                    TextField("金額を入力してください", text: $inputName)
-                                        .font(.custom("ZenMaruGothic-Regular", size: 12))
-                                        .padding()
-                                        .cornerRadius(10)
-                                        .overlay(
-                                            RoundedRectangle(cornerRadius: 10)
-                                                .stroke(Color.customFrameColor, lineWidth: 1)
-                                        )
-                                }
+
                             }
                         }
                     }
@@ -286,7 +278,9 @@ struct AddPaymentView: View {
                     /// 支払い追加ボタン
                     VStack {
                         Spacer().frame(height: 20)
-                        Button(action: {}) {
+                        Button(action: {
+                            
+                        }) {
                             HStack {
                                 Spacer()
                                 Text("支払いを追加")
@@ -312,7 +306,7 @@ struct AddPaymentView: View {
     }
 }
 
-#Preview {
-    AddPaymentView()
-}
+//#Preview {
+//    AddPaymentView()
+//}
 

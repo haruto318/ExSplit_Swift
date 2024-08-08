@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct CurrencySelectionModal: View {
-    @Environment(GroupModel.self) private var groupModel
     
     private enum Regions: String, CaseIterable, Identifiable {
         case asia = "アジア"
@@ -32,12 +31,14 @@ struct CurrencySelectionModal: View {
         var id: String { rawValue }
     }
     
+    @Binding var selectedCurrency: Currency
+    
     @State private var selectedRegion = Regions.asia
     
     @State var selectCurrency: String?
     
     
-    init() {
+    init(selectedCurrency: Binding<Currency>) {
         // フォント属性を設定
         let attr: [NSAttributedString.Key: Any] = [
             .font: UIFont(name: "ZenMaruGothic-Medium", size: 13.0)!
@@ -45,6 +46,8 @@ struct CurrencySelectionModal: View {
         
         // UISegmentedControlのタイトルテキスト属性を設定
         UISegmentedControl.appearance().setTitleTextAttributes(attr, for: .normal)
+        
+        self._selectedCurrency = selectedCurrency
     }
 
     var body: some View {
@@ -83,9 +86,8 @@ struct CurrencySelectionModal: View {
                 )
                 .environment(\.editMode, .constant(.active))
                 .onChange(of: selectCurrency ?? "") { oldValue, newValue in
-                    groupModel.setCurrency(currency: selectedRegion.regionData.first(where: {$0.code == newValue})!)
-                
-                    print(groupModel.homeCurrency)
+                    selectedCurrency = selectedRegion.regionData.first(where: {$0.code == newValue})!
+                    print(selectedCurrency)
                 }
                 
             }.padding(.horizontal)
@@ -96,6 +98,6 @@ struct CurrencySelectionModal: View {
     }
 }
 
-#Preview {
-    CurrencySelectionModal()
-}
+//#Preview {
+//    CurrencySelectionModal()
+//}

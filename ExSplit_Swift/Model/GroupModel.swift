@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import Combine
 
 @Observable
 final class GroupModel {

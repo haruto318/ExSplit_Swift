@@ -11,8 +11,10 @@ struct NewGroupSettingsView: View {
     @Environment(GroupModel.self) private var groupModel
     ///仮
     @State var inputName: String = ""
-    @State var selectCurrency: String = ""
+//    @State var selectCurrency: String = ""
     @State private var showSheet = false
+    
+    @State var selectedCurrency: Currency = Currency(code: "", name: "", japaneseName: "")
     
     var body: some View {
         VStack(spacing: 40) {
@@ -80,11 +82,14 @@ struct NewGroupSettingsView: View {
                                 .stroke(Color.customFrameColor, lineWidth: 1)
                         )
                     }.sheet(isPresented: $showSheet) {
-                        CurrencySelectionModal()
+                        CurrencySelectionModal(selectedCurrency: $selectedCurrency)
                             .presentationDetents([
                                 // 画面に対する割合
                                 .fraction(0.8)
                             ])
+                            .onDisappear{
+                                groupModel.setCurrency(currency: selectedCurrency)
+                            }
                     }
                 }
 
