@@ -9,7 +9,10 @@ import SwiftUI
 
 struct AddPaymentView: View {
     @Environment(PaymentModel.self) private var paymentModel
+    @StateObject var currencyRatesViewModel: CurrencyRatesViewModel
+    
     let group: Group
+    
     @State var selectedMembers = Set<Int>()
     @State var membersPayment: [Double] = []
     @State var selectedCurrency: Currency = Currency(code: "", name: "", japaneseName: "")
@@ -24,7 +27,8 @@ struct AddPaymentView: View {
     init(group: Group) {
         self.group = group
         _membersPayment = State(initialValue: Array(repeating: 0, count: group.members.count))
-        print(membersPayment)
+        print(_membersPayment)
+        _currencyRatesViewModel = StateObject(wrappedValue: CurrencyRatesViewModel(homeCurrency: group.homeCurrency.code))
     }
     
     var selectedMembersNames: String {
@@ -279,7 +283,7 @@ struct AddPaymentView: View {
                     VStack {
                         Spacer().frame(height: 20)
                         Button(action: {
-                            
+                            print(currencyRatesViewModel.rates)
                         }) {
                             HStack {
                                 Spacer()
