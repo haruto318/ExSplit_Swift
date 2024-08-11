@@ -38,8 +38,10 @@ struct SingleSelectionModal: View {
                 )
                 //（参考：常に編集モードにする）
                 .environment(\.editMode, .constant(.active))
-                .onChange(of: selectMemberId ?? 0) { oldValue, newValue in
-                    paymentModel.setPaidBy(member: group.members[newValue])
+                .onChange(of: selectMemberId) { newValue in
+                    if let newValue = newValue {
+                        paymentModel.setPaidBy(member: group.members[newValue])
+                    }
                 }
                 
                 
