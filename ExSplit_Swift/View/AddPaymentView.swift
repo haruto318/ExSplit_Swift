@@ -14,25 +14,33 @@ struct AddPaymentView: View {
     let group: Group
     
     @State var selectedMembers = Set<Int>()
-    @State var membersPayment: [Double] = []
+    @State var membersPayment: [String] = []
     @State var selectedCurrency: Currency = Currency(code: "", name: "", japaneseName: "")
     // 仮
     @State var inputPurpose = ""
-    @State var inputAmount: Double = 0
+    @State var inputAmount: String = ""
     @State var isEven: Bool = true
     @State private var showSheet1 = false
     @State private var showSheet2 = false
     @State private var showSheet3 = false
     
+    
     init(group: Group) {
         self.group = group
-        _membersPayment = State(initialValue: Array(repeating: 0, count: group.members.count))
+        _membersPayment = State(initialValue: Array(repeating: "", count: group.members.count))
         print(_membersPayment)
         _currencyRatesViewModel = StateObject(wrappedValue: CurrencyRatesViewModel(homeCurrency: group.homeCurrency.code))
     }
     
     var selectedMembersNames: String {
         selectedMembers.map { group.members[$0].memberName }.joined(separator: " ")
+    }
+    
+    var formatStyle: Decimal.FormatStyle.Currency {
+        Decimal.FormatStyle.Currency
+            .currency(code: paymentModel.currency.code == "" ? "JPY" : paymentModel.currency.code)
+            .precision(.fractionLength(0))
+            .locale(.init(identifier: "en_IN"))
     }
     
 
@@ -63,7 +71,7 @@ struct AddPaymentView: View {
                         HStack {
                             Button(action: {
                                 isEven = true
-                                membersPayment = Array(repeating: 0, count: group.members.count)
+                                membersPayment = Array(repeating: "", count: group.members.count)
                             }) {
                                 HStack {
                                     Spacer()
@@ -82,7 +90,7 @@ struct AddPaymentView: View {
                             }
                             Button(action: {
                                 isEven = false
-                                membersPayment = Array(repeating: 0, count: group.members.count)
+                                membersPayment = Array(repeating: "", count: group.members.count)
                             }) {
                                 HStack {
                                     Spacer()
@@ -117,6 +125,9 @@ struct AddPaymentView: View {
                                 RoundedRectangle(cornerRadius: 10)
                                     .stroke(Color.customFrameColor, lineWidth: 1)
                             )
+                            .onChange(of: inputPurpose) { newValue in
+                                paymentModel.setPurpose(text: newValue)
+                            }
                     }
                     
                     ///支払い通貨
@@ -152,6 +163,9 @@ struct AddPaymentView: View {
                                 ])
                                 .onDisappear{
                                     paymentModel.setCurrency(currency: selectedCurrency)
+                                    paymentModel.resetTotal()
+                                    membersPayment = Array(repeating: "", count: group.members.count)
+                                    inputAmount = ""
                                 }
                         }
                     }
@@ -197,7 +211,7 @@ struct AddPaymentView: View {
                                     .fontStyle(.title)
                                 Spacer()
                             }
-                            TextField("支払った金額を入力してください", value: $inputAmount, format: .currency(code: paymentModel.currency.code))
+                            TextField("支払った金額を入力してください", text: $inputAmount)
                                 .keyboardType(.numberPad)
                                 .font(.custom("ZenMaruGothic-Regular", size: 12))
                                 .padding()
@@ -206,6 +220,12 @@ struct AddPaymentView: View {
                                     RoundedRectangle(cornerRadius: 10)
                                         .stroke(Color.customFrameColor, lineWidth: 1)
                                 )
+                                .onChange(of: inputAmount) { newValue in
+                                    if let parseAmount = try? formatStyle.parseStrategy.parse(newValue) {
+                                        self.inputAmount = formatStyle.format(parseAmount)
+                                    }
+                                    paymentModel.setTotal(amountText: newValue)
+                                }
                         }
                     }
                     
@@ -251,7 +271,7 @@ struct AddPaymentView: View {
                                 Spacer()
                             }
                             VStack(spacing: 5){
-                                ForEach(group.members, id: \.self){ member in
+                                ForEach(group.members, id: \.memberId){ member in
                                     HStack {
                                         Text(member.memberName)
                                             .fontStyle(.body)
@@ -262,7 +282,7 @@ struct AddPaymentView: View {
                                                 RoundedRectangle(cornerRadius: 10)
                                                     .stroke(Color.customFrameColor, lineWidth: 1)
                                             )
-                                        TextField("金額を入力してください", value: $membersPayment[member.memberId], format: .currency(code: paymentModel.currency.code))
+                                        TextField("金額を入力してください", text: $membersPayment[member.memberId])
                                             .keyboardType(.numberPad)
                                             .multilineTextAlignment(TextAlignment.center)
                                             .font(.custom("ZenMaruGothic-Regular", size: 12))
@@ -272,6 +292,12 @@ struct AddPaymentView: View {
                                                 RoundedRectangle(cornerRadius: 10)
                                                     .stroke(Color.customFrameColor, lineWidth: 1)
                                             )
+                                            .onChange(of: membersPayment[member.memberId]) { newValue in
+                                                if let parseAmount = try? formatStyle.parseStrategy.parse(newValue) {
+                                                    self.membersPayment[member.memberId] = formatStyle.format(parseAmount)
+                                                }
+//                                                paymentModel.setTotal(amountText: newValue)
+                                            }
                                     }
                                 }
 
@@ -283,7 +309,18 @@ struct AddPaymentView: View {
                     VStack {
                         Spacer().frame(height: 20)
                         Button(action: {
-                            print(currencyRatesViewModel.rates)
+                            
+                            print(currencyRatesViewModel.rates["KID"])
+                            print(paymentModel.purpose)
+                            print(paymentModel.total)
+                            print(paymentModel.currency)
+                            print(paymentModel.paidBy)
+                            print(paymentModel.payments)
+                            print(selectedMembers)
+                            print(membersPayment)
+                            
+                            
+                            
                         }) {
                             HStack {
                                 Spacer()

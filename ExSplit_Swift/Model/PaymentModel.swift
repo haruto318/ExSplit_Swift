@@ -20,10 +20,16 @@ final class PaymentModel {
         purpose = text
     }
     
-    func setTotal(text: String) {
-        if let doubleText = Double(text){
-            total = doubleText
+    func setTotal(amountText: String) {
+        let parseAmount = amountText.components(separatedBy: " ")
+        guard parseAmount.count == 2 else { return }
+        if let parseTotal = Double(parseAmount[1]){
+            total = parseTotal
         }
+    }
+    
+    func resetTotal() {
+        total = 0
     }
 
     func setCurrency(currency: Currency) {

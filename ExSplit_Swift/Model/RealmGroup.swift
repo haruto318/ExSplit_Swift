@@ -9,7 +9,7 @@ import Foundation
 import RealmSwift
 
 final class Group: Object, ObjectKeyIdentifiable {
-    @Persisted(primaryKey: true) var groupId: Int = 0
+    @Persisted(primaryKey: true) var groupId = UUID()
     @Persisted var members = List<Member>()
     @Persisted var groupName: String = ""
     @Persisted var homeCurrency: HomeCurrency!
@@ -34,7 +34,7 @@ final class Payment: EmbeddedObject {
 }
 
 final class Balance: EmbeddedObject {
-    @Persisted var balanceId: Int = 0
+    @Persisted var balanceId = UUID()
     @Persisted var purpose: String = ""
     @Persisted var total: Double = 0.0
     @Persisted var currency: HomeCurrency!

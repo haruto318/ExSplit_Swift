@@ -6,50 +6,41 @@
 //
 import Foundation
 import RealmSwift
+import SwiftUI
 
 final class RealmGroupViewModel: ObservableObject {
     private(set) var realm: Realm?
     @Published var groups: [Group] = []
-    
+
     init() {
         openRealm()
         getGroup()
     }
 
-    // Realmとの接続を開くメソッド
     func openRealm() {
         let config = Realm.Configuration(
-            schemaVersion: 2, // スキーマバージョンを2に更新
-            migrationBlock: { migration, oldSchemaVersion in
-                if oldSchemaVersion < 2 {
-                    // 必要ならば移行ロジックをここに記述
-                    migration.enumerateObjects(ofType: Group.className()) { oldObject, newObject in
-                        // 新しい balance プロパティを空のリストに初期化
-                        newObject!["balance"] = List<Balance>()
-                    }
-                }
-            }
+            schemaVersion: 1
         )
-        
+
         Realm.Configuration.defaultConfiguration = config
-        
+
         do {
             realm = try Realm()
         } catch {
             print("Realmを開く際のエラー", error)
         }
     }
-    
-    func addGroup(groupModel: GroupModel){
+
+    func addGroup(groupModel: GroupModel) {
         let group = Group()
         group.groupName = groupModel.name
-        
+
         let homeCurrency = HomeCurrency()
         homeCurrency.code = groupModel.homeCurrency.code
         homeCurrency.name = groupModel.homeCurrency.name
         homeCurrency.japaneseName = groupModel.homeCurrency.japaneseName
         group.homeCurrency = homeCurrency
-        
+
         for (i, name) in zip(groupModel.members.indices, groupModel.members)  {
             let member = Member()
             member.memberId = i
@@ -62,7 +53,7 @@ final class RealmGroupViewModel: ObservableObject {
             }
             group.members.append(member)
         }
-        
+
         if let realm = realm {
             try? realm.write({
                 realm.add(group)
@@ -70,7 +61,7 @@ final class RealmGroupViewModel: ObservableObject {
             print(groups)
         }
     }
-    
+
     func getGroup() {
         if let realm = realm {
             let allGroups = realm.objects(Group.self)
@@ -80,6 +71,23 @@ final class RealmGroupViewModel: ObservableObject {
             }
             print(groups)
         }
+    }
+
+    
+    func addPayment(group: Group, isEven: Bool, paymentModel: PaymentModel, selectedMembers: Set<Int>, membersPayment: [Double]) {
+        if isEven {
+            splitEven(group: group, paymentModel: paymentModel, selectedMembers: selectedMembers)
+        } else {
+            split(group: group, paymentModel: paymentModel, membersPayment: membersPayment)
+        }
+    }
+    
+    func splitEven(group: Group, paymentModel: PaymentModel, selectedMembers: Set<Int>) {
+        
+    }
+    
+    func split(group: Group, paymentModel: PaymentModel, membersPayment: [Double]){
+        
     }
     
     
