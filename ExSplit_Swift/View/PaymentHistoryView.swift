@@ -40,7 +40,7 @@ struct PaymentHistoryView: View {
                     
                     ForEach(Array(balances.reversed().enumerated()), id: \.offset){ offset, balance in
                         /// 支払い
-                        NavigationLink(destination: PaymentDetailView()) {
+                        NavigationLink(destination: PaymentDetailView(group: group, balance: balance)) {
                             VStack(spacing: 5){
                                 HStack(){
                                     Text(balance.purpose)

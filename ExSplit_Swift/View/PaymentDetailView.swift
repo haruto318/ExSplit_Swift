@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct PaymentDetailView: View {
+    let group: Group
+    let balance: Balance
     // 仮
     let split = (id: 1, purpose: "晩御飯", total: 1000, memberNum: 4, paidBy: "はると", balance: [(name: "はると", amount: 0), (name: "ゆーた", amount: 500), (name: "りょう", amount: 500)])
     
@@ -25,7 +27,7 @@ struct PaymentDetailView: View {
                 /// 金額＆日付
                 VStack(spacing: 5){
                     HStack(){
-                        Text(split.purpose)
+                        Text(balance.purpose)
                             .fontStyle(.headBold)
                         Spacer()
                     }
@@ -35,7 +37,7 @@ struct PaymentDetailView: View {
                                 .fontStyle(.body)
                                 .foregroundColor(Color.customAccentColor)
                             Spacer()
-                            Text("\(split.total) yen")
+                            Text("\(balance.total) yen")
                                 .fontStyle(.body)
                                 .foregroundColor(Color.customFontColor)
                         }
@@ -66,7 +68,7 @@ struct PaymentDetailView: View {
                     
                     VStack(spacing: 5){
                         ///個別
-                        ForEach(Array(split.balance.enumerated()), id: \.offset){ offset, balance in
+                        ForEach(Array(balance.payments.enumerated()), id: \.offset){ offset, payment in
                             HStack(){
                                 HStack(alignment: .center, spacing: 5){
                                     Image(systemName: "person.crop.circle")
@@ -74,13 +76,13 @@ struct PaymentDetailView: View {
                                         .frame(width: 24, height: 24)
                                     VStack(alignment: .leading, spacing: 0){
                                         Text("Name").fontStyle(.description)
-                                        Text(balance.name).fontStyle(.body)
+                                        Text(group.members[payment.memberId].memberName).fontStyle(.body)
                                     }
                                 }
                                 Spacer()
                                 VStack(alignment: .trailing, spacing: 0){
                                     Text("Cost").fontStyle(.description)
-                                    Text("\(balance.amount) yen").fontStyle(.body)
+                                    Text("\(payment.amount) yen").fontStyle(.body)
                                 }
                             }
                             Divider()
@@ -91,7 +93,7 @@ struct PaymentDetailView: View {
                             Spacer()
                             VStack(alignment: .trailing, spacing: 0){
                                 Text("Total").fontStyle(.description)
-                                Text("\(split.total) yen").fontStyle(.bodyBold)
+                                Text("\(balance.total) yen").fontStyle(.bodyBold)
                             }
                         }
                     }
@@ -112,8 +114,8 @@ struct PaymentDetailView: View {
     }
 }
 
-#Preview {
-    PaymentDetailView()
-}
+//#Preview {
+//    PaymentDetailView()
+//}
 
 
