@@ -9,7 +9,7 @@ import SwiftUI
 
 struct GroupDetailView: View {
     let group: Group
-
+    
     var body: some View {
         VStack(spacing: 40) {
             
@@ -119,7 +119,7 @@ struct GroupDetailView: View {
                                         HStack(alignment: .center, spacing: 5){
                                             VStack(alignment: .trailing, spacing: 0){
                                                 Text("Paid by").fontStyle(.description)
-                                                Text(group.balance[group.balance.count-1-offset].paidBy).fontStyle(.body)
+                                                Text(group.balance[group.balance.count-1-offset].paidBy.memberName).fontStyle(.body)
                                             }
                                             Image(systemName: "person.crop.circle")
                                                 .resizable()
@@ -163,7 +163,7 @@ struct GroupDetailView: View {
                     Spacer().frame(height: 20)
                     
                     NavigationLink(destination: AddPaymentView(group: group)){
-                        //                        Button(action: {}) {
+                        //                                                Button(action: {}) {
                         HStack {
                             Spacer()
                             Text("支払いを追加")

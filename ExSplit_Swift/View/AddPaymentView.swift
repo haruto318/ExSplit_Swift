@@ -10,6 +10,7 @@ import SwiftUI
 struct AddPaymentView: View {
     @Environment(PaymentModel.self) private var paymentModel
     @StateObject var currencyRatesViewModel: CurrencyRatesViewModel
+    @ObservedObject var realmViewModel = RealmGroupViewModel()
     
     let group: Group
     
@@ -309,16 +310,17 @@ struct AddPaymentView: View {
                     VStack {
                         Spacer().frame(height: 20)
                         Button(action: {
-                            
-                            print(currencyRatesViewModel.rates["KID"])
-                            print(paymentModel.purpose)
-                            print(paymentModel.total)
-                            print(paymentModel.currency)
-                            print(paymentModel.paidBy)
-                            print(paymentModel.payments)
-                            print(selectedMembers)
-                            print(membersPayment)
-                            
+                            if let rate = currencyRatesViewModel.rates[paymentModel.currency.code] {
+                                realmViewModel.addPayment(group: group, isEven: isEven, paymentModel: paymentModel, selectedMembers: selectedMembers, membersPayment: membersPayment, rate: rate)
+                                print(rate)
+                                print(paymentModel.purpose)
+                                print(paymentModel.total)
+                                print(paymentModel.currency)
+                                print(paymentModel.paidBy)
+                                print(paymentModel.payments)
+                                print(selectedMembers)
+                                print(membersPayment)
+                            }
                             
                             
                         }) {

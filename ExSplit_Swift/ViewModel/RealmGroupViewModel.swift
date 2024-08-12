@@ -45,7 +45,7 @@ final class RealmGroupViewModel: ObservableObject {
             let member = Member()
             member.memberId = i
             member.memberName = name
-            for (j, value) in zip(groupModel.members.indices, groupModel.members) {
+            for (j, _) in zip(groupModel.members.indices, groupModel.members) {
                 let payment = Payment()
                 payment.memberId = j
                 payment.amount = 0
@@ -74,20 +74,68 @@ final class RealmGroupViewModel: ObservableObject {
     }
 
     
-    func addPayment(group: Group, isEven: Bool, paymentModel: PaymentModel, selectedMembers: Set<Int>, membersPayment: [Double]) {
+    func addPayment(group: Group, isEven: Bool, paymentModel: PaymentModel, selectedMembers: Set<Int>, membersPayment: [String], rate: Double) {
         if isEven {
-            splitEven(group: group, paymentModel: paymentModel, selectedMembers: selectedMembers)
+            splitEven(group: group, paymentModel: paymentModel, selectedMembers: selectedMembers, rate: rate)
         } else {
-            split(group: group, paymentModel: paymentModel, membersPayment: membersPayment)
+            split(group: group, paymentModel: paymentModel, membersPayment: membersPayment, rate: rate)
         }
     }
     
-    func splitEven(group: Group, paymentModel: PaymentModel, selectedMembers: Set<Int>) {
+    func splitEven(group: Group, paymentModel: PaymentModel, selectedMembers: Set<Int>, rate: Double) {
+//        print(paymentModel.total * rate)
+        let perAmount = paymentModel.total * rate / Double(selectedMembers.count)
         
+        let balance = Balance()
+        balance.purpose = paymentModel.purpose
+        balance.total = paymentModel.total
+//        balance.paidBy = paymentModel.paidBy.memberId
+        
+        let member = Member()
+        member.memberId = paymentModel.paidBy.memberId
+        member.memberName = paymentModel.paidBy.memberName
+        member.payments = List<Payment>()
+        balance.paidBy = member
+        
+        let homeCurrency = HomeCurrency()
+        homeCurrency.code = paymentModel.currency.code
+        homeCurrency.name = paymentModel.currency.name
+        homeCurrency.japaneseName = paymentModel.currency.japaneseName
+        balance.currency = homeCurrency
+        
+        
+        for (i, _) in zip(group.members.indices, group.members) {
+            let payment = Payment()
+            payment.memberId = i
+            if selectedMembers.contains(i) {
+                payment.amount = perAmount
+            } else {
+                payment.amount = 0
+            }
+            balance.payments.append(payment)
+        }
+        
+        if let realm = realm {
+            let fixedGroup = realm.object(ofType: Group.self, forPrimaryKey: group.groupId)
+            do{
+              try realm.write{
+                  fixedGroup?.balance.append(balance)
+                  selectedMembers.forEach { id in
+                      fixedGroup?.members[paymentModel.paidBy.memberId].payments[id].amount += perAmount
+                      fixedGroup?.members[id].payments[paymentModel.paidBy.memberId].amount -= perAmount
+                  }
+              }
+            }catch {
+              print("Error \(error)")
+            }
+        }
     }
     
-    func split(group: Group, paymentModel: PaymentModel, membersPayment: [Double]){
-        
+    func split(group: Group, paymentModel: PaymentModel, membersPayment: [String], rate: Double){
+//        if let realm = realm {
+//            let fixedGroup = realm.object(ofType: Group.self, forPrimaryKey: group.groupId)
+//            print(fixedGroup)
+//        }
     }
     
     
