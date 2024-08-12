@@ -40,12 +40,5 @@ final class PaymentModel {
         paidBy = member
     }
     
-//    func addMember(name: String) {
-//        members.append(name)
-//    }
-//    
-//    func removeMember(index: String){
-//        members.remove(at: members.firstIndex(of: index)!)
-//    }
 }
 

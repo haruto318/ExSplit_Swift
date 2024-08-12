@@ -19,7 +19,7 @@ struct GroupDetailView: View {
                 
                 VStack(spacing: 20){
                     
-                    /// 1 cell
+                    /// グループ情報
                     VStack(spacing: 5){
                         HStack(){
                             Text(group.groupName)
@@ -136,7 +136,7 @@ struct GroupDetailView: View {
                         
                         Spacer().frame(height: 5)
                         
-                        NavigationLink(destination: PaymentHistoryView()){
+                        NavigationLink(destination: PaymentHistoryView(group: group)){
                             HStack {
                                 Spacer()
                                 Text("すべて見る")
