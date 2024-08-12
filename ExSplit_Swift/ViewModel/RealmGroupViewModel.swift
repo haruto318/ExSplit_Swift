@@ -83,13 +83,11 @@ final class RealmGroupViewModel: ObservableObject {
     }
     
     func splitEven(group: Group, paymentModel: PaymentModel, selectedMembers: Set<Int>, rate: Double) {
-//        print(paymentModel.total * rate)
         let perAmount = paymentModel.total * rate / Double(selectedMembers.count)
         
         let balance = Balance()
         balance.purpose = paymentModel.purpose
         balance.total = paymentModel.total
-//        balance.paidBy = paymentModel.paidBy.memberId
         
         let member = Member()
         member.memberId = paymentModel.paidBy.memberId

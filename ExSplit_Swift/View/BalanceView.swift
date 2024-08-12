@@ -7,18 +7,15 @@
 
 import SwiftUI
 
-struct User {
-    let id: String
-    let name: String
-    let total: Int
-    let balance: [(uid: String, amount: Int)]
-}
-
 struct BalanceView: View {
+    let group: Group
     ///仮
-    @State var currentUser = "1"
-    let members = ["はると", "こうたろ", "けまり"]
-    let users: [User] = [User(id: "1", name: "はると", total: 1000, balance: [(uid: "2", amount: 500), (uid: "3", amount: 500)]), User(id: "2", name: "こうたろ", total: -700, balance: [(uid: "1", amount: -500), (uid: "3", amount: -200)]), User(id: "3", name: "けまり", total: -300, balance: [(uid: "1", amount: -500), (uid: "2", amount: 200)])]
+    @State var currentMember = "0"
+//    let members = ["はると", "こうたろ", "けまり"]
+//    let users: [User] = [
+//    User(id: "1", name: "はると", total: 1000, balance: [(uid: "2", amount: 500), (uid: "3", amount: 500)]), 
+//    User(id: "2", name: "こうたろ", total: -700, balance: [(uid: "1", amount: -500), (uid: "3", amount: -200)]),
+//    User(id: "3", name: "けまり", total: -300, balance: [(uid: "1", amount: -500), (uid: "2", amount: 200)])]
     
     
     
@@ -28,18 +25,18 @@ struct BalanceView: View {
             VStack {
                 ScrollView(.horizontal){
                     HStack(spacing: 10){
-                        ForEach(users, id: \.id) { user in
+                        ForEach(group.members, id: \.memberId) { member in
                             Button(action: {
-                                currentUser = user.id
+                                currentMember = "\(member.memberId)"
                             }){
                                 VStack(spacing: 3){
                                     Image(systemName: "person.crop.circle")
                                         .resizable()
                                         .frame(width: 40, height: 40)
-                                        .foregroundColor(currentUser == user.id ? Color.customFontColor : Color.customAccentColor)
-                                    Text(user.name)
+                                        .foregroundColor(currentMember == "\(member.memberId)" ? Color.customFontColor : Color.customAccentColor)
+                                    Text(member.memberName)
                                         .fontStyle(.body)
-                                        .foregroundColor(currentUser == user.id ? Color.customFontColor : Color.customAccentColor)
+                                        .foregroundColor(currentMember == "\(member.memberId)" ? Color.customFontColor : Color.customAccentColor)
                                 }
                             }
                         }
@@ -51,7 +48,10 @@ struct BalanceView: View {
             
             VStack(spacing: 20) {
                 
-                if let user = users.first(where: { $0.id == currentUser }) {
+                if let member = group.members.first(where: { "\($0.memberId)" == currentMember }) {
+                    let total = member.payments.reduce(0) { sum, payment in
+                        sum + payment.amount
+                    }
                     
                     /// ユーザー情報
                     VStack(spacing: 5){
@@ -60,10 +60,10 @@ struct BalanceView: View {
                                 .resizable()
                                 .frame(width: 40, height: 40)
                             VStack(alignment: .leading, spacing: 0){
-                                Text(user.name).fontStyle(.headBold)
-                                Text("\(user.total) yen \(user.total < 0 ? "借り" : "貸し")あり")
+                                Text(member.memberName).fontStyle(.headBold)
+                                Text("\(total) yen \(total < 0 ? "借り" : "貸し")あり")
                                     .fontStyle(.body)
-                                    .foregroundColor(user.total < 0 ? .red : .green)
+                                    .foregroundColor(total < 0 ? .red : .green)
                             }
                             Spacer()
                         }
@@ -75,9 +75,9 @@ struct BalanceView: View {
                         )
                     
                     /// 借りフィルター
-                    let negativeBalances = user.balance.filter { $0.amount < 0 }
+                    let negativeBalances = member.payments.filter { $0.amount < 0 }
                     /// 貸しフィルター
-                    let positiveBalances = user.balance.filter { $0.amount > 0 }
+                    let positiveBalances = member.payments.filter { $0.amount > 0 }
                     
                     /// 借り一覧
                     if !negativeBalances.isEmpty {
@@ -88,7 +88,7 @@ struct BalanceView: View {
                                 Spacer()
                             }
                             VStack(spacing: 5){
-                                ForEach(negativeBalances, id: \.uid){ balance in
+                                ForEach(Array(negativeBalances), id: \.memberId){ balance in
                                     Divider()
                                     HStack(){
                                         HStack(alignment: .center, spacing: 5){
@@ -97,7 +97,7 @@ struct BalanceView: View {
                                                 .frame(width: 24, height: 24)
                                             VStack(alignment: .leading, spacing: 0){
                                                 Text("Name").fontStyle(.description)
-                                                Text(users.first(where: { $0.id == balance.uid })!.name).fontStyle(.body)
+                                                Text(group.members.first(where: { $0.memberId == balance.memberId })!.memberName).fontStyle(.body)
                                             }
                                         }
                                         Spacer()
@@ -132,7 +132,7 @@ struct BalanceView: View {
                                 Spacer()
                             }
                             VStack(spacing: 5){
-                                ForEach(positiveBalances, id: \.uid){ balance in
+                                ForEach(Array(positiveBalances), id: \.memberId){ balance in
                                     Divider()
                                     HStack(){
                                         HStack(alignment: .center, spacing: 5){
@@ -142,7 +142,7 @@ struct BalanceView: View {
                                             VStack(alignment: .leading, spacing: 0){
                                                 Text("Name")
                                                     .fontStyle(.description)
-                                                Text(users.first(where: { $0.id == balance.uid })!.name)
+                                                Text(group.members.first(where: { $0.memberId == balance.memberId })!.memberName)
                                                     .fontStyle(.body)
                                             }
                                         }
@@ -184,6 +184,6 @@ struct BalanceView: View {
     }
 }
 
-#Preview {
-    BalanceView()
-}
+//#Preview {
+//    BalanceView()
+//}

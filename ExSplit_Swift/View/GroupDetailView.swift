@@ -77,7 +77,7 @@ struct GroupDetailView: View {
                         
                         Spacer().frame(height: 1)
                         
-                        NavigationLink(destination: BalanceView()) {
+                        NavigationLink(destination: BalanceView(group: group)) {
                             HStack {
                                 Spacer()
                                 Text("個別支払い状況を表示")

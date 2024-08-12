@@ -38,7 +38,6 @@ final class Balance: EmbeddedObject {
     @Persisted var purpose: String = ""
     @Persisted var total: Double = 0.0
     @Persisted var currency: HomeCurrency!
-//    @Persisted var paidBy: Int = 0
     @Persisted var paidBy: Member!
     @Persisted var payments = List<Payment>()
 }
