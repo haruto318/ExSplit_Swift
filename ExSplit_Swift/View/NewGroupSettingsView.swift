@@ -9,9 +9,8 @@ import SwiftUI
 
 struct NewGroupSettingsView: View {
     @Environment(GroupModel.self) private var groupModel
-    ///仮
+
     @State var inputName: String = ""
-//    @State var selectCurrency: String = ""
     @State private var showSheet = false
     
     @State var selectedCurrency: Currency = Currency(code: "", name: "", japaneseName: "")

@@ -10,14 +10,13 @@ import RealmSwift
 
 struct ContentView: View {
     @ObservedObject var realmViewModel = RealmGroupViewModel()
-    
-    let splits = [(id: 1, name: "アジア", total: 10000, num: 4), (id: 2, name: "アジア", total: 10000, num: 4)]
 
     var body: some View {
         NavigationView {
             ScrollView{
                 VStack(spacing: 40) {
                     
+                    /// タイトル
                     VStack {
                         HStack(){
                             Text("ExSplit")
@@ -71,7 +70,7 @@ struct ContentView: View {
                                 Spacer()
                             }
                             
-                            /// 仮リスト
+                            /// グループリスト
                             ForEach(Array(realmViewModel.groups.enumerated()), id: \.offset){ offset, group in
                                 
                                 NavigationLink(destination: GroupDetailView(group: group)) {

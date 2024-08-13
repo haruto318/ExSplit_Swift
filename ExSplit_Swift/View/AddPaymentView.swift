@@ -17,7 +17,7 @@ struct AddPaymentView: View {
     @State var selectedMembers = Set<Int>()
     @State var membersPayment: [String] = []
     @State var selectedCurrency: Currency = Currency(code: "", name: "", japaneseName: "")
-    // 仮
+
     @State var inputPurpose = ""
     @State var inputAmount: String = ""
     @State var isEven: Bool = true
@@ -29,7 +29,6 @@ struct AddPaymentView: View {
     init(group: Group) {
         self.group = group
         _membersPayment = State(initialValue: Array(repeating: "", count: group.members.count))
-        print(_membersPayment)
         _currencyRatesViewModel = StateObject(wrappedValue: CurrencyRatesViewModel(homeCurrency: group.homeCurrency.code))
     }
     
@@ -312,17 +311,7 @@ struct AddPaymentView: View {
                         Button(action: {
                             if let rate = currencyRatesViewModel.rates[paymentModel.currency.code] {
                                 realmViewModel.addPayment(group: group, isEven: isEven, paymentModel: paymentModel, selectedMembers: selectedMembers, membersPayment: membersPayment, rate: rate)
-                                print(rate)
-                                print(paymentModel.purpose)
-                                print(paymentModel.total)
-                                print(paymentModel.currency)
-                                print(paymentModel.paidBy)
-                                print(paymentModel.payments)
-                                print(selectedMembers)
-                                print(membersPayment)
                             }
-                            
-                            
                         }) {
                             HStack {
                                 Spacer()

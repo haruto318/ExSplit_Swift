@@ -10,14 +10,10 @@ import SwiftUI
 struct PaymentHistoryView: View {
     let group: Group
     var balances: [Balance] = []
-    // 仮
-//    @State var splits: [(id: Int, purpose: String, total: Int, paidBy: String)] = [(id: 1, purpose: "晩御飯", total: 10000, paidBy: "はると"), (id: 2, purpose: "朝ごはん", total: 10000, paidBy: "ゆーた"), (id: 2, purpose: "朝", total: 10000, paidBy: "ゆー")]
     
     init(group: Group) {
         self.group = group
         balances = Array(group.balance)
-        print("?????")
-        print(balances)
     }
 
     var body: some View {

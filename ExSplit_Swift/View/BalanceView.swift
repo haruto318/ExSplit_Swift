@@ -9,15 +9,7 @@ import SwiftUI
 
 struct BalanceView: View {
     let group: Group
-    ///仮
     @State var currentMember = "0"
-//    let members = ["はると", "こうたろ", "けまり"]
-//    let users: [User] = [
-//    User(id: "1", name: "はると", total: 1000, balance: [(uid: "2", amount: 500), (uid: "3", amount: 500)]), 
-//    User(id: "2", name: "こうたろ", total: -700, balance: [(uid: "1", amount: -500), (uid: "3", amount: -200)]),
-//    User(id: "3", name: "けまり", total: -300, balance: [(uid: "1", amount: -500), (uid: "2", amount: 200)])]
-    
-    
     
     var body: some View {
         VStack(spacing: 40) {
