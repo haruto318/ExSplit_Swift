@@ -74,7 +74,7 @@ final class RealmGroupViewModel: ObservableObject {
     }
 
     
-    func addPayment(group: Group, isEven: Bool, paymentModel: PaymentModel, selectedMembers: Set<Int>, membersPayment: [String], rate: Double) {
+    func addPayment(group: Group, paymentModel: PaymentModel, selectedMembers: Set<Int>, membersPayment: [String], rate: Double) {
         let balance = Balance()
         balance.purpose = paymentModel.purpose
         
@@ -90,7 +90,7 @@ final class RealmGroupViewModel: ObservableObject {
         homeCurrency.japaneseName = paymentModel.currency.japaneseName
         balance.currency = homeCurrency
         
-        if isEven {
+        if paymentModel.isEven {
             splitEven(group: group, paymentModel: paymentModel, selectedMembers: selectedMembers, rate: rate, balance: balance)
         } else {
             split(group: group, paymentModel: paymentModel, membersPayment: membersPayment, rate: rate, balance: balance)
@@ -129,14 +129,17 @@ final class RealmGroupViewModel: ObservableObject {
     }
     
     func split(group: Group, paymentModel: PaymentModel, membersPayment: [String], rate: Double, balance: Balance){
-        let perAmounts = membersPayment.map { payment in
-            Double(payment.components(separatedBy: " ")[1])! / rate
+        let perAmounts = membersPayment.compactMap { payment -> Double? in
+            let components = payment.components(separatedBy: " ")
+            guard components.count == 2, let amount = Double(components[1]) else {
+                return 0
+            }
+            return amount / rate
         }
-        
+
         let total = perAmounts.reduce(0) { (result, current) in
-            result + (current)
+            result + current
         }
-        
         balance.total = total
         
         for (i, _) in zip(group.members.indices, group.members) {

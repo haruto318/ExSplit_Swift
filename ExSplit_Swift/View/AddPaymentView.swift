@@ -20,10 +20,10 @@ struct AddPaymentView: View {
 
     @State var inputPurpose = ""
     @State var inputAmount: String = ""
-    @State var isEven: Bool = true
     @State private var showSheet1 = false
     @State private var showSheet2 = false
     @State private var showSheet3 = false
+    @State private var showAlert = false
     
     
     init(group: Group) {
@@ -41,6 +41,21 @@ struct AddPaymentView: View {
             .currency(code: paymentModel.currency.code == "" ? "JPY" : paymentModel.currency.code)
             .precision(.fractionLength(0))
             .locale(.init(identifier: "en_IN"))
+    }
+    
+    // case split
+    var isMembersPayment: Bool {
+        let total = membersPayment.reduce(0) { (result, current) in
+            let parseAmount = current.components(separatedBy: " ")
+            guard parseAmount.count == 2, let parseTotal = Double(parseAmount[1]) else { return result }
+            return result + parseTotal
+        }
+        return total > 0
+    }
+    
+    // case splitEven
+    var isSelectedMembers: Bool {
+        return !selectedMembers.isEmpty
     }
     
 
@@ -70,7 +85,7 @@ struct AddPaymentView: View {
                         }
                         HStack {
                             Button(action: {
-                                isEven = true
+                                paymentModel.isEven = true
                                 membersPayment = Array(repeating: "", count: group.members.count)
                             }) {
                                 HStack {
@@ -81,7 +96,7 @@ struct AddPaymentView: View {
                                     Spacer()
                                 }.frame(height: 50)
                                 .padding()
-                                    .background(isEven ? Color.customButtonColor : .clear)
+                                    .background(paymentModel.isEven ? Color.customButtonColor : .clear)
                                     .cornerRadius(10)
                                     .overlay(
                                         RoundedRectangle(cornerRadius: 10)
@@ -89,7 +104,7 @@ struct AddPaymentView: View {
                                     )
                             }
                             Button(action: {
-                                isEven = false
+                                paymentModel.isEven = false
                                 membersPayment = Array(repeating: "", count: group.members.count)
                             }) {
                                 HStack {
@@ -100,7 +115,7 @@ struct AddPaymentView: View {
                                     Spacer()
                                 }.frame(height: 50)
                                 .padding()
-                                    .background(isEven ? .clear : Color.customButtonColor)
+                                    .background(paymentModel.isEven ? .clear : Color.customButtonColor)
                                     .cornerRadius(10)
                                     .overlay(
                                         RoundedRectangle(cornerRadius: 10)
@@ -204,7 +219,7 @@ struct AddPaymentView: View {
                     }
                     
                     ///支払った金額
-                    if isEven {
+                    if paymentModel.isEven {
                         VStack(spacing: 10){
                             HStack {
                                 Text("支払った金額")
@@ -230,7 +245,7 @@ struct AddPaymentView: View {
                     }
                     
                     /// 誰に支払ったか or 各金額
-                    if isEven {
+                    if paymentModel.isEven {
                         VStack(spacing: 10){
                             HStack {
                                 Text("誰に支払ったか")
@@ -296,7 +311,6 @@ struct AddPaymentView: View {
                                                 if let parseAmount = try? formatStyle.parseStrategy.parse(newValue) {
                                                     self.membersPayment[member.memberId] = formatStyle.format(parseAmount)
                                                 }
-//                                                paymentModel.setTotal(amountText: newValue)
                                             }
                                     }
                                 }
@@ -309,8 +323,22 @@ struct AddPaymentView: View {
                     VStack {
                         Spacer().frame(height: 20)
                         Button(action: {
-                            if let rate = currencyRatesViewModel.rates[paymentModel.currency.code] {
-                                realmViewModel.addPayment(group: group, isEven: isEven, paymentModel: paymentModel, selectedMembers: selectedMembers, membersPayment: membersPayment, rate: rate)
+                            if let rate = currencyRatesViewModel.rates[paymentModel.currency.code], paymentModel.isEnabled {
+                                let shouldAddPayment: Bool
+                                
+                                if paymentModel.isEven {
+                                    shouldAddPayment = isSelectedMembers && inputAmount != ""
+                                } else {
+                                    shouldAddPayment = isMembersPayment
+                                }
+                                
+                                if shouldAddPayment {
+                                    realmViewModel.addPayment(group: group, paymentModel: paymentModel, selectedMembers: selectedMembers, membersPayment: membersPayment, rate: rate)
+                                } else {
+                                    showAlert = true
+                                }
+                            } else {
+                                showAlert = true
                             }
                         }) {
                             HStack {
@@ -327,6 +355,13 @@ struct AddPaymentView: View {
                                         .stroke(Color.customFrameColor, lineWidth: 1)
                                 )
                         }.padding(.horizontal, 10)
+                    }
+                    .sheet(isPresented: $showAlert) {
+                        AlertModal()
+                            .presentationDetents([
+                                // 画面に対する割合
+                                .fraction(0.4)
+                            ])
                     }
                     
                 }.padding(.horizontal)

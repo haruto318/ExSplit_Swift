@@ -14,7 +14,10 @@ final class PaymentModel {
     var total: Double = 0.0
     var currency: Currency = Currency(code: "", name: "", japaneseName: "")
     var paidBy: Member = Member()
-    var payments: [Int] = []
+    var isEven: Bool = true
+    var isEnabled: Bool {
+        return !(paidBy.memberName == "" && currency.code == "")
+    }
     
     func setPurpose(text: String) {
         purpose = text
