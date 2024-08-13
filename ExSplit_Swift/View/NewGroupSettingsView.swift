@@ -10,10 +10,10 @@ import SwiftUI
 struct NewGroupSettingsView: View {
     @Environment(GroupModel.self) private var groupModel
 
-    @State var inputName: String = ""
+    @State private var inputName: String = ""
     @State private var showSheet = false
-    
-    @State var selectedCurrency: Currency = Currency(code: "", name: "", japaneseName: "")
+
+    @State private var selectedCurrency: Currency = Currency(code: "", name: "", japaneseName: "")
     
     var body: some View {
         VStack(spacing: 40) {

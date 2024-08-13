@@ -12,6 +12,9 @@ final class GroupModel {
     var name: String = ""
     var homeCurrency: Currency = Currency(code: "", name: "", japaneseName: "")
     var members: [String] = []
+    var isEnabled: Bool {
+        return !(name == "" && homeCurrency.code == "" && members.count == 0)
+    }
     
     func setName(text: String) {
         name = text

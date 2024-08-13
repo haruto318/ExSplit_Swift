@@ -12,6 +12,7 @@ struct AddGroupMembersView: View {
     @ObservedObject var realmViewModel = RealmGroupViewModel()
     
     @State var inputName = ""
+    @State private var showSheet: Bool = false
     
     let layout = [GridItem(.adaptive(minimum: 80, maximum: .infinity))]
     
@@ -99,7 +100,11 @@ struct AddGroupMembersView: View {
                 
                 ///グループ作成ボタン
                 Button(action: {
-                    realmViewModel.addGroup(groupModel: groupModel)
+                    if groupModel.isEnabled {
+                        realmViewModel.addGroup(groupModel: groupModel)
+                    } else {
+                        showSheet = true
+                    }
                 }) {
                     HStack {
                         Spacer()
@@ -115,6 +120,13 @@ struct AddGroupMembersView: View {
                                 .stroke(Color.customFrameColor, lineWidth: 1)
                         )
                 }.padding(.horizontal, 10)
+                    .sheet(isPresented: $showSheet) {
+                        AlertModal()
+                            .presentationDetents([
+                                // 画面に対する割合
+                                .fraction(0.4)
+                            ])
+                    }
             
             }.padding(.horizontal)
         
