@@ -77,7 +77,7 @@ final class RealmGroupViewModel: ObservableObject {
     func addPayment(group: Group, isEven: Bool, paymentModel: PaymentModel, selectedMembers: Set<Int>, membersPayment: [String], rate: Double) {
         let balance = Balance()
         balance.purpose = paymentModel.purpose
-        balance.total = paymentModel.total
+        balance.total = paymentModel.total / rate
         
         let member = Member()
         member.memberId = paymentModel.paidBy.memberId
@@ -99,7 +99,10 @@ final class RealmGroupViewModel: ObservableObject {
     }
     
     func splitEven(group: Group, paymentModel: PaymentModel, selectedMembers: Set<Int>, rate: Double, balance: Balance) {
-        let perAmount = paymentModel.total * rate / Double(selectedMembers.count)
+        let perAmount = paymentModel.total / rate / Double(selectedMembers.count)
+        
+        print("合計")
+        print(balance.total)
         
         for (i, _) in zip(group.members.indices, group.members) {
             let payment = Payment()
@@ -130,11 +133,11 @@ final class RealmGroupViewModel: ObservableObject {
     
     func split(group: Group, paymentModel: PaymentModel, membersPayment: [String], rate: Double, balance: Balance){
         let perAmounts = membersPayment.map { payment in
-            Double(payment.components(separatedBy: " ")[1])
+            Double(payment.components(separatedBy: " ")[1])! / rate
         }
         
         let total = perAmounts.reduce(0) { (result, current) in
-            result + (current ?? 0)
+            result + (current)
         }
         
         balance.total = total
@@ -142,7 +145,7 @@ final class RealmGroupViewModel: ObservableObject {
         for (i, _) in zip(group.members.indices, group.members) {
             let payment = Payment()
             payment.memberId = i
-            payment.amount = perAmounts[i]!
+            payment.amount = perAmounts[i]
             balance.payments.append(payment)
         }
         
@@ -152,8 +155,8 @@ final class RealmGroupViewModel: ObservableObject {
               try realm.write{
                   fixedGroup?.balance.append(balance)
                   for (i, _) in zip(group.members.indices, group.members) {
-                      fixedGroup?.members[paymentModel.paidBy.memberId].payments[i].amount += perAmounts[i]!
-                      fixedGroup?.members[i].payments[paymentModel.paidBy.memberId].amount -= perAmounts[i]!
+                      fixedGroup?.members[paymentModel.paidBy.memberId].payments[i].amount += perAmounts[i]
+                      fixedGroup?.members[i].payments[paymentModel.paidBy.memberId].amount -= perAmounts[i]
                   }
               }
             }catch {

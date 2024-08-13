@@ -9,6 +9,7 @@ import SwiftUI
 
 struct GroupDetailView: View {
     let group: Group
+    @State private var isActive: Bool = false
     
     var body: some View {
         VStack(spacing: 40) {
@@ -108,7 +109,7 @@ struct GroupDetailView: View {
                         
                         VStack(spacing: 5){
                             if group.balance.count != 0 {
-                                ForEach(Array(group.balance.enumerated()), id: \.offset){ offset, split in
+                                ForEach(Array(group.balance.enumerated().prefix(3)), id: \.offset){ offset, split in
                                     Divider()
                                     HStack(){
                                         VStack(alignment: .leading, spacing: 0){
@@ -150,7 +151,7 @@ struct GroupDetailView: View {
                                     RoundedRectangle(cornerRadius: 10)
                                         .stroke(Color.customFrameColor, lineWidth: 1)
                                 )
-                        }
+                        }.disabled(group.balance.isEmpty)
                     }.padding(10)
                         .overlay(
                             RoundedRectangle(cornerRadius: 10)
