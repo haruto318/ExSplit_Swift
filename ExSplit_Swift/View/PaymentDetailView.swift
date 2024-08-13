@@ -10,16 +10,13 @@ import SwiftUI
 struct PaymentDetailView: View {
     let group: Group
     let balance: Balance
-    // 仮
-    let split = (id: 1, purpose: "晩御飯", total: 1000, memberNum: 4, paidBy: "はると", balance: [(name: "はると", amount: 0), (name: "ゆーた", amount: 500), (name: "りょう", amount: 500)])
-    
 
     var body: some View {
         
         VStack(spacing: 40) {
             
             /// title
-            Text(split.purpose)
+            Text(balance.purpose)
                 .fontStyle(.titleBold)
             
             VStack(spacing: 20) {
@@ -37,7 +34,7 @@ struct PaymentDetailView: View {
                                 .fontStyle(.body)
                                 .foregroundColor(Color.customAccentColor)
                             Spacer()
-                            Text("\(balance.total) yen")
+                            Text(balance.total, format: FloatingPointFormatStyle.Currency.currency(code: group.homeCurrency.code))
                                 .fontStyle(.body)
                                 .foregroundColor(Color.customFontColor)
                         }
@@ -82,7 +79,7 @@ struct PaymentDetailView: View {
                                 Spacer()
                                 VStack(alignment: .trailing, spacing: 0){
                                     Text("Cost").fontStyle(.description)
-                                    Text("\(payment.amount) yen").fontStyle(.body)
+                                    Text(payment.amount, format: FloatingPointFormatStyle.Currency.currency(code: group.homeCurrency.code)).fontStyle(.body)
                                 }
                             }
                             Divider()
@@ -93,7 +90,7 @@ struct PaymentDetailView: View {
                             Spacer()
                             VStack(alignment: .trailing, spacing: 0){
                                 Text("Total").fontStyle(.description)
-                                Text("\(balance.total) yen").fontStyle(.bodyBold)
+                                Text(balance.total, format: FloatingPointFormatStyle.Currency.currency(code: group.homeCurrency.code)).fontStyle(.bodyBold)
                             }
                         }
                     }

@@ -59,7 +59,7 @@ struct PaymentHistoryView: View {
                                     VStack(alignment: .leading, spacing: 0){
                                         Text("Amount").fontStyle(.description)
                                             .foregroundColor(.customFontColor)
-                                        Text("\(balance.total) yen").fontStyle(.body)
+                                        Text(balance.total, format: FloatingPointFormatStyle.Currency.currency(code: group.homeCurrency.code)).fontStyle(.body)
                                             .foregroundColor(.customFontColor)
                                     }
                                     Spacer()

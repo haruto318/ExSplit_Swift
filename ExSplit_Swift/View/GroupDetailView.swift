@@ -113,7 +113,7 @@ struct GroupDetailView: View {
                                     HStack(){
                                         VStack(alignment: .leading, spacing: 0){
                                             Text("Total Amount").fontStyle(.description)
-                                            Text("\(group.balance[group.balance.count-1-offset].total) yen").fontStyle(.body)
+                                            Text(group.balance[group.balance.count-1-offset].total, format: FloatingPointFormatStyle.Currency.currency(code: group.homeCurrency.code)).fontStyle(.body)
                                         }
                                         Spacer()
                                         HStack(alignment: .center, spacing: 5){

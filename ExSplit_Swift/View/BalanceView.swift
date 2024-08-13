@@ -61,9 +61,14 @@ struct BalanceView: View {
                                 .frame(width: 40, height: 40)
                             VStack(alignment: .leading, spacing: 0){
                                 Text(member.memberName).fontStyle(.headBold)
-                                Text("\(total) yen \(total < 0 ? "借り" : "貸し")あり")
-                                    .fontStyle(.body)
-                                    .foregroundColor(total < 0 ? .red : .green)
+                                HStack(spacing: 5){
+                                    Text(abs(total), format: FloatingPointFormatStyle.Currency.currency(code: group.homeCurrency.code))
+                                        .fontStyle(.body)
+                                        .foregroundColor(total < 0 ? .red : .green)
+                                    Text("\(total < 0 ? "借り" : "貸し")あり")
+                                        .fontStyle(.body)
+                                        .foregroundColor(total < 0 ? .red : .green)
+                                }
                             }
                             Spacer()
                         }
@@ -108,7 +113,8 @@ struct BalanceView: View {
                                         Spacer()
                                         VStack(alignment: .trailing, spacing: 0){
                                             Text("Cost").fontStyle(.description)
-                                            Text("\(abs(balance.amount)) yen").fontStyle(.body)
+                                            Text(abs(balance.amount), format: FloatingPointFormatStyle.Currency.currency(code: group.homeCurrency.code))
+                                                .fontStyle(.body)
                                                 .foregroundColor(.red)
                                         }
                                     }
@@ -155,7 +161,7 @@ struct BalanceView: View {
                                         VStack(alignment: .trailing, spacing: 0){
                                             Text("Cost")
                                                 .fontStyle(.description)
-                                            Text("\(abs(balance.amount)) yen")
+                                            Text(abs(balance.amount), format: FloatingPointFormatStyle.Currency.currency(code: group.homeCurrency.code))
                                                 .fontStyle(.body)
                                                 .foregroundColor(.green)
                                         }
