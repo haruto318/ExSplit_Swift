@@ -26,8 +26,6 @@ struct AddPaymentView: View {
     @State private var showSheet2 = false
     @State private var showSheet3 = false
     @State private var showAlert = false
-    @State private var isPaymentCompleted = false
-    
     
     init(group: Group) {
         self.group = group
@@ -59,6 +57,14 @@ struct AddPaymentView: View {
     // case splitEven
     var isSelectedMembers: Bool {
         return !selectedMembers.isEmpty
+    }
+    
+    func resetInput() {
+        selectedMembers = Set<Int>()
+        membersPayment = []
+        selectedCurrency = Currency(code: "", name: "", japaneseName: "")
+        inputPurpose = ""
+        inputAmount = ""
     }
     
 
@@ -338,6 +344,8 @@ struct AddPaymentView: View {
                                 if shouldAddPayment {
                                     realmViewModel.addPayment(group: group, paymentModel: paymentModel, selectedMembers: selectedMembers, membersPayment: membersPayment, rate: rate) { success in
                                         if success {
+                                            paymentModel.resetPayment()
+                                            resetInput()
                                             dismiss()
                                         } else {
                                             showAlert = true

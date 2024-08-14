@@ -11,10 +11,12 @@ import SwiftUI
 final class RealmGroupViewModel: ObservableObject {
     private(set) var realm: Realm?
     @Published var groups: [Group] = []
+    @Published var group: Group?
+    @Published var isActive: Bool = false
 
     init() {
         openRealm()
-        getGroup()
+        getGroups()
     }
 
     func openRealm() {
@@ -58,19 +60,23 @@ final class RealmGroupViewModel: ObservableObject {
             try? realm.write({
                 realm.add(group)
             })
-            print(groups)
             completion(true)
         } else { completion(false) }
     }
 
-    func getGroup() {
+    func getGroups() {
         if let realm = realm {
             let allGroups = realm.objects(Group.self)
             groups = []
             allGroups.forEach { group in
                 groups.append(group)
             }
-            print(groups)
+        }
+    }
+    
+    func getGroup(originGroup: Group) {
+        if let realm = realm {
+            group = realm.object(ofType: Group.self, forPrimaryKey: originGroup.groupId)
         }
     }
 

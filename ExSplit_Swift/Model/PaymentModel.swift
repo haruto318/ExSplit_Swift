@@ -43,5 +43,13 @@ final class PaymentModel {
         paidBy = member
     }
     
+    func resetPayment() {
+        purpose = ""
+        total = 0.0
+        currency = Currency(code: "", name: "", japaneseName: "")
+        paidBy = Member()
+        isEven = true
+    }
+    
 }
 

@@ -9,17 +9,15 @@ import SwiftUI
 
 struct GroupDetailView: View {
     let group: Group
-    @State private var isActive: Bool = false
+    @ObservedObject var realmViewModel = RealmGroupViewModel()
     
     var body: some View {
         VStack(spacing: 40) {
-            
             Text("Split").fontStyle(.titleBold)
             
             VStack(spacing: 40) {
                 
                 VStack(spacing: 20){
-                    
                     /// グループ情報
                     VStack(spacing: 5){
                         HStack(){
@@ -126,7 +124,6 @@ struct GroupDetailView: View {
                                                 .resizable()
                                                 .frame(width: 24, height: 24)
                                         }
-                                        
                                     }
                                 }
                             } else {
@@ -164,7 +161,6 @@ struct GroupDetailView: View {
                     Spacer().frame(height: 20)
                     
                     NavigationLink(destination: AddPaymentView(group: group)){
-                        //                                                Button(action: {}) {
                         HStack {
                             Spacer()
                             Text("支払いを追加")
@@ -183,10 +179,10 @@ struct GroupDetailView: View {
                 
             }.padding(.horizontal)
             
-            
             Spacer()
-            
-        }.padding()
+        }
+        .padding()
+        
     }
 }
 

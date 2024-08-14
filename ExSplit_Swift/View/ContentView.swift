@@ -10,6 +10,7 @@ import RealmSwift
 
 struct ContentView: View {
     @ObservedObject var realmViewModel = RealmGroupViewModel()
+    @State private var isActive: Bool = false
 
     var body: some View {
         NavigationView {
@@ -45,7 +46,7 @@ struct ContentView: View {
                         }.padding(.horizontal, 10)
                     
                         Button(action: {
-                            realmViewModel.getGroup()
+                            realmViewModel.getGroups()
                         }) {
                             HStack {
                                 Spacer()
@@ -101,11 +102,14 @@ struct ContentView: View {
                                                     .foregroundColor(Color.customFontColor)
                                             }
                                         }.padding(.horizontal)
-                                    }.padding(10)
-                                        .overlay(
-                                            RoundedRectangle(cornerRadius: 10)
-                                                .stroke(Color.customFrameColor, lineWidth: 1)
-                                    )
+                                    }
+                                    .padding(10)
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 10)
+                                            .stroke(Color.customFrameColor, lineWidth: 1)
+                                    ).onTapGesture {
+                                        print("tap")
+                                    }
                                 }
                                 
                             }
@@ -117,6 +121,9 @@ struct ContentView: View {
                     Spacer()
                     
                 }.padding()
+            }
+            .onAppear {
+                realmViewModel.getGroups()
             }
         }
     }

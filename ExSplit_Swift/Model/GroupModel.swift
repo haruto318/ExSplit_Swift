@@ -13,7 +13,7 @@ final class GroupModel {
     var homeCurrency: Currency = Currency(code: "", name: "", japaneseName: "")
     var members: [String] = []
     var isEnabled: Bool {
-        return !(name == "" && homeCurrency.code == "" && members.count == 0)
+        return name != "" && homeCurrency.code != "" && members.count != 0
     }
     
     func setName(text: String) {
@@ -30,6 +30,12 @@ final class GroupModel {
     
     func removeMember(index: String){
         members.remove(at: members.firstIndex(of: index)!)
+    }
+    
+    func resetGroup() {
+        name = ""
+        homeCurrency = Currency(code: "", name: "", japaneseName: "")
+        members = []
     }
 }
 

@@ -12,7 +12,7 @@ struct AddGroupMembersView: View {
     
     @Environment(GroupModel.self) private var groupModel
     @ObservedObject var realmViewModel = RealmGroupViewModel()
-    
+        
     @State var inputName = ""
     @State private var showAlert: Bool = false
     
@@ -105,6 +105,9 @@ struct AddGroupMembersView: View {
                     if groupModel.isEnabled {
                         realmViewModel.addGroup(groupModel: groupModel) { success in
                             if success {
+                                groupModel.resetGroup()
+                                realmViewModel.getGroups()
+                                inputName = ""
                                 dismiss()
                             } else {
                                 showAlert = true
@@ -146,6 +149,6 @@ struct AddGroupMembersView: View {
     }
 }
 
-#Preview {
-    AddGroupMembersView()
-}
+//#Preview {
+//    AddGroupMembersView()
+//}
