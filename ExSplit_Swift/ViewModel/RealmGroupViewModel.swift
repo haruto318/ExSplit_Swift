@@ -31,7 +31,7 @@ final class RealmGroupViewModel: ObservableObject {
         }
     }
 
-    func addGroup(groupModel: GroupModel) {
+    func addGroup(groupModel: GroupModel, completion: @escaping (Bool) -> Void) {
         let group = Group()
         group.groupName = groupModel.name
 
@@ -59,7 +59,8 @@ final class RealmGroupViewModel: ObservableObject {
                 realm.add(group)
             })
             print(groups)
-        }
+            completion(true)
+        } else { completion(false) }
     }
 
     func getGroup() {
@@ -74,7 +75,7 @@ final class RealmGroupViewModel: ObservableObject {
     }
 
     
-    func addPayment(group: Group, paymentModel: PaymentModel, selectedMembers: Set<Int>, membersPayment: [String], rate: Double) {
+    func addPayment(group: Group, paymentModel: PaymentModel, selectedMembers: Set<Int>, membersPayment: [String], rate: Double, completion: @escaping (Bool) -> Void) {
         let balance = Balance()
         balance.purpose = paymentModel.purpose
         
@@ -91,13 +92,17 @@ final class RealmGroupViewModel: ObservableObject {
         balance.currency = homeCurrency
         
         if paymentModel.isEven {
-            splitEven(group: group, paymentModel: paymentModel, selectedMembers: selectedMembers, rate: rate, balance: balance)
+            splitEven(group: group, paymentModel: paymentModel, selectedMembers: selectedMembers, rate: rate, balance: balance) { success in
+                success ? completion(true) : completion(false)
+            }
         } else {
-            split(group: group, paymentModel: paymentModel, membersPayment: membersPayment, rate: rate, balance: balance)
+            split(group: group, paymentModel: paymentModel, membersPayment: membersPayment, rate: rate, balance: balance) { success in
+                success ? completion(true) : completion(false)
+            }
         }
     }
     
-    func splitEven(group: Group, paymentModel: PaymentModel, selectedMembers: Set<Int>, rate: Double, balance: Balance) {
+    func splitEven(group: Group, paymentModel: PaymentModel, selectedMembers: Set<Int>, rate: Double, balance: Balance, completion: @escaping (Bool) -> Void) {
         balance.total = paymentModel.total / rate
         let perAmount = paymentModel.total / rate / Double(selectedMembers.count)
         
@@ -115,20 +120,22 @@ final class RealmGroupViewModel: ObservableObject {
         if let realm = realm {
             let fixedGroup = realm.object(ofType: Group.self, forPrimaryKey: group.groupId)
             do{
-              try realm.write{
-                  fixedGroup?.balance.append(balance)
-                  selectedMembers.forEach { id in
-                      fixedGroup?.members[paymentModel.paidBy.memberId].payments[id].amount += perAmount
-                      fixedGroup?.members[id].payments[paymentModel.paidBy.memberId].amount -= perAmount
-                  }
-              }
+                try realm.write{
+                    fixedGroup?.balance.append(balance)
+                    selectedMembers.forEach { id in
+                        fixedGroup?.members[paymentModel.paidBy.memberId].payments[id].amount += perAmount
+                        fixedGroup?.members[id].payments[paymentModel.paidBy.memberId].amount -= perAmount
+                    }
+                }
+                completion(true)
             }catch {
-              print("Error \(error)")
+                print("Error \(error)")
+                completion(false)
             }
-        }
+        } else { completion(false) }
     }
     
-    func split(group: Group, paymentModel: PaymentModel, membersPayment: [String], rate: Double, balance: Balance){
+    func split(group: Group, paymentModel: PaymentModel, membersPayment: [String], rate: Double, balance: Balance, completion: @escaping (Bool) -> Void){
         let perAmounts = membersPayment.compactMap { payment -> Double? in
             let components = payment.components(separatedBy: " ")
             guard components.count == 2, let amount = Double(components[1]) else {
@@ -152,17 +159,19 @@ final class RealmGroupViewModel: ObservableObject {
         if let realm = realm {
             let fixedGroup = realm.object(ofType: Group.self, forPrimaryKey: group.groupId)
             do{
-              try realm.write{
-                  fixedGroup?.balance.append(balance)
-                  for (i, _) in zip(group.members.indices, group.members) {
-                      fixedGroup?.members[paymentModel.paidBy.memberId].payments[i].amount += perAmounts[i]
-                      fixedGroup?.members[i].payments[paymentModel.paidBy.memberId].amount -= perAmounts[i]
-                  }
-              }
-            }catch {
-              print("Error \(error)")
+                try realm.write{
+                    fixedGroup?.balance.append(balance)
+                    for (i, _) in zip(group.members.indices, group.members) {
+                        fixedGroup?.members[paymentModel.paidBy.memberId].payments[i].amount += perAmounts[i]
+                        fixedGroup?.members[i].payments[paymentModel.paidBy.memberId].amount -= perAmounts[i]
+                    }
+                }
+                completion(true)
+            } catch {
+                print("Error \(error)")
+                completion(false)
             }
-        }
+        } else { completion(false) }
     }
     
     

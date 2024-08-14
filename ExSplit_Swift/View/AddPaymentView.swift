@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct AddPaymentView: View {
+    @Environment(\.dismiss) var dismiss
+    
     @Environment(PaymentModel.self) private var paymentModel
     @StateObject var currencyRatesViewModel: CurrencyRatesViewModel
     @ObservedObject var realmViewModel = RealmGroupViewModel()
@@ -24,6 +26,7 @@ struct AddPaymentView: View {
     @State private var showSheet2 = false
     @State private var showSheet3 = false
     @State private var showAlert = false
+    @State private var isPaymentCompleted = false
     
     
     init(group: Group) {
@@ -333,7 +336,13 @@ struct AddPaymentView: View {
                                 }
                                 
                                 if shouldAddPayment {
-                                    realmViewModel.addPayment(group: group, paymentModel: paymentModel, selectedMembers: selectedMembers, membersPayment: membersPayment, rate: rate)
+                                    realmViewModel.addPayment(group: group, paymentModel: paymentModel, selectedMembers: selectedMembers, membersPayment: membersPayment, rate: rate) { success in
+                                        if success {
+                                            dismiss()
+                                        } else {
+                                            showAlert = true
+                                        }
+                                    }
                                 } else {
                                     showAlert = true
                                 }

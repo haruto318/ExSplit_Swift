@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct AddGroupMembersView: View {
+    @Environment(\.dismiss) var dismiss
+    
     @Environment(GroupModel.self) private var groupModel
     @ObservedObject var realmViewModel = RealmGroupViewModel()
     
@@ -101,7 +103,13 @@ struct AddGroupMembersView: View {
                 ///グループ作成ボタン
                 Button(action: {
                     if groupModel.isEnabled {
-                        realmViewModel.addGroup(groupModel: groupModel)
+                        realmViewModel.addGroup(groupModel: groupModel) { success in
+                            if success {
+                                dismiss()
+                            } else {
+                                showAlert = true
+                            }
+                        }
                     } else {
                         showAlert = true
                     }
