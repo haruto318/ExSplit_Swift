@@ -11,7 +11,7 @@ import SwiftUI
 final class RealmGroupViewModel: ObservableObject {
     private(set) var realm: Realm?
     @Published var groups: [Group] = []
-    @Published var group: Group?
+    @Published var group: Group? = nil
     @Published var isActive: Bool = false
 
     init() {
@@ -76,7 +76,11 @@ final class RealmGroupViewModel: ObservableObject {
     
     func getGroup(originGroup: Group) {
         if let realm = realm {
-            group = realm.object(ofType: Group.self, forPrimaryKey: originGroup.groupId)
+            if let loadedGroup = realm.object(ofType: Group.self, forPrimaryKey: originGroup.groupId) {
+                self.group = loadedGroup
+            } else {
+                print("Group not found in the database.")
+            }
         }
     }
 

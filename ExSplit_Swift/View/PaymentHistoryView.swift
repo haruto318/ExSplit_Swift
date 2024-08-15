@@ -43,12 +43,6 @@ struct PaymentHistoryView: View {
                                         .fontStyle(.headBold)
                                         .foregroundColor(.customFontColor)
                                     Spacer()
-                                    Button(action: {
-//                                        self.balances.remove(at: self.balances.count-1-offset)
-                                    }) {
-                                        Image(systemName: "ellipsis")
-                                            .foregroundColor(Color.customFontColor)
-                                    }
                                 }
                                 
                                 HStack(){

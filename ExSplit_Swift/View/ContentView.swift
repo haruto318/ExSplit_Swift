@@ -107,9 +107,7 @@ struct ContentView: View {
                                     .overlay(
                                         RoundedRectangle(cornerRadius: 10)
                                             .stroke(Color.customFrameColor, lineWidth: 1)
-                                    ).onTapGesture {
-                                        print("tap")
-                                    }
+                                    )
                                 }
                                 
                             }
