@@ -8,7 +8,11 @@
 import SwiftUI
 struct GroupDetailView: View {
     let group: Group
+    @Environment(\.presentationMode) var presentationMode
     @ObservedObject var realmViewModel = RealmGroupViewModel()
+    
+    @State private var isShowDeleteAlert: Bool = false
+    @State private var isShowErrorAlert: Bool = false
     
     var body: some View {
         VStack(spacing: 40) {
@@ -92,10 +96,10 @@ struct GroupDetailView: View {
                                     )
                             }
                         }.padding(10)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 10)
-                                .stroke(Color.customFrameColor, lineWidth: 1)
-                        )
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .stroke(Color.customFrameColor, lineWidth: 1)
+                            )
                         
                         /// 直近の支払い
                         VStack(spacing: 5){
@@ -150,10 +154,10 @@ struct GroupDetailView: View {
                                     )
                             }.disabled(loadedGroup.balance.isEmpty)
                         }.padding(10)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 10)
-                                .stroke(Color.customFrameColor, lineWidth: 1)
-                        )
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .stroke(Color.customFrameColor, lineWidth: 1)
+                            )
                     }
                     
                     /// 支払い追加ボタン
@@ -168,12 +172,12 @@ struct GroupDetailView: View {
                                     .foregroundColor(Color.customFontColor)
                                 Spacer()
                             }.padding()
-                            .background(Color.customButtonColor)
-                            .cornerRadius(10)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .stroke(Color.customFrameColor, lineWidth: 1)
-                            ).padding(.horizontal, 10)
+                                .background(Color.customButtonColor)
+                                .cornerRadius(10)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .stroke(Color.customFrameColor, lineWidth: 1)
+                                ).padding(.horizontal, 10)
                         }
                     }
                     
@@ -189,6 +193,40 @@ struct GroupDetailView: View {
         .onAppear{
             realmViewModel.getGroup(originGroup: group)
         }
+        .navigationBarItems(trailing:
+            Button(action: {
+                isShowDeleteAlert = true
+            }) {
+                Image(systemName: "trash")
+            }
+            .alert("確認", isPresented: $isShowDeleteAlert) {
+                Button("戻る", role: .cancel) {
+                    isShowDeleteAlert = false
+                }
+                Button("削除する", role: .destructive) {
+                    // Dismiss the view before deletion to prevent accessing invalidated objects
+                    presentationMode.wrappedValue.dismiss()
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        // Delay the deletion slightly to ensure the view is dismissed
+                        realmViewModel.deleteGroup(originGroup: group) { success in
+                            if success {
+                            } else {
+                                isShowErrorAlert = true
+                            }
+                        }
+                    }
+                }
+            } message: {
+                Text("\(group.groupName)を削除しますか？")
+            }
+            .alert("Error", isPresented: $isShowErrorAlert) {
+                Button("OK", role: .cancel) {
+                    isShowErrorAlert = false
+                }
+            } message: {
+                Text("正しく削除されませんでした")
+            }
+        )
     }
 }
 

@@ -121,7 +121,9 @@ struct ContentView: View {
                 }.padding()
             }
             .onAppear {
-                realmViewModel.getGroups()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    realmViewModel.getGroups()
+                }
             }
         }
     }

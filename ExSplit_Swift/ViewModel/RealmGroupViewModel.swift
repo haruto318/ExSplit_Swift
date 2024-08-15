@@ -83,6 +83,32 @@ final class RealmGroupViewModel: ObservableObject {
             }
         }
     }
+    
+    func deleteGroup(originGroup: Group, completion: @escaping (Bool) -> Void) {
+        guard let realm = realm else {
+            completion(false)
+            return
+        }
+
+        do {
+            try realm.write {
+                if let groupToDelete = realm.object(ofType: Group.self, forPrimaryKey: originGroup.groupId) {
+                    // Delete the group and any related data
+                    realm.delete(groupToDelete)
+                    completion(true)
+                } else {
+                    print("Group not found in the database.")
+                    completion(false)
+                }
+            }
+        } catch {
+            print("Error deleting group: \(error)")
+            completion(false)
+        }
+    }
+
+
+
 
     
     func addPayment(group: Group, paymentModel: PaymentModel, selectedMembers: Set<Int>, membersPayment: [String], rate: Double, completion: @escaping (Bool) -> Void) {
