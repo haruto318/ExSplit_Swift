@@ -386,6 +386,8 @@ struct AddPaymentView: View {
                 Spacer()
                 
             }.padding()
+        }.onDisappear{
+            paymentModel.resetPayment()
         }
     }
 }
