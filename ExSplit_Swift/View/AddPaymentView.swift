@@ -22,6 +22,7 @@ struct AddPaymentView: View {
 
     @State var inputPurpose = ""
     @State var inputAmount: String = ""
+    @State var inputPercent: String = ""
     @State private var showSheet1 = false
     @State private var showSheet2 = false
     @State private var showSheet3 = false
@@ -67,6 +68,27 @@ struct AddPaymentView: View {
         inputAmount = ""
     }
     
+    func setPercent(percentText: String){
+        // Filter out invalid characters, but keep the decimal point
+        let filteredValue = percentText.filter { "0123456789.".contains($0) }
+        
+        // Ensure only one decimal point is allowed
+        let decimalCount = filteredValue.components(separatedBy: ".").count - 1
+        
+        if decimalCount > 1 {
+            // If more than one decimal point, revert the last change
+            inputPercent = String(filteredValue.dropLast())
+        } else {
+            inputPercent = filteredValue
+        }
+        
+        // If the field is not empty, add the percentage symbol
+        if !inputPercent.isEmpty {
+            inputPercent = inputPercent + " ％"
+        }
+        
+        paymentModel.setChargePercent(percentText: inputPercent)
+    }
 
     var body: some View {
         ScrollView(){
@@ -253,6 +275,29 @@ struct AddPaymentView: View {
                         }
                     }
                     
+                    VStack(spacing: 10){
+                        HStack {
+                            Text("クレカ決済手数料%")
+                                .fontStyle(.title)
+                            Spacer()
+                        }
+                        TextField("クレカで決済の手数料%を入力してください（例：3%）", text: $inputPercent, onEditingChanged: { changed in
+                            print(changed)
+                        })
+                            .keyboardType(.numberPad)
+                            .font(.custom("ZenMaruGothic-Regular", size: 12))
+                            .padding()
+                            .cornerRadius(10)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .stroke(Color.customFrameColor, lineWidth: 1)
+                            )
+                            .onChange(of: inputPercent) { newValue in
+                                setPercent(percentText: newValue)
+                            }
+
+                    }
+                    
                     /// 誰に支払ったか or 各金額
                     if paymentModel.isEven {
                         VStack(spacing: 10){
@@ -391,6 +436,38 @@ struct AddPaymentView: View {
         }
     }
 }
+
+import Foundation
+
+struct PercentFormatStyle: FormatStyle {
+    typealias FormatInput = Double
+    typealias FormatOutput = String
+
+    var fractionLength: Int
+
+    init(fractionLength: Int = 0) {
+        self.fractionLength = fractionLength
+    }
+
+    func format(_ value: Double) -> String {
+        let numberFormatter = NumberFormatter()
+        numberFormatter.maximumFractionDigits = fractionLength
+        numberFormatter.minimumFractionDigits = fractionLength
+        return "\(numberFormatter.string(from: NSNumber(value: value)) ?? "\(value)") ％"
+    }
+
+    static var `default`: PercentFormatStyle {
+        return PercentFormatStyle(fractionLength: 1)
+    }
+}
+
+extension FormatStyle where Self == PercentFormatStyle {
+    static var percent: PercentFormatStyle {
+        return .default
+    }
+}
+
+
 
 //#Preview {
 //    AddPaymentView()

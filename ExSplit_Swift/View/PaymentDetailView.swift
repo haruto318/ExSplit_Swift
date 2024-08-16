@@ -39,11 +39,11 @@ struct PaymentDetailView: View {
                                 .foregroundColor(Color.customFontColor)
                         }
                         HStack(){
-                            Text("日付")
+                            Text("通貨")
                                 .fontStyle(.body)
                                 .foregroundColor(Color.customAccentColor)
                             Spacer()
-                            Text("2024/03/24")
+                            Text(balance.currency.japaneseName)
                                 .fontStyle(.body)
                                 .foregroundColor(Color.customFontColor)
                         }

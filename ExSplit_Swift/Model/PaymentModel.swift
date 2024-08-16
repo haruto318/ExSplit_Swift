@@ -14,6 +14,7 @@ final class PaymentModel {
     var total: Double = 0.0
     var currency: Currency = Currency(code: "", name: "", japaneseName: "")
     var paidBy: Member = Member()
+    var chargePercent: Double = 0.0
     var isEven: Bool = true
     var isEnabled: Bool {
         return !(paidBy.memberName == "" && currency.code == "")
@@ -49,6 +50,14 @@ final class PaymentModel {
         currency = Currency(code: "", name: "", japaneseName: "")
         paidBy = Member()
         isEven = true
+    }
+    
+    func setChargePercent(percentText: String){
+        let parsePercent = percentText.components(separatedBy: " ")
+        guard parsePercent.count == 2 else { return }
+        if let parseTotal = Double(parsePercent[0]){
+            chargePercent = parseTotal
+        }
     }
     
 }

@@ -32,7 +32,7 @@ struct ContentView: View {
                         NavigationLink(destination: NewGroupView()){
                             HStack {
                                 Spacer()
-                                Text("グループを生成する")
+                                Text("支払いグループを生成する")
                                     .fontStyle(.head)
                                     .foregroundColor(Color.customFontColor)
                                 Spacer()
@@ -44,25 +44,6 @@ struct ContentView: View {
                                         .stroke(Color.customFrameColor, lineWidth: 1)
                                 )
                         }.padding(.horizontal, 10)
-                    
-                        Button(action: {
-                            realmViewModel.getGroups()
-                        }) {
-                            HStack {
-                                Spacer()
-                                Text("グループを生成する")
-                                    .fontStyle(.head)
-                                    .foregroundColor(Color.customFontColor)
-                                Spacer()
-                            }.padding()
-                                .background(Color.customButtonColor)
-                                .cornerRadius(10)
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 10)
-                                        .stroke(Color.customFrameColor, lineWidth: 1)
-                                )
-                        }.padding(.horizontal, 10)
-                        
                         
                         VStack(spacing: 15){
                             HStack {
@@ -72,44 +53,51 @@ struct ContentView: View {
                             }
                             
                             /// グループリスト
-                            ForEach(Array(realmViewModel.groups.enumerated()), id: \.offset){ offset, group in
-                                
-                                NavigationLink(destination: GroupDetailView(group: group)) {
-                                    VStack(spacing: 5){
-                                        HStack(){
-                                            Text(group.groupName)
-                                                .fontStyle(.headBold)
-                                                .foregroundColor(.customFontColor)
-                                            Spacer()
-                                        }
+                            if realmViewModel.groups.isEmpty {
+                                Text("グループを作成してみましょう！")
+                                    .fontStyle(.headBold)
+                                    .foregroundColor(Color.customFontColor)
+                                    .padding(20)
+                            } else {
+                                ForEach(Array(realmViewModel.groups.reversed().enumerated()), id: \.offset){ offset, group in
+                                    
+                                    NavigationLink(destination: GroupDetailView(group: group)) {
                                         VStack(spacing: 5){
                                             HStack(){
-                                                Text("通貨")
-                                                    .fontStyle(.body)
-                                                    .foregroundColor(Color.customAccentColor)
+                                                Text(group.groupName)
+                                                    .fontStyle(.headBold)
+                                                    .foregroundColor(.customFontColor)
                                                 Spacer()
-                                                Text(group.homeCurrency.japaneseName)
-                                                    .fontStyle(.body)
-                                                    .foregroundColor(Color.customFontColor)
                                             }
-                                            HStack(){
-                                                Text("参加人数")
-                                                    .fontStyle(.body)
-                                                    .foregroundColor(Color.customAccentColor)
-                                                Spacer()
-                                                Text("\(group.members.count)人")
-                                                    .fontStyle(.body)
-                                                    .foregroundColor(Color.customFontColor)
-                                            }
-                                        }.padding(.horizontal)
+                                            VStack(spacing: 5){
+                                                HStack(){
+                                                    Text("通貨")
+                                                        .fontStyle(.body)
+                                                        .foregroundColor(Color.customAccentColor)
+                                                    Spacer()
+                                                    Text(group.homeCurrency.japaneseName)
+                                                        .fontStyle(.body)
+                                                        .foregroundColor(Color.customFontColor)
+                                                }
+                                                HStack(){
+                                                    Text("参加人数")
+                                                        .fontStyle(.body)
+                                                        .foregroundColor(Color.customAccentColor)
+                                                    Spacer()
+                                                    Text("\(group.members.count)人")
+                                                        .fontStyle(.body)
+                                                        .foregroundColor(Color.customFontColor)
+                                                }
+                                            }.padding(.horizontal)
+                                        }
+                                        .padding(10)
+                                        .overlay(
+                                            RoundedRectangle(cornerRadius: 10)
+                                                .stroke(Color.customFrameColor, lineWidth: 1)
+                                        )
                                     }
-                                    .padding(10)
-                                    .overlay(
-                                        RoundedRectangle(cornerRadius: 10)
-                                            .stroke(Color.customFrameColor, lineWidth: 1)
-                                    )
+                                    
                                 }
-                                
                             }
                             
                         }
