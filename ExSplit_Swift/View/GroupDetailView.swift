@@ -25,26 +25,26 @@ struct GroupDetailView: View {
                         VStack(spacing: 5){
                             HStack(){
                                 Text(loadedGroup.groupName)
-                                    .fontStyle(.headBold)
+                                    .fontStyle(.headBoldJP)
                                 Spacer()
                             }
                             VStack(spacing: 5){
                                 HStack(){
                                     Text("通貨")
-                                        .fontStyle(.body)
+                                        .fontStyle(.bodyJP)
                                         .foregroundColor(Color.customAccentColor)
                                     Spacer()
                                     Text(loadedGroup.homeCurrency.japaneseName)
-                                        .fontStyle(.body)
+                                        .fontStyle(.bodyJP)
                                         .foregroundColor(Color.customFontColor)
                                 }
                                 HStack(){
                                     Text("参加人数")
-                                        .fontStyle(.body)
+                                        .fontStyle(.bodyJP)
                                         .foregroundColor(Color.customAccentColor)
                                     Spacer()
                                     Text("\(loadedGroup.members.count)人")
-                                        .fontStyle(.body)
+                                        .fontStyle(.bodyJP)
                                         .foregroundColor(Color.customFontColor)
                                 }
                             }
@@ -60,7 +60,7 @@ struct GroupDetailView: View {
                         VStack(spacing: 5){
                             HStack(){
                                 Text("メンバー")
-                                    .fontStyle(.headBold)
+                                    .fontStyle(.headBoldJP)
                                 Spacer()
                             }
                             
@@ -71,7 +71,7 @@ struct GroupDetailView: View {
                                             Image(systemName: "person.crop.circle")
                                                 .resizable()
                                                 .frame(width: 40, height: 40)
-                                            Text(member.memberName).fontStyle(.body)
+                                            Text(member.memberName).fontStyle(.bodyJP)
                                         }
                                     }
                                     Spacer()
@@ -84,7 +84,7 @@ struct GroupDetailView: View {
                                 HStack {
                                     Spacer()
                                     Text("個別支払い状況を表示")
-                                        .fontStyle(.body)
+                                        .fontStyle(.bodyJP)
                                         .foregroundColor(Color.customFontColor)
                                     Spacer()
                                 }.padding(12)
@@ -105,7 +105,7 @@ struct GroupDetailView: View {
                         VStack(spacing: 5){
                             HStack(){
                                 Text("直近の支払い")
-                                    .fontStyle(.headBold)
+                                    .fontStyle(.headBoldJP)
                                 Spacer()
                             }
                             
@@ -116,13 +116,13 @@ struct GroupDetailView: View {
                                         HStack(){
                                             VStack(alignment: .leading, spacing: 0){
                                                 Text("Total Amount").fontStyle(.description)
-                                                Text(loadedGroup.balance[loadedGroup.balance.count-1-offset].total, format: FloatingPointFormatStyle.Currency.currency(code: loadedGroup.homeCurrency.code)).fontStyle(.body)
+                                                Text(loadedGroup.balance[loadedGroup.balance.count-1-offset].total, format: FloatingPointFormatStyle.Currency.currency(code: loadedGroup.homeCurrency.code)).fontStyle(.bodyJP)
                                             }
                                             Spacer()
                                             HStack(alignment: .center, spacing: 5){
                                                 VStack(alignment: .trailing, spacing: 0){
                                                     Text("Paid by").fontStyle(.description)
-                                                    Text(loadedGroup.balance[loadedGroup.balance.count-1-offset].paidBy.memberName).fontStyle(.body)
+                                                    Text(loadedGroup.balance[loadedGroup.balance.count-1-offset].paidBy.memberName).fontStyle(.bodyJP)
                                                 }
                                                 Image(systemName: "person.crop.circle")
                                                     .resizable()
@@ -132,7 +132,7 @@ struct GroupDetailView: View {
                                     }
                                 } else {
                                     Divider()
-                                    Text("支払いはありません").fontStyle(.body)
+                                    Text("支払いはありません").fontStyle(.bodyJP)
                                 }
                             }
                             
@@ -142,7 +142,7 @@ struct GroupDetailView: View {
                                 HStack {
                                     Spacer()
                                     Text("すべて見る")
-                                        .fontStyle(.body)
+                                        .fontStyle(.bodyJP)
                                         .foregroundColor(Color.customFontColor)
                                     Spacer()
                                 }.padding(12)
@@ -168,7 +168,7 @@ struct GroupDetailView: View {
                             HStack {
                                 Spacer()
                                 Text("支払いを追加")
-                                    .fontStyle(.head)
+                                    .fontStyle(.headJP)
                                     .foregroundColor(Color.customFontColor)
                                 Spacer()
                             }.padding()
@@ -186,7 +186,7 @@ struct GroupDetailView: View {
                 Spacer()
             } else {
                 Text("グループ情報が読み込めませんでした。")
-                    .fontStyle(.body)
+                    .fontStyle(.bodyJP)
             }
         }
         .padding()

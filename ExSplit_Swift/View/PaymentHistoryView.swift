@@ -24,7 +24,7 @@ struct PaymentHistoryView: View {
             VStack {
                 HStack(){
                     Text("すべての支払い")
-                        .fontStyle(.titleBold)
+                        .fontStyle(.titleBoldJP)
                     Spacer()
                 }
                 Divider()
@@ -40,7 +40,7 @@ struct PaymentHistoryView: View {
                             VStack(spacing: 5){
                                 HStack(){
                                     Text(balance.purpose)
-                                        .fontStyle(.headBold)
+                                        .fontStyle(.headBoldJP)
                                         .foregroundColor(.customFontColor)
                                     Spacer()
                                 }
@@ -57,7 +57,7 @@ struct PaymentHistoryView: View {
                                         VStack(alignment: .trailing, spacing: 0){
                                             Text("Paid by").fontStyle(.description)
                                                 .foregroundColor(.customFontColor)
-                                            Text(balance.paidBy.memberName).fontStyle(.body)
+                                            Text(balance.paidBy.memberName).fontStyle(.bodyJP)
                                                 .foregroundColor(.customFontColor)
                                         }
                                         Image(systemName: "person.crop.circle")

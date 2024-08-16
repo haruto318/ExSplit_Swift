@@ -16,32 +16,61 @@ enum FontStyle: String, CaseIterable {
     case body
     case bodyBold
     case description
+    case titleBoldJP
+    case titleJP
+    case headJP
+    case headBoldJP
+    case bodyJP
+    case bodyBoldJP
+    case descriptionJP
 }
 
 extension FontStyle {
     var dynamicType: SwiftUI.Font {
         switch self {
         case .titleBold:
-            return .custom("ZenMaruGothic-Medium", size: 20)
+            return .custom("Helvetica-Medium", size: 20)
 
         case .title:
-            return .custom("ZenMaruGothic-Regular", size: 20)
+            return .custom("Helvetica-Regular", size: 20)
             
         case .head:
-            return .custom("ZenMaruGothic-Regular", size: 13)
+            return .custom("Helvetica-Regular", size: 13)
 
         case .headBold:
-            return .custom("ZenMaruGothic-Medium", size: 13)
+            return .custom("Helvetica-Medium", size: 13)
 
         case .body:
-            return .custom("ZenMaruGothic-Regular", size: 12)
+            return .custom("Helvetica-Regular", size: 12)
 
         case .bodyBold:
-            return .custom("ZenMaruGothic-Medium", size: 12)
+            return .custom("Helvetica-Medium", size: 12)
 
         case .description:
-            return .custom("ZenMaruGothic-Regular", size: 8)
+            return .custom("Helvetica-Regular", size: 8)
+         
+        case .titleBoldJP:
+            return .custom("ZenKakuGothicNew-Medium", size: 20)
+
+        case .titleJP:
+            return .custom("ZenKakuGothicNew-Regular", size: 20)
+            
+        case .headJP:
+            return .custom("ZenKakuGothicNew-Regular", size: 13)
+
+        case .headBoldJP:
+            return .custom("ZenKakuGothicNew-Medium", size: 13)
+
+        case .bodyJP:
+            return .custom("ZenKakuGothicNew-Regular", size: 12)
+
+        case .bodyBoldJP:
+            return .custom("ZenKakuGothicNew-Medium", size: 12)
+
+        case .descriptionJP:
+            return .custom("ZenKakuGothicNew-Regular", size: 8)
         }
+        
     }
 }
 

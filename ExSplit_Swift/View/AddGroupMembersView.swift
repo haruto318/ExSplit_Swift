@@ -25,7 +25,7 @@ struct AddGroupMembersView: View {
             VStack {
                 HStack(){
                     Text("グループを作成")
-                        .fontStyle(.titleBold)
+                        .fontStyle(.titleBoldJP)
                     Spacer()
                 }
                 Divider()
@@ -34,18 +34,18 @@ struct AddGroupMembersView: View {
             VStack(spacing: 40) {
                 
                 Text("メンバーを追加してください")
-                    .fontStyle(.title)
+                    .fontStyle(.titleJP)
                 
                 ///メンバー追加
                 VStack(spacing: 10){
                     HStack {
                         Text("メンバー")
-                            .fontStyle(.title)
+                            .fontStyle(.titleJP)
                         Spacer()
                     }
                     HStack {
                         TextField("名前を入力してください", text: $inputName)
-                            .font(.custom("ZenMaruGothic-Regular", size: 12))
+                            .font(.custom("ZenKakuGothicNew-Regular", size: 12))
                             .padding()
                             .cornerRadius(10)
                             .overlay(
@@ -59,7 +59,7 @@ struct AddGroupMembersView: View {
                         }) {
                             HStack {
                                 Text("追加")
-                                    .fontStyle(.body)
+                                    .fontStyle(.bodyJP)
                                     .foregroundColor(Color.customFontColor)
                                     .padding(.horizontal, 5)
                             }.padding()
@@ -82,7 +82,7 @@ struct AddGroupMembersView: View {
                         alignment: .leading
                     ) { item in
                         HStack(spacing: 3) {
-                            Text("\(item)").fontStyle(.body)
+                            Text("\(item)").fontStyle(.bodyJP)
                             Button(action: {
                                 groupModel.removeMember(index: item)
                             }) {
@@ -120,7 +120,7 @@ struct AddGroupMembersView: View {
                     HStack {
                         Spacer()
                         Text("グループを生成する")
-                            .fontStyle(.head)
+                            .fontStyle(.headJP)
                             .foregroundColor(Color.customFontColor)
                         Spacer()
                     }.padding()

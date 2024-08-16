@@ -41,7 +41,7 @@ struct CurrencySelectionModal: View {
     init(selectedCurrency: Binding<Currency>) {
         // フォント属性を設定
         let attr: [NSAttributedString.Key: Any] = [
-            .font: UIFont(name: "ZenMaruGothic-Medium", size: 13.0)!
+            .font: UIFont(name: "ZenKakuGothicNew-Medium", size: 13.0)!
         ]
         
         // UISegmentedControlのタイトルテキスト属性を設定
@@ -57,7 +57,7 @@ struct CurrencySelectionModal: View {
             VStack(spacing: 40) {
                 
                 Text("通貨を選んでください")
-                    .fontStyle(.title)
+                    .fontStyle(.titleJP)
                 
                 /// segmented control
                 VStack(spacing: 10){
@@ -74,7 +74,7 @@ struct CurrencySelectionModal: View {
                     ForEach(0..<selectedRegion.regionData.count, id: \.self) { index in
                         //.tagで指定した値をmultiSelectionに格納する
                         Text(selectedRegion.regionData[index].japaneseName)
-                            .fontStyle(.headBold)
+                            .fontStyle(.headBoldJP)
                             .tag(selectedRegion.regionData[index].code)
                     }
                 }

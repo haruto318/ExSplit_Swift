@@ -8,12 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		6472862D2C5B791D004BAEF4 /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6472862C2C5B791D004BAEF4 /* ColorExtension.swift */; };
-		6472863C2C5B7B77004BAEF4 /* ZenMaruGothic-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 647286362C5B7B77004BAEF4 /* ZenMaruGothic-Light.ttf */; };
-		6472863D2C5B7B77004BAEF4 /* ZenMaruGothic-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 647286372C5B7B77004BAEF4 /* ZenMaruGothic-Regular.ttf */; };
-		6472863E2C5B7B77004BAEF4 /* ZenMaruGothic-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 647286382C5B7B77004BAEF4 /* ZenMaruGothic-Black.ttf */; };
-		6472863F2C5B7B77004BAEF4 /* ZenMaruGothic-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 647286392C5B7B77004BAEF4 /* ZenMaruGothic-Medium.ttf */; };
-		647286402C5B7B77004BAEF4 /* ZenMaruGothic-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6472863A2C5B7B77004BAEF4 /* ZenMaruGothic-Bold.ttf */; };
-		647286412C5B7B77004BAEF4 /* OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6472863B2C5B7B77004BAEF4 /* OFL.txt */; };
 		647286442C5B7C8B004BAEF4 /* TextExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647286432C5B7C8B004BAEF4 /* TextExtension.swift */; };
 		647286472C5C9AB6004BAEF4 /* NewGroupSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647286462C5C9AB6004BAEF4 /* NewGroupSettingsView.swift */; };
 		647286492C5CA0C4004BAEF4 /* AddGroupMembersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647286482C5CA0C4004BAEF4 /* AddGroupMembersView.swift */; };
@@ -61,12 +55,6 @@
 		6458A4C72C6E2D8500F27309 /* ExSplit_Swift.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ExSplit_Swift.entitlements; sourceTree = "<group>"; };
 		6472862C2C5B791D004BAEF4 /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
 		647286342C5B7A58004BAEF4 /* ExSplit-Swift-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "ExSplit-Swift-Info.plist"; sourceTree = SOURCE_ROOT; };
-		647286362C5B7B77004BAEF4 /* ZenMaruGothic-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ZenMaruGothic-Light.ttf"; sourceTree = "<group>"; };
-		647286372C5B7B77004BAEF4 /* ZenMaruGothic-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ZenMaruGothic-Regular.ttf"; sourceTree = "<group>"; };
-		647286382C5B7B77004BAEF4 /* ZenMaruGothic-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ZenMaruGothic-Black.ttf"; sourceTree = "<group>"; };
-		647286392C5B7B77004BAEF4 /* ZenMaruGothic-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ZenMaruGothic-Medium.ttf"; sourceTree = "<group>"; };
-		6472863A2C5B7B77004BAEF4 /* ZenMaruGothic-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ZenMaruGothic-Bold.ttf"; sourceTree = "<group>"; };
-		6472863B2C5B7B77004BAEF4 /* OFL.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = OFL.txt; sourceTree = "<group>"; };
 		647286432C5B7C8B004BAEF4 /* TextExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextExtension.swift; sourceTree = "<group>"; };
 		647286462C5C9AB6004BAEF4 /* NewGroupSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGroupSettingsView.swift; sourceTree = "<group>"; };
 		647286482C5CA0C4004BAEF4 /* AddGroupMembersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGroupMembersView.swift; sourceTree = "<group>"; };
@@ -93,6 +81,11 @@
 		64D9F1702C576D5E00326BF3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		64D9F1722C576D5F00326BF3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		64D9F1752C576D5F00326BF3 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		64E7B2CA2C6F2F4C00D08930 /* ZenKakuGothicNew-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ZenKakuGothicNew-Medium.ttf"; sourceTree = "<group>"; };
+		64E7B2CB2C6F2F4C00D08930 /* ZenKakuGothicNew-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ZenKakuGothicNew-Light.ttf"; sourceTree = "<group>"; };
+		64E7B2CC2C6F2F4C00D08930 /* ZenKakuGothicNew-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ZenKakuGothicNew-Bold.ttf"; sourceTree = "<group>"; };
+		64E7B2CD2C6F2F4C00D08930 /* ZenKakuGothicNew-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ZenKakuGothicNew-Regular.ttf"; sourceTree = "<group>"; };
+		64E7B2CE2C6F2F4C00D08930 /* ZenKakuGothicNew-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ZenKakuGothicNew-Black.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,12 +103,11 @@
 		647286352C5B7B66004BAEF4 /* fonts */ = {
 			isa = PBXGroup;
 			children = (
-				6472863B2C5B7B77004BAEF4 /* OFL.txt */,
-				647286382C5B7B77004BAEF4 /* ZenMaruGothic-Black.ttf */,
-				6472863A2C5B7B77004BAEF4 /* ZenMaruGothic-Bold.ttf */,
-				647286362C5B7B77004BAEF4 /* ZenMaruGothic-Light.ttf */,
-				647286392C5B7B77004BAEF4 /* ZenMaruGothic-Medium.ttf */,
-				647286372C5B7B77004BAEF4 /* ZenMaruGothic-Regular.ttf */,
+				64E7B2CE2C6F2F4C00D08930 /* ZenKakuGothicNew-Black.ttf */,
+				64E7B2CC2C6F2F4C00D08930 /* ZenKakuGothicNew-Bold.ttf */,
+				64E7B2CB2C6F2F4C00D08930 /* ZenKakuGothicNew-Light.ttf */,
+				64E7B2CA2C6F2F4C00D08930 /* ZenKakuGothicNew-Medium.ttf */,
+				64E7B2CD2C6F2F4C00D08930 /* ZenKakuGothicNew-Regular.ttf */,
 			);
 			path = fonts;
 			sourceTree = "<group>";
@@ -285,14 +277,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6472863F2C5B7B77004BAEF4 /* ZenMaruGothic-Medium.ttf in Resources */,
-				6472863D2C5B7B77004BAEF4 /* ZenMaruGothic-Regular.ttf in Resources */,
-				6472863E2C5B7B77004BAEF4 /* ZenMaruGothic-Black.ttf in Resources */,
 				64D9F1762C576D5F00326BF3 /* Preview Assets.xcassets in Resources */,
-				6472863C2C5B7B77004BAEF4 /* ZenMaruGothic-Light.ttf in Resources */,
 				64D9F1732C576D5F00326BF3 /* Assets.xcassets in Resources */,
-				647286412C5B7B77004BAEF4 /* OFL.txt in Resources */,
-				647286402C5B7B77004BAEF4 /* ZenMaruGothic-Bold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

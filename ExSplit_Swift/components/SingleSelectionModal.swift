@@ -20,13 +20,13 @@ struct SingleSelectionModal: View {
             VStack(spacing: 40) {
                 
                 Text("支払ったメンバーを選んでください")
-                    .fontStyle(.title)
+                    .fontStyle(.titleJP)
                 
                 List(selection: $selectMemberId) {
                     ForEach(0..<group.members.count, id: \.self) { index in
                         //.tagで指定した値をmultiSelectionに格納する
                         Text(group.members[index].memberName)
-                            .fontStyle(.headBold).tag(group.members[index].memberId)
+                            .fontStyle(.headBoldJP).tag(group.members[index].memberId)
                     }
                 }
                 .scrollContentBackground(.hidden)

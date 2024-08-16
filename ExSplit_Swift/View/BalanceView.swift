@@ -27,7 +27,7 @@ struct BalanceView: View {
                                         .frame(width: 40, height: 40)
                                         .foregroundColor(currentMember == "\(member.memberId)" ? Color.customFontColor : Color.customAccentColor)
                                     Text(member.memberName)
-                                        .fontStyle(.body)
+                                        .fontStyle(.bodyJP)
                                         .foregroundColor(currentMember == "\(member.memberId)" ? Color.customFontColor : Color.customAccentColor)
                                 }
                             }
@@ -52,13 +52,13 @@ struct BalanceView: View {
                                 .resizable()
                                 .frame(width: 40, height: 40)
                             VStack(alignment: .leading, spacing: 0){
-                                Text(member.memberName).fontStyle(.headBold)
+                                Text(member.memberName).fontStyle(.headBoldJP)
                                 HStack(spacing: 5){
                                     Text(abs(total), format: FloatingPointFormatStyle.Currency.currency(code: group.homeCurrency.code))
                                         .fontStyle(.body)
                                         .foregroundColor(total < 0 ? .red : .green)
                                     Text("\(total < 0 ? "借り" : "貸し")あり")
-                                        .fontStyle(.body)
+                                        .fontStyle(.bodyJP)
                                         .foregroundColor(total < 0 ? .red : .green)
                                 }
                             }
@@ -81,7 +81,7 @@ struct BalanceView: View {
                         VStack(spacing: 10){
                             HStack(){
                                 Text("借り")
-                                    .fontStyle(.headBold)
+                                    .fontStyle(.headBoldJP)
                                 Spacer()
                             }
                             VStack(spacing: 5){
@@ -94,7 +94,7 @@ struct BalanceView: View {
                                                 .frame(width: 24, height: 24)
                                             VStack(alignment: .leading, spacing: 0){
                                                 Text("Name").fontStyle(.description)
-                                                Text(group.members.first(where: { $0.memberId == balance.memberId })!.memberName).fontStyle(.body)
+                                                Text(group.members.first(where: { $0.memberId == balance.memberId })!.memberName).fontStyle(.bodyJP)
                                             }
                                         }
                                         Spacer()
@@ -126,7 +126,7 @@ struct BalanceView: View {
                         VStack(spacing: 10){
                             HStack(){
                                 Text("貸し")
-                                    .fontStyle(.headBold)
+                                    .fontStyle(.headBoldJP)
                                 Spacer()
                             }
                             VStack(spacing: 5){
@@ -141,7 +141,7 @@ struct BalanceView: View {
                                                 Text("Name")
                                                     .fontStyle(.description)
                                                 Text(group.members.first(where: { $0.memberId == balance.memberId })!.memberName)
-                                                    .fontStyle(.body)
+                                                    .fontStyle(.bodyJP)
                                             }
                                         }
                                         Spacer()

@@ -21,7 +21,7 @@ struct ContentView: View {
                     VStack {
                         HStack(){
                             Text("ExSplit")
-                                .font(Font.custom("ZenMaruGothic-Medium", size: 24))
+                                .font(Font.custom("Helvetica-Medium", size: 24))
                             Spacer()
                         }
                         Divider()
@@ -33,7 +33,7 @@ struct ContentView: View {
                             HStack {
                                 Spacer()
                                 Text("支払いグループを生成する")
-                                    .fontStyle(.head)
+                                    .fontStyle(.headJP)
                                     .foregroundColor(Color.customFontColor)
                                 Spacer()
                             }.padding()
@@ -55,7 +55,7 @@ struct ContentView: View {
                             /// グループリスト
                             if realmViewModel.groups.isEmpty {
                                 Text("グループを作成してみましょう！")
-                                    .fontStyle(.headBold)
+                                    .fontStyle(.headBoldJP)
                                     .foregroundColor(Color.customFontColor)
                                     .padding(20)
                             } else {
@@ -65,27 +65,27 @@ struct ContentView: View {
                                         VStack(spacing: 5){
                                             HStack(){
                                                 Text(group.groupName)
-                                                    .fontStyle(.headBold)
+                                                    .fontStyle(.headBoldJP)
                                                     .foregroundColor(.customFontColor)
                                                 Spacer()
                                             }
                                             VStack(spacing: 5){
                                                 HStack(){
                                                     Text("通貨")
-                                                        .fontStyle(.body)
+                                                        .fontStyle(.bodyJP)
                                                         .foregroundColor(Color.customAccentColor)
                                                     Spacer()
                                                     Text(group.homeCurrency.japaneseName)
-                                                        .fontStyle(.body)
+                                                        .fontStyle(.bodyJP)
                                                         .foregroundColor(Color.customFontColor)
                                                 }
                                                 HStack(){
                                                     Text("参加人数")
-                                                        .fontStyle(.body)
+                                                        .fontStyle(.bodyJP)
                                                         .foregroundColor(Color.customAccentColor)
                                                     Spacer()
                                                     Text("\(group.members.count)人")
-                                                        .fontStyle(.body)
+                                                        .fontStyle(.bodyJP)
                                                         .foregroundColor(Color.customFontColor)
                                                 }
                                             }.padding(.horizontal)

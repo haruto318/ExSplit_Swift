@@ -22,7 +22,7 @@ struct NewGroupSettingsView: View {
             VStack {
                 HStack(){
                     Text("グループを作成")
-                        .fontStyle(.titleBold)
+                        .fontStyle(.titleBoldJP)
                     Spacer()
                 }
                 Divider()
@@ -31,17 +31,17 @@ struct NewGroupSettingsView: View {
             VStack(spacing: 40) {
                 
                 Text("グループ名と基準通貨を入力してください")
-                        .fontStyle(.title)
+                        .fontStyle(.titleJP)
                 
                 /// グループ名
                 VStack(spacing: 10){
                     HStack {
                         Text("グループ名")
-                            .fontStyle(.title)
+                            .fontStyle(.titleJP)
                         Spacer()
                     }
                     TextField("名前を入力してください", text: $inputName)
-                        .font(.custom("ZenMaruGothic-Regular", size: 12))
+                        .font(.custom("ZenKakuGothicNew-Regular", size: 12))
                         .padding()
                         .cornerRadius(10)
                         .overlay(
@@ -60,7 +60,7 @@ struct NewGroupSettingsView: View {
                 VStack(spacing: 10){
                     HStack {
                         Text("基準通貨")
-                            .fontStyle(.title)
+                            .fontStyle(.titleJP)
                         Spacer()
                     }
                     Button(action: {
@@ -68,7 +68,7 @@ struct NewGroupSettingsView: View {
                     }){
                         HStack{
                             Text(groupModel.homeCurrency.code == "" ? "通貨を選択してください" : groupModel.homeCurrency.japaneseName)
-                                .font(.custom("ZenMaruGothic-Regular", size: 12))
+                                .font(.custom("ZenKakuGothicNew-Regular", size: 12))
                                 .foregroundStyle(groupModel.homeCurrency.code == "" ? Color.customAccentColor : Color.customFontColor)
                             Spacer()
                             Image(systemName: "chevron.forward")

@@ -17,7 +17,7 @@ struct PaymentDetailView: View {
             
             /// title
             Text(balance.purpose)
-                .fontStyle(.titleBold)
+                .fontStyle(.titleBoldJP)
             
             VStack(spacing: 20) {
                 
@@ -25,13 +25,13 @@ struct PaymentDetailView: View {
                 VStack(spacing: 5){
                     HStack(){
                         Text(balance.purpose)
-                            .fontStyle(.headBold)
+                            .fontStyle(.headBoldJP)
                         Spacer()
                     }
                     VStack(spacing: 5){
                         HStack(){
                             Text("金額")
-                                .fontStyle(.body)
+                                .fontStyle(.bodyJP)
                                 .foregroundColor(Color.customAccentColor)
                             Spacer()
                             Text(balance.total, format: FloatingPointFormatStyle.Currency.currency(code: group.homeCurrency.code))
@@ -40,11 +40,11 @@ struct PaymentDetailView: View {
                         }
                         HStack(){
                             Text("通貨")
-                                .fontStyle(.body)
+                                .fontStyle(.bodyJP)
                                 .foregroundColor(Color.customAccentColor)
                             Spacer()
                             Text(balance.currency.japaneseName)
-                                .fontStyle(.body)
+                                .fontStyle(.bodyJP)
                                 .foregroundColor(Color.customFontColor)
                         }
                     }
@@ -59,7 +59,7 @@ struct PaymentDetailView: View {
                 VStack(spacing: 5){
                     HStack(){
                         Text("支払いの割合")
-                            .fontStyle(.headBold)
+                            .fontStyle(.headBoldJP)
                         Spacer()
                     }
                     
@@ -73,7 +73,7 @@ struct PaymentDetailView: View {
                                         .frame(width: 24, height: 24)
                                     VStack(alignment: .leading, spacing: 0){
                                         Text("Name").fontStyle(.description)
-                                        Text(group.members[payment.memberId].memberName).fontStyle(.body)
+                                        Text(group.members[payment.memberId].memberName).fontStyle(.bodyJP)
                                     }
                                 }
                                 Spacer()

@@ -19,7 +19,7 @@ struct MultiSelectionModal: View {
             VStack(spacing: 40) {
                 
                 Text("支払うべきメンバーを選んでください")
-                    .fontStyle(.title)
+                    .fontStyle(.titleJP)
                 
                 VStack(spacing: 10){
                     ///全員ボタン
@@ -30,7 +30,7 @@ struct MultiSelectionModal: View {
                                 .frame(width: 20, height: 20)
                                 .foregroundColor(isAll ? Color.customAccentColor : Color.customFrameColor)
                             Text("全員で割り勘")
-                                .fontStyle(.headBold)
+                                .fontStyle(.headBoldJP)
                                 .foregroundColor(Color.customFontColor).animation(nil)
                         }
                     }
@@ -54,7 +54,7 @@ struct MultiSelectionModal: View {
                     ForEach(0..<group.members.count, id: \.self) { index in
                         //.tagで指定した値をmultiSelectionに格納する
                         Text(group.members[index].memberName)
-                            .fontStyle(.headBold).tag(index)
+                            .fontStyle(.headBoldJP).tag(index)
                     }
                 }
                 .onChange(of: selectedMembers, {

@@ -99,7 +99,7 @@ struct AddPaymentView: View {
                 VStack {
                     HStack(){
                         Text("支払いを追加")
-                            .fontStyle(.titleBold)
+                            .fontStyle(.titleBoldJP)
                         Spacer()
                     }
                     Divider()
@@ -112,7 +112,7 @@ struct AddPaymentView: View {
                     VStack(spacing: 10){
                         HStack {
                             Text("支払い方法を選択")
-                                .fontStyle(.title)
+                                .fontStyle(.titleJP)
                             Spacer()
                         }
                         HStack {
@@ -123,7 +123,7 @@ struct AddPaymentView: View {
                                 HStack {
                                     Spacer()
                                     Text("均等に分割")
-                                        .fontStyle(.head)
+                                        .fontStyle(.headJP)
                                         .foregroundColor(Color.customFontColor)
                                     Spacer()
                                 }.frame(height: 50)
@@ -142,7 +142,7 @@ struct AddPaymentView: View {
                                 HStack {
                                     Spacer()
                                     Text("割合分割")
-                                        .fontStyle(.head)
+                                        .fontStyle(.headJP)
                                         .foregroundColor(Color.customFontColor)
                                     Spacer()
                                 }.frame(height: 50)
@@ -161,11 +161,11 @@ struct AddPaymentView: View {
                     VStack(spacing: 10){
                         HStack {
                             Text("要件")
-                                .fontStyle(.title)
+                                .fontStyle(.titleJP)
                             Spacer()
                         }
                         TextField("支払いの説明を入力してください", text: $inputPurpose)
-                            .font(.custom("ZenMaruGothic-Regular", size: 12))
+                            .font(.custom("ZenKakuGothicNew-Regular", size: 12))
                             .padding()
                             .cornerRadius(10)
                             .overlay(
@@ -181,7 +181,7 @@ struct AddPaymentView: View {
                     VStack(spacing: 10){
                         HStack {
                             Text("支払い通貨")
-                                .fontStyle(.title)
+                                .fontStyle(.titleJP)
                             Spacer()
                         }
                         Button(action: {
@@ -189,7 +189,7 @@ struct AddPaymentView: View {
                         }){
                             HStack{
                                 Text(paymentModel.currency.code == "" ? "通貨を選択してください" : paymentModel.currency.japaneseName)
-                                    .font(.custom("ZenMaruGothic-Regular", size: 12))
+                                    .font(.custom("ZenKakuGothicNew-Regular", size: 12))
                                     .foregroundStyle(paymentModel.currency.code == "" ? Color.customAccentColor : Color.customFontColor)
                                 Spacer()
                                 Image(systemName: "chevron.forward")
@@ -221,7 +221,7 @@ struct AddPaymentView: View {
                     VStack(spacing: 10){
                         HStack {
                             Text("支払った人")
-                                .fontStyle(.title)
+                                .fontStyle(.titleJP)
                             Spacer()
                         }
                         
@@ -230,7 +230,7 @@ struct AddPaymentView: View {
                         }){
                             HStack{
                                 Text(paymentModel.paidBy.memberName == "" ? "支払った人を選択してください" : paymentModel.paidBy.memberName)
-                                    .font(.custom("ZenMaruGothic-Regular", size: 12))
+                                    .font(.custom("ZenKakuGothicNew-Regular", size: 12))
                                     .foregroundStyle(paymentModel.paidBy.memberName == "" ? Color.customAccentColor : Color.customFontColor)
                                 Spacer()
                                 Image(systemName: "chevron.forward")
@@ -255,12 +255,12 @@ struct AddPaymentView: View {
                         VStack(spacing: 10){
                             HStack {
                                 Text("支払った金額")
-                                    .fontStyle(.title)
+                                    .fontStyle(.titleJP)
                                 Spacer()
                             }
                             TextField("支払った金額を入力してください", text: $inputAmount)
                                 .keyboardType(.numberPad)
-                                .font(.custom("ZenMaruGothic-Regular", size: 12))
+                                .font(.custom("ZenKakuGothicNew-Regular", size: 12))
                                 .padding()
                                 .cornerRadius(10)
                                 .overlay(
@@ -279,14 +279,14 @@ struct AddPaymentView: View {
                     VStack(spacing: 10){
                         HStack {
                             Text("クレカ決済手数料%")
-                                .fontStyle(.title)
+                                .fontStyle(.titleJP)
                             Spacer()
                         }
                         TextField("クレカで決済の手数料%を入力してください（例：3%）", text: $inputPercent, onEditingChanged: { changed in
                             print(changed)
                         })
                             .keyboardType(.numberPad)
-                            .font(.custom("ZenMaruGothic-Regular", size: 12))
+                            .font(.custom("ZenKakuGothicNew-Regular", size: 12))
                             .padding()
                             .cornerRadius(10)
                             .overlay(
@@ -304,7 +304,7 @@ struct AddPaymentView: View {
                         VStack(spacing: 10){
                             HStack {
                                 Text("誰に支払ったか")
-                                    .fontStyle(.title)
+                                    .fontStyle(.titleJP)
                                 Spacer()
                             }
                             Button(action: {
@@ -312,7 +312,7 @@ struct AddPaymentView: View {
                             }){
                                 HStack{
                                     Text(selectedMembers.isEmpty ? "誰に支払ったかを選択してください" : selectedMembersNames)
-                                        .font(.custom("ZenMaruGothic-Regular", size: 12))
+                                        .font(.custom("ZenKakuGothicNew-Regular", size: 12))
                                         .foregroundStyle(selectedMembers.isEmpty ? Color.customAccentColor : Color.customFontColor)
                                     Spacer()
                                     Image(systemName: "chevron.forward")
@@ -337,14 +337,14 @@ struct AddPaymentView: View {
                         VStack(spacing: 10){
                             HStack {
                                 Text("各金額")
-                                    .fontStyle(.title)
+                                    .fontStyle(.titleJP)
                                 Spacer()
                             }
                             VStack(spacing: 5){
                                 ForEach(group.members, id: \.memberId){ member in
                                     HStack {
                                         Text(member.memberName)
-                                            .fontStyle(.body)
+                                            .fontStyle(.bodyJP)
                                             .frame(width: 80)
                                             .padding()
                                             .cornerRadius(10)
@@ -355,7 +355,7 @@ struct AddPaymentView: View {
                                         TextField("金額を入力してください", text: $membersPayment[member.memberId])
                                             .keyboardType(.numberPad)
                                             .multilineTextAlignment(TextAlignment.center)
-                                            .font(.custom("ZenMaruGothic-Regular", size: 12))
+                                            .font(.custom("ZenKakuGothicNew-Regular", size: 12))
                                             .padding()
                                             .cornerRadius(10)
                                             .overlay(
@@ -407,7 +407,7 @@ struct AddPaymentView: View {
                             HStack {
                                 Spacer()
                                 Text("支払いを追加")
-                                    .fontStyle(.head)
+                                    .fontStyle(.headJP)
                                     .foregroundColor(Color.customFontColor)
                                 Spacer()
                             }.padding()

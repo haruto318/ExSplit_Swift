@@ -13,9 +13,9 @@ struct AlertModal: View {
         
         VStack(spacing: 20) {
             Text("ボタンが正しく動作しません")
-                .fontStyle(.titleBold)
+                .fontStyle(.titleBoldJP)
             Text("全項目の入力をしてください")
-                .fontStyle(.headBold)
+                .fontStyle(.headBoldJP)
                 .foregroundColor(.red)
             
         }.padding()
