@@ -54,9 +54,15 @@ final class PaymentModel {
     
     func setChargePercent(percentText: String){
         let parsePercent = percentText.components(separatedBy: " ")
-        guard parsePercent.count == 2 else { return }
+        guard parsePercent.count == 2 else {
+            chargePercent = 0.0
+            print(chargePercent)
+            return
+        }
         if let parseTotal = Double(parsePercent[0]){
             chargePercent = parseTotal
+        } else {
+            chargePercent = 0.0
         }
     }
     

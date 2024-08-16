@@ -139,8 +139,9 @@ final class RealmGroupViewModel: ObservableObject {
     }
     
     func splitEven(group: Group, paymentModel: PaymentModel, selectedMembers: Set<Int>, rate: Double, balance: Balance, completion: @escaping (Bool) -> Void) {
-        balance.total = paymentModel.total / rate
-        let perAmount = paymentModel.total / rate / Double(selectedMembers.count)
+        let convertedTotal = paymentModel.total / rate
+        balance.total = convertedTotal + (convertedTotal * (paymentModel.chargePercent / 100))
+        let perAmount = balance.total / Double(selectedMembers.count)
         
         for (i, _) in zip(group.members.indices, group.members) {
             let payment = Payment()
@@ -177,7 +178,7 @@ final class RealmGroupViewModel: ObservableObject {
             guard components.count == 2, let amount = Double(components[1]) else {
                 return 0
             }
-            return amount / rate
+            return (amount / rate) + ((amount / rate) * (paymentModel.chargePercent / 100))
         }
 
         let total = perAmounts.reduce(0) { (result, current) in

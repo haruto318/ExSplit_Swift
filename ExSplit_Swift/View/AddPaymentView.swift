@@ -66,6 +66,7 @@ struct AddPaymentView: View {
         selectedCurrency = Currency(code: "", name: "", japaneseName: "")
         inputPurpose = ""
         inputAmount = ""
+        inputPercent = ""
     }
     
     func setPercent(percentText: String){
