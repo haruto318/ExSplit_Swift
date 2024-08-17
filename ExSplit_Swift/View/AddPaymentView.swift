@@ -62,7 +62,7 @@ struct AddPaymentView: View {
     
     func resetInput() {
         selectedMembers = Set<Int>()
-        membersPayment = []
+        membersPayment = Array(repeating: "", count: group.members.count)
         selectedCurrency = Currency(code: "", name: "", japaneseName: "")
         inputPurpose = ""
         inputAmount = ""
@@ -282,9 +282,7 @@ struct AddPaymentView: View {
                                 .fontStyle(.titleJP)
                             Spacer()
                         }
-                        TextField("クレカで決済の手数料%を入力してください（例：3%）", text: $inputPercent, onEditingChanged: { changed in
-                            print(changed)
-                        })
+                        TextField("クレカで決済の手数料%を入力してください（例：3%）", text: $inputPercent)
                             .keyboardType(.numberPad)
                             .font(.custom("ZenKakuGothicNew-Regular", size: 12))
                             .padding()
@@ -390,7 +388,7 @@ struct AddPaymentView: View {
                                 if shouldAddPayment {
                                     realmViewModel.addPayment(group: group, paymentModel: paymentModel, selectedMembers: selectedMembers, membersPayment: membersPayment, rate: rate) { success in
                                         if success {
-                                            paymentModel.resetPayment()
+//                                            paymentModel.resetPayment()
                                             resetInput()
                                             dismiss()
                                         } else {

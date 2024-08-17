@@ -173,6 +173,7 @@ final class RealmGroupViewModel: ObservableObject {
     }
     
     func split(group: Group, paymentModel: PaymentModel, membersPayment: [String], rate: Double, balance: Balance, completion: @escaping (Bool) -> Void){
+        
         let perAmounts = membersPayment.compactMap { payment -> Double? in
             let components = payment.components(separatedBy: " ")
             guard components.count == 2, let amount = Double(components[1]) else {

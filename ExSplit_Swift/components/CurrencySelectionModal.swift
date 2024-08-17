@@ -41,7 +41,7 @@ struct CurrencySelectionModal: View {
     init(selectedCurrency: Binding<Currency>) {
         // フォント属性を設定
         let attr: [NSAttributedString.Key: Any] = [
-            .font: UIFont(name: "ZenKakuGothicNew-Medium", size: 13.0)!
+            .font: UIFont(name: "ZenKakuGothicNew-Medium", size: 13.0) ?? UIFont.systemFont(ofSize: 13.0)
         ]
         
         // UISegmentedControlのタイトルテキスト属性を設定
