@@ -20,7 +20,7 @@ struct ContentView: View {
                     /// タイトル
                     VStack {
                         HStack(){
-                            Text("ExSplit")
+                            Text("Travellet")
                                 .font(Font.custom("Helvetica-Medium", size: 24))
                             Spacer()
                         }

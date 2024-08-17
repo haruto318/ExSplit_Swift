@@ -122,7 +122,7 @@ struct AddPaymentView: View {
                             }) {
                                 HStack {
                                     Spacer()
-                                    Text("均等に分割")
+                                    Text("割り勘")
                                         .fontStyle(.headJP)
                                         .foregroundColor(Color.customFontColor)
                                     Spacer()
@@ -141,7 +141,7 @@ struct AddPaymentView: View {
                             }) {
                                 HStack {
                                     Spacer()
-                                    Text("割合分割")
+                                    Text("個別に金額指定")
                                         .fontStyle(.headJP)
                                         .foregroundColor(Color.customFontColor)
                                     Spacer()
