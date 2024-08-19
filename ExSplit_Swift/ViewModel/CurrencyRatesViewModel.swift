@@ -8,11 +8,18 @@
 import Combine
 import Foundation
 
+protocol CurrencyRatesViewModelInterface: ObservableObject {
+    var rates: [String: Double] { get set }
+    var errorMessage: String? { get set }
+    
+    func fetchCurrencyRates(for currency: String)
+}
+
 struct CurrencyRatesResponse: Decodable {
     let rates: [String: Double]
 }
 
-final class CurrencyRatesViewModel: ObservableObject {
+final class CurrencyRatesViewModel: CurrencyRatesViewModelInterface {
     @Published var rates: [String: Double] = [:]
     @Published var errorMessage: String? = nil
     

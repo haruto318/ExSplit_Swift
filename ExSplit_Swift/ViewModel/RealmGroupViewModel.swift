@@ -8,7 +8,22 @@ import Foundation
 import RealmSwift
 import SwiftUI
 
-final class RealmGroupViewModel: ObservableObject {
+protocol RealmGroupViewModelInterInterface: ObservableObject {
+    var groups : [Group] { get set }
+    var group : Group? { get set }
+    var isActive : Bool { get set }
+    
+    func openRealm()
+    func addGroup(groupModel: GroupModel, completion: @escaping (Bool) -> Void)
+    func getGroups()
+    func getGroup(originGroup: Group)
+    func deleteGroup(originGroup: Group, completion: @escaping (Bool) -> Void)
+    func addPayment(group: Group, paymentModel: PaymentModel, selectedMembers: Set<Int>, membersPayment: [String], rate: Double, completion: @escaping (Bool) -> Void)
+    func splitEven(group: Group, paymentModel: PaymentModel, selectedMembers: Set<Int>, rate: Double, balance: Balance, completion: @escaping (Bool) -> Void)
+    func split(group: Group, paymentModel: PaymentModel, membersPayment: [String], rate: Double, balance: Balance, completion: @escaping (Bool) -> Void)
+}
+
+final class RealmGroupViewModel: RealmGroupViewModelInterInterface {
     private(set) var realm: Realm?
     @Published var groups: [Group] = []
     @Published var group: Group? = nil
