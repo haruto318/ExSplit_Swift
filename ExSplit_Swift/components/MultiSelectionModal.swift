@@ -73,8 +73,6 @@ struct MultiSelectionModal: View {
                 )
                 //（参考：常に編集モードにする）
                 .environment(\.editMode, .constant(.active))
-                
-                
             
             }.padding(.horizontal)
             

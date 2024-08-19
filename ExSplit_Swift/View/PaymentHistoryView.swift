@@ -73,11 +73,9 @@ struct PaymentHistoryView: View {
                             )
                         }
                     }
-                    
-                    
+                     
                 }.padding(.horizontal)
             }
-            
             
             Spacer()
             

@@ -9,8 +9,7 @@ import SwiftUI
 
 struct NewGroupView: View {
     @Environment(GroupModel.self) private var groupModel
-    
-//    @State var inputName = ""
+
     @State private var showSheet = false
     @State var selection = 1
     @State var offset: CGFloat = .zero

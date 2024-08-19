@@ -170,10 +170,6 @@ struct BalanceView: View {
                     }
                 }
                 
-                
-
-
-            
             }.padding(.horizontal)
             
             Spacer()

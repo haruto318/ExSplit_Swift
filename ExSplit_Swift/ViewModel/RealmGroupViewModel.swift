@@ -107,10 +107,6 @@ final class RealmGroupViewModel: ObservableObject {
         }
     }
 
-
-
-
-    
     func addPayment(group: Group, paymentModel: PaymentModel, selectedMembers: Set<Int>, membersPayment: [String], rate: Double, completion: @escaping (Bool) -> Void) {
         let balance = Balance()
         balance.purpose = paymentModel.purpose
@@ -211,6 +207,5 @@ final class RealmGroupViewModel: ObservableObject {
             }
         } else { completion(false) }
     }
-    
     
 }
