@@ -14,7 +14,7 @@ protocol RealmGroupViewModelInterInterface: ObservableObject {
     var isActive : Bool { get set }
     
     func openRealm()
-    func addGroup(groupModel: GroupModel, completion: @escaping (Bool) -> Void)
+    func addGroup(groupModel: GroupModel) async -> Bool
     func getGroups()
     func getGroup(originGroup: Group)
     func deleteGroup(originGroup: Group, completion: @escaping (Bool) -> Void)
@@ -47,8 +47,9 @@ final class RealmGroupViewModel: RealmGroupViewModelInterInterface {
             print("Realmを開く際のエラー", error)
         }
     }
-
-    func addGroup(groupModel: GroupModel, completion: @escaping (Bool) -> Void) {
+    
+    
+    func addGroup(groupModel: GroupModel) async -> Bool {
         let group = Group()
         group.groupName = groupModel.name
 
@@ -72,11 +73,18 @@ final class RealmGroupViewModel: RealmGroupViewModelInterInterface {
         }
 
         if let realm = realm {
-            try? realm.write({
-                realm.add(group)
-            })
-            completion(true)
-        } else { completion(false) }
+            do {
+                try await MainActor.run {
+                    try realm.write({
+                        realm.add(group)
+                    })
+                }
+                return true
+            } catch {
+                print("Failed to write to Realm: \(error)")
+                return false
+            }
+        } else { return false }
     }
 
     func getGroups() {

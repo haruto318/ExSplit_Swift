@@ -18,6 +18,21 @@ struct AddGroupMembersView: View {
     
     let layout = [GridItem(.adaptive(minimum: 80, maximum: .infinity))]
     
+    func createGroup() async {
+        if groupModel.isEnabled {
+            if await realmViewModel.addGroup(groupModel: groupModel) {
+                groupModel.resetGroup()
+                realmViewModel.getGroups()
+                inputName = ""
+                dismiss()
+            } else {
+                showAlert = true
+            }
+        } else {
+            showAlert = true
+        }
+    }
+    
     var body: some View {
         VStack(spacing: 40) {
             
@@ -102,19 +117,8 @@ struct AddGroupMembersView: View {
                 
                 ///グループ作成ボタン
                 Button(action: {
-                    if groupModel.isEnabled {
-                        realmViewModel.addGroup(groupModel: groupModel) { success in
-                            if success {
-                                groupModel.resetGroup()
-                                realmViewModel.getGroups()
-                                inputName = ""
-                                dismiss()
-                            } else {
-                                showAlert = true
-                            }
-                        }
-                    } else {
-                        showAlert = true
+                    Task {
+                        await createGroup()
                     }
                 }) {
                     HStack {
