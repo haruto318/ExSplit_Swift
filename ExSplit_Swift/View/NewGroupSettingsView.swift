@@ -7,11 +7,18 @@
 
 import SwiftUI
 
+enum GroupCreateField: Hashable {
+    case groupName
+    case memberName
+}
+
 struct NewGroupSettingsView: View {
     @Environment(GroupModel.self) private var groupModel
 
     @State private var inputName: String = ""
     @State private var showSheet = false
+    @FocusState private var focusedField: GroupCreateField?
+
 
     @State private var selectedCurrency: Currency = Currency(code: "", name: "", japaneseName: "")
     
@@ -48,6 +55,7 @@ struct NewGroupSettingsView: View {
                             RoundedRectangle(cornerRadius: 10)
                                 .stroke(Color.customFrameColor, lineWidth: 1)
                         )
+                        .focused($focusedField, equals: .groupName)
                         .onChange(of: inputName) { newValue in
                             groupModel.setName(text: newValue)
                         }
@@ -97,6 +105,9 @@ struct NewGroupSettingsView: View {
             Spacer()
             
         }.padding()
+            .onTapGesture {
+                focusedField = nil
+            }
     }
 }
 

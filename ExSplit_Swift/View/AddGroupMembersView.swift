@@ -18,6 +18,8 @@ struct AddGroupMembersView: View {
     
     let layout = [GridItem(.adaptive(minimum: 80, maximum: .infinity))]
     
+    @FocusState private var focusedField: GroupCreateField?
+    
     func createGroup() async {
         if groupModel.isEnabled {
             if await realmViewModel.addGroup(groupModel: groupModel) {
@@ -67,6 +69,7 @@ struct AddGroupMembersView: View {
                                 RoundedRectangle(cornerRadius: 10)
                                     .stroke(Color.customFrameColor, lineWidth: 1)
                             )
+                            .focused($focusedField, equals: .memberName)
                         
                         Button(action: {
                             groupModel.addMember(name: inputName)
@@ -150,6 +153,9 @@ struct AddGroupMembersView: View {
             
             
         }.padding()
+            .onTapGesture {
+                focusedField = nil
+            }
     }
 }
 
