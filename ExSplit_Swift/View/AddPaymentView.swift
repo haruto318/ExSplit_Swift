@@ -7,6 +7,13 @@
 
 import SwiftUI
 
+enum AddPaymentField: Hashable {
+    case purpose
+    case amount
+    case percent
+    case perAmount
+}
+
 struct AddPaymentView: View {
     @Environment(\.dismiss) var dismiss
     
@@ -27,6 +34,8 @@ struct AddPaymentView: View {
     @State private var showSheet2 = false
     @State private var showSheet3 = false
     @State private var showAlert = false
+    
+    @FocusState private var focusedField: AddPaymentField?
     
     init(group: Group) {
         self.group = group
@@ -168,6 +177,7 @@ struct AddPaymentView: View {
                             .font(.custom("ZenKakuGothicNew-Regular", size: 12))
                             .padding()
                             .cornerRadius(10)
+                            .focused($focusedField, equals: .purpose)
                             .overlay(
                                 RoundedRectangle(cornerRadius: 10)
                                     .stroke(Color.customFrameColor, lineWidth: 1)
@@ -263,6 +273,7 @@ struct AddPaymentView: View {
                                 .font(.custom("ZenKakuGothicNew-Regular", size: 12))
                                 .padding()
                                 .cornerRadius(10)
+                                .focused($focusedField, equals: .amount)
                                 .overlay(
                                     RoundedRectangle(cornerRadius: 10)
                                         .stroke(Color.customFrameColor, lineWidth: 1)
@@ -287,6 +298,7 @@ struct AddPaymentView: View {
                             .font(.custom("ZenKakuGothicNew-Regular", size: 12))
                             .padding()
                             .cornerRadius(10)
+                            .focused($focusedField, equals: .percent)
                             .overlay(
                                 RoundedRectangle(cornerRadius: 10)
                                     .stroke(Color.customFrameColor, lineWidth: 1)
@@ -356,6 +368,7 @@ struct AddPaymentView: View {
                                             .font(.custom("ZenKakuGothicNew-Regular", size: 12))
                                             .padding()
                                             .cornerRadius(10)
+                                            .focused($focusedField, equals: .perAmount)
                                             .overlay(
                                                 RoundedRectangle(cornerRadius: 10)
                                                     .stroke(Color.customFrameColor, lineWidth: 1)
@@ -430,7 +443,11 @@ struct AddPaymentView: View {
                 Spacer()
                 
             }.padding()
-        }.onDisappear{
+        }
+        .onTapGesture {
+            focusedField = nil
+        }
+        .onDisappear{
             paymentModel.resetPayment()
         }
     }
